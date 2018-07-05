@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 import HomeComponent from '../components/HomeComponent';
+import DonateComponent from '../components/DonateComponent';
 import NotFoundComponent from '../components/NotFoundComponent';
 
 const routes = [
@@ -10,6 +11,10 @@ const routes = [
         default: 'home',
         path: '/',
         component: HomeComponent
+    },
+    {
+        path: '/donate',
+        component: DonateComponent
     },
     {
         path: '/not-found',

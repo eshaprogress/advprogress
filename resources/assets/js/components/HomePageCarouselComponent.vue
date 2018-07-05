@@ -55,6 +55,7 @@
         top: 59px;
         position: absolute;
         display: flex;
+        text-decoration: none;
         .circle {
             width: 42px;
             height: 42px;
@@ -84,10 +85,10 @@
             </div>
             <img src="/images/prisoners.png">
         </div>
-        <div class="donate-btn">
+        <router-link to="/donate" class="donate-btn">
             <span class="circle"></span>
             <span class="text">DONATE NOW</span>
-        </div>
+        </router-link>
     </section>
 </template>
 

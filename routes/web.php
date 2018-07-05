@@ -11,6 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/{all}', [
+    'as' => 'catch.all',
+    'uses' => 'Controller@indexWildCard'
+])->where(['all' => '.*']);
