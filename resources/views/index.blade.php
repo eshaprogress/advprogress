@@ -13,7 +13,7 @@
             <boot-strap-app />
         </div>
         <script>
-            window.emailoctopusId = {{json_encode(config('app.octopus_id'))}}
+            window.emailoctopusId = @json(config('app.octopus_id'))
         </script>
         <script src="{{mix('/js/app.js')}}"></script>
     </body>
