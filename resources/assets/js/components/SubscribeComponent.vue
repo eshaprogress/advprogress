@@ -48,6 +48,11 @@
             }
         }
     }
+    .successful-subscription{
+        text-align: center;
+        font-size: 30px;
+        color: var(--green);
+    }
 
 </style>
 
@@ -58,35 +63,40 @@
             <img src="/images/newsletter-icon.png" alt="">
             <p>Stay up to date with all of our progress and join the community!</p>
         </div>
-        <form @submit.prevent="onSubmit" class="subscribe-form">
+        <form v-if="!isSuccessful" @submit.prevent="onSubmit" action="" class="subscribe-form">
             <div class="fields">
+                <input :name="emailoctopusId" type="hidden" value="">
                 <form-field
                         id="first_name"
                         :is-required="true"
+                        :is-errored="errors.first_name"
                         label-text="First Name"
                         field-name="embedded_form_subscription[field_1]"
-                        :model-value="first_name"
+                        :model-value="form.first_name"
                         @onUpdate="onFirstNameChange" />
                 <form-field
                         id="last_name"
                         :is-required="true"
+                        :is-errored="errors.last_name"
                         label-text="Last Name"
                         field-name="embedded_form_subscription[field_2]"
-                        :model-value="last_name"
+                        :model-value="form.last_name"
                         @onUpdate="onLastNameChange" />
                 <form-field
                         id="zip_code"
                         :is-required="true"
+                        :is-errored="errors.zip_code"
                         label-text="Zip Code"
                         field-name="embedded_form_subscription[field_3]"
-                        :model-value="zip_code"
+                        :model-value="form.zip_code"
                         @onUpdate="onZipChange" />
                 <form-field
                         id="email"
                         :is-required="true"
+                        :is-errored="errors.email"
                         label-text="Email"
                         field-name="embedded_form_subscription[field_0]"
-                        :model-value="email"
+                        :model-value="form.email"
                         @onUpdate="onEmailChange" />
                 <div class="submit">
                     <button class="btn green" type="submit">SIGN ME UP</button>
@@ -94,59 +104,90 @@
             </div>
 
         </form>
+        <div class="successful-subscription" v-else>Thank you for subscribing to our news letter!</div>
     </section>
 </template>
 
 <script>
     import FormField from "./FormField";
-    import axios from 'axios';
+    import $ from 'jquery';
 
     export default {
         name:'SubscribeComponent',
         components:{
             FormField
         },
-        data(){
+        data()
+        {
             return {
-                first_name:'',
-                last_name:'',
-                email:'',
-                zip_code:''
+                emailoctopusId:window.emailoctopusId,
+                isSuccessful:false,
+                errors:{
+                    first_name:false,
+                    last_name:false,
+                    email:false,
+                    zip_code:false
+                },
+                form:{
+                    first_name:'',
+                    last_name:'',
+                    email:'',
+                    zip_code:''
+                }
             }
         },
         methods:{
             onFirstNameChange(value)
             {
-                this.first_name = value;
+                this.form.first_name = value;
             },
             onLastNameChange(value){
-                this.last_name = value;
+                this.form.last_name = value;
             },
             onEmailChange(value){
-                this.email = value;
+                this.form.email = value;
             },
             onZipChange(value){
-                this.zip_code = value;
+                this.form.zip_code = value;
             },
             onSubmit()
             {
-                let formData = new FormData();
-                formData.append('embedded_form_subscription[field_0]', this.email);
-                formData.append('embedded_form_subscription[field_1]', this.first_name);
-                formData.append('embedded_form_subscription[field_2]', this.last_name);
-                formData.append('embedded_form_subscription[field_3]', this.zip_code);
+                let emailRegex = /\S+@\S+\.\S+/;
+                let zipCode = /^(\d{5})+(?:[-\s]\d{4})?$/;
+                let subscribe_list_url = `https://emailoctopus.com/lists/${this.emailoctopusId}/members/embedded/1.1/add`;
 
-                let subscribe_list_url = 'https://emailoctopus.com/lists/49d3b78f-7cee-11e8-a3c9-06b79b628af2/members/embedded/1.1/add';
-                axios({
-                    method: 'post',
+                let errors = 0;
+                if(!emailRegex.test(this.form.email))
+                {
+                    errors++;
+                    this.errors.email = true;
+                }
+
+                if(!zipCode.test(this.form.zip_code))
+                {
+                    errors++;
+                    this.errors.zip_code = true;
+                }
+
+                if(errors>0)
+                {
+                    return false;
+                }
+
+                // Had to use jQuery ajax call because the API provided by emailoctopus doesn't work at all with axios due to the CORS requirement.
+                $.ajax({
+                    method: "POST",
                     url: subscribe_list_url,
-                    data: formData,
-                    config: { headers: {'Content-Type': 'multipart/form-data' }}
-                }).then((data)=>{
-                    console.log(data);
-                }).catch((error)=>{
-                    console.error(error);
-                })
+                    data: $('form.subscribe-form').serialize(),
+                }).done(( json ) => {
+                    console.log(json);
+                    if(json.success === true)
+                    {
+                        this.isSuccessful = true;
+                    }
+                }).fail((text)=>{
+                    console.log(text);
+                });
             }
         }
     }

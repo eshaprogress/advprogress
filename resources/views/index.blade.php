@@ -12,6 +12,9 @@
         <div id="app">
             <boot-strap-app />
         </div>
+        <script>
+            window.emailoctopusId = {{config('app.octopus_id')}}
+        </script>
         <script src="{{mix('/js/app.js')}}"></script>
     </body>
 </html>

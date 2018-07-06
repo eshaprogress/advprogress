@@ -108,6 +108,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'octopus_id' => env('OCTOPUS_ID',''),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
