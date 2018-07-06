@@ -37,7 +37,14 @@
 <template>
     <div class="field" v-bind:class="setClassNames">
         <label v-bind:for="id">{{labelText}}</label>
-        <input :required="isRequired" :name="fieldName" v-bind:id="id" type="text" v-model="value" @change="updateText" />
+        <input
+            v-model="value"
+            :placeholder="placeholderText"
+            :required="isRequired"
+            :name="fieldName"
+            v-bind:id="id"
+            type="text"
+            @change="updateText" />
     </div>
 </template>
 <script>
@@ -58,7 +65,7 @@
             },
             labelText:{
                 type:String,
-                required:true,
+                default:'',
             },
             isRequired:{
                 type:Boolean,
@@ -75,6 +82,10 @@
             isErrored:{
                 type:Boolean,
                 default:false
+            },
+            placeholderText:{
+                type:String,
+                default:''
             }
         },
         computed:{

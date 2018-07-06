@@ -1,7 +1,6 @@
 <style lang="scss" scoped>
     .donate {
         margin-top: 50px;
-        height:800px;
     }
     h1 {
         color:var(--blue);
@@ -72,36 +71,114 @@
             margin:auto;
         }
 
-        .fields {
-            display: grid;
-            grid-template-columns: repeat(var(--column-count), auto);
-            grid-template-rows: repeat(3, 100px);
-            grid-template-areas:
-                    "first_name first_name first_name last_name last_name last_name"
-                    "address address address address address address"
-                    "city city state state zip_code zip_code"
-                    "email email email phone phone phone"
-                    ". . submit submit . .";
-            grid-column-gap: var(--column-gap);
+        .submit {
+            grid-area: submit;
+            text-align: center;
+            padding: 40px;
+            .btn {
+                margin:auto;
+            }
+        }
 
-            .field {
-                &.first_name{ grid-area: first_name;}
-                &.last_name{ grid-area: last_name;}
-                &.address{ grid-area: address;}
-                &.city{ grid-area: city;}
-                &.state{ grid-area: state;}
-                &.zip_code {grid-area: zip_code;}
-                &.email {grid-area: email;}
-                &.phone {grid-area: phone;}
+        .fields {
+            &.contact-info-fields {
+                display: grid;
+                grid-template-columns: repeat(var(--column-count), auto);
+                grid-template-rows: repeat(3, 100px);
+                grid-template-areas:
+                        "first_name first_name first_name last_name last_name last_name"
+                        "address address address address address address"
+                        "city city state state zip_code zip_code"
+                        "email email email phone phone phone"
+                        ". . submit submit . .";
+                grid-column-gap: var(--column-gap);
+
+                .field {
+                    &.first_name{ grid-area: first_name;}
+                    &.last_name{ grid-area: last_name;}
+                    &.address{ grid-area: address;}
+                    &.city{ grid-area: city;}
+                    &.state{ grid-area: state;}
+                    &.zip_code {grid-area: zip_code;}
+                    &.email {grid-area: email;}
+                    &.phone {grid-area: phone;}
+                }
+            }
+            &.payment-info-fields {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+                grid-template-areas: "left right";
+                grid-column-gap: 40px;
+                .left {grid-area: left;}
+                .right {
+                    grid-area: right;
+                    display: grid;
+                    grid-template-columns: auto 10px auto;
+                    grid-template-rows: repeat(2, auto);
+                    grid-template-areas:
+                            "ccnum ccnum ccnum"
+                            "ccexpirmonth . ccexpiryear";
+                    grid-column-gap: 10px;
+                    .ccnum{grid-area: ccnum;}
+                    .ccexpirmonth{grid-area: ccexpirmonth;}
+                    .ccexpiryear{grid-area: ccexpiryear;}
+                }
             }
 
-            .submit {
-                grid-area: submit;
-                text-align: center;
-                padding: 40px;
-                .btn {
-                    margin:auto;
+
+
+            .field-container {
+                &.left {
+                    .amount-container {
+                        display: grid;
+                        grid-template-columns: repeat(3, auto);
+                        grid-template-rows: repeat(2, auto);
+                        grid-column-gap: 10px;
+                        grid-row-gap: 10px;
+                        button{
+                            width:100px;
+                            height:50px;
+                            line-height: 50px;
+                        }
+                    }
+                    .amount-container-custom {
+                        margin:5px;
+                    }
                 }
+
+                .custom-amount {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    grid-template-rows: repeat(1, auto);
+                }
+
+                label {
+                    color: var(--black);
+                    font-size: 22px;
+                    font-weight: 500;
+                    display: block;
+                    width: var(--column-width);
+                    height:50px;
+                    line-height: 50px;
+                }
+                button {
+                    background-color: var(--white1);
+                    color:var(--black);
+                    font-size: 22px;
+                    font-weight: 500;
+                    display: block;
+                    border:none;
+                    width: var(--column-width);
+                    height: 45px;
+                    line-height: 45px;
+
+                    &.active {
+                        background-color: var(--green);
+                        color:var(--white);
+                    }
+                }
+
             }
         }
     }
@@ -124,66 +201,71 @@
             </div>
         </div>
         <form @submit.prevent="onSubmit" class="donate-form">
-            <div class="fields">
+            <div class="fields contact-info-fields" >
                 <form-field
                         class-name="first_name"
                         id="first_name"
                         :is-required="true"
                         label-text="First Name"
-                        :model-value="first_name"
+                        :is-errored="errors.first_name"
+                        :model-value="form.first_name"
                         @onUpdate="onFirstNameChange" />
                 <form-field
                         class-name="last_name"
                         id="last_name"
                         :is-required="true"
                         label-text="Last Name"
-                        :model-value="last_name"
+                        :is-errored="errors.last_name"
+                        :model-value="form.last_name"
                         @onUpdate="onLastNameChange" />
                 <form-field
                         class-name="address"
                         id="address"
                         :is-required="true"
                         label-text="Address"
-                        :model-value="address"
+                        :is-errored="errors.address"
+                        :model-value="form.address"
                         @onUpdate="onAddressChange" />
                 <form-field
                         class-name="city"
                         id="city"
                         :is-required="true"
                         label-text="City"
-                        :model-value="city"
+                        :is-errored="errors.city"
+                        :model-value="form.city"
                         @onUpdate="onCityChange" />
                 <form-field
                         class-name="state"
                         id="state"
                         :is-required="true"
                         label-text="State"
-                        :model-value="state"
+                        :is-errored="errors.state"
+                        :model-value="form.state"
                         @onUpdate="onStateChange" />
                 <form-field
                         class-name="zip_code"
                         id="zip_code"
                         :is-required="true"
                         label-text="Zip Code"
-                        :model-value="zip_code"
+                        :is-errored="errors.zip_code"
+                        :model-value="form.zip_code"
                         @onUpdate="onZipChange" />
                 <form-field
                         class-name="email"
                         id="email"
                         :is-required="true"
                         label-text="Email"
-                        :model-value="email"
+                        :is-errored="errors.email"
+                        :model-value="form.email"
                         @onUpdate="onEmailChange" />
                 <form-field
                         class-name="phone"
                         id="phone"
                         :is-required="true"
                         label-text="Phone"
-                        :model-value="phone"
+                        :is-errored="errors.phone"
+                        :model-value="form.phone"
                         @onUpdate="onPhoneChange" />
-                <div class="submit">
-                    <button class="btn green" type="submit">SIGN ME UP</button>
-                </div>
             </div>
             <div class="header">
                 <div class="hline1">
@@ -193,6 +275,64 @@
                 <div class="hline2">
                     <div class="line"></div>
                 </div>
+            </div>
+            <div class="fields payment-info-fields">
+                <div class="left">
+                    <div class="field-container left">
+                        <label>Amount</label>
+                        <div class="amount-container">
+                            <button v-bind:class="isActiveAmount('10')"     v-on:click="donateAmount('10')"     type="button">$10</button>
+                            <button v-bind:class="isActiveAmount('15')"     v-on:click="donateAmount('15')"     type="button">$15</button>
+                            <button v-bind:class="isActiveAmount('50')"     v-on:click="donateAmount('50')"     type="button">$50</button>
+                            <button v-bind:class="isActiveAmount('75')"     v-on:click="donateAmount('75')"     type="button">$75</button>
+                            <button v-bind:class="isActiveAmount('100')"    v-on:click="donateAmount('100')"    type="button">$100</button>
+                            <button v-bind:class="isActiveAmount('custom')" v-on:click="donateAmount('custom')" type="button">$___</button>
+                        </div>
+                        <div class="amount-container-custom">
+                            <form-field
+                                    v-if="isCustomEnabled"
+                                    class-name="amount"
+                                    id="amount"
+                                    :is-required="true"
+                                    label-text="Custom Amount"
+                                    :is-errored="errors.amount"
+                                    :model-value="payment_info.amount"
+                                    @onUpdate="onCustomAmount" />
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <form-field
+                            class-name="ccnum"
+                            id="ccnum"
+                            :is-required="true"
+                            placeholder-text="XXXX-XXXX-XXXX-XXXX"
+                            label-text="Card Number"
+                            :is-errored="errors.card_number"
+                            :model-value="payment_info.card_number"
+                            @onUpdate="onCCNumber" />
+                    <form-field
+                            class-name="ccexpirmonth"
+                            id="ccexpirmonth"
+                            :is-required="true"
+                            label-text="Expiration"
+                            :is-errored="errors.expiration_month"
+                            :model-value="payment_info.expiration_month"
+                            placeholder-text="MM"
+                            @onUpdate="onCCMonth" />
+                    <form-field
+                            class-name="ccexpiryear"
+                            id="ccexpiryear"
+                            :is-required="true"
+                            label-text=""
+                            placeholder-text="YYYY"
+                            :is-errored="errors.expiration_year"
+                            :model-value="payment_info.expiration_year"
+                            @onUpdate="onCCYear" />
+                </div>
+            </div>
+            <div class="submit">
+                <button class="btn green" type="submit">SIGN ME UP</button>
             </div>
         </form>
     </section>
@@ -209,63 +349,122 @@
         },
         data(){
             return {
-                first_name:'',
-                last_name:'',
-                address:'',
-                city:'',
-                state:'',
-                zip_code:'',
-                phone:'',
-                email:''
+                isSuccess:false,
+                amounts:{
+                    '10':false,
+                    '15':false,
+                    '50':false,
+                    '75':false,
+                    '100':false,
+                    'custom':false
+                },
+                form:{
+                    first_name:'',
+                    last_name:'',
+                    address:'',
+                    city:'',
+                    state:'',
+                    zip_code:'',
+                    phone:'',
+                    email:'',
+                },
+                payment_info:{
+                    card_number:'',
+                    expiration_month:'',
+                    expiration_year:'',
+                    amount:null
+                },
+                errors:{
+                    first_name:false,
+                    last_name:false,
+                    address:false,
+                    city:false,
+                    state:false,
+                    zip_code:false,
+                    phone:false,
+                    email:false,
+                    card_number:false,
+                    expiration_month:false,
+                    expiration_year:false,
+                }
+            }
+        },
+        computed:{
+            isCustomEnabled(){
+                return this.amounts['custom'];
             }
         },
         methods:{
+            isActiveAmount(amount)
+            {
+                return {active:this.amounts[amount]};
+            },
+            donateAmount(amount)
+            {
+                let keys = Object.keys(this.amounts);
+                keys.forEach((key) => {
+                    this.amounts[key] = (amount === key);
+                });
+
+                if(amount === 'custom')
+                {
+                    this.payment_info.amount = 0;
+                }
+                else
+                {
+                    this.payment_info.amount = parseInt(amount);
+                }
+            },
             onFirstNameChange(value)
             {
-                this.first_name = value;
+                this.form.first_name = value;
             },
             onLastNameChange(value)
             {
-                this.last_name = value;
+                this.form.last_name = value;
             },
             onPhoneChange(value)
             {
-                this.phone = value;
+                this.form.phone = value;
             },
             onEmailChange(value)
             {
-                this.email = value;
+                this.form.email = value;
             },
             onAddressChange(value)
             {
-                this.address = value;
+                this.form.address = value;
             },
             onCityChange(value)
             {
-                this.city = value;
+                this.form.city = value;
             },
             onStateChange(value)
             {
-                this.state = value;
+                this.form.state = value;
             },
             onZipChange(value)
             {
-                this.zip_code = value;
+                this.form.zip_code = value;
+            },
+            onCustomAmount(value)
+            {
+                this.form.amount = value;
+            },
+            onCCNumber(value){
+                this.payment_info.card_number = value;
+            },
+            onCCMonth(value)
+            {
+                this.payment_info.expiration_month = value;
+            },
+            onCCYear(value)
+            {
+                this.payment_info.expiration_year = value;
             },
             onSubmit()
             {
-                let data = {
-                    first_name:this.first_name,
-                    last_name:this.last_name,
-                    address:this.address,
-                    city:this.city,
-                    state:this.state,
-                    zip_code:this.zip_code,
-                    phone:this.phone,
-                    email:this.email
-                };
-
-                console.log(data);
+                console.log(this.form);
             }
         }
     }
