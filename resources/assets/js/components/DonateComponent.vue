@@ -114,19 +114,26 @@
                 grid-template-rows: auto;
                 grid-template-areas: "left right";
                 grid-column-gap: 40px;
+                .field-group {
+                    font-size: 20px;
+                    font-weight: 900;
+                    margin: 5px 5px 20px;
+                }
                 .left {grid-area: left;}
                 .right {
                     grid-area: right;
-                    display: grid;
-                    grid-template-columns: auto 10px auto;
-                    grid-template-rows: repeat(2, auto);
-                    grid-template-areas:
-                            "ccnum ccnum ccnum"
-                            "ccexpirmonth . ccexpiryear";
-                    grid-column-gap: 10px;
-                    .ccnum{grid-area: ccnum;}
-                    .ccexpirmonth{grid-area: ccexpirmonth;}
-                    .ccexpiryear{grid-area: ccexpiryear;}
+                    .right-container {
+                        display: grid;
+                        grid-template-columns: auto 10px auto;
+                        grid-template-rows: repeat(2, auto);
+                        grid-template-areas:
+                                "ccnum ccnum ccnum"
+                                "ccexpirmonth . ccexpiryear";
+                        grid-column-gap: 10px;
+                        .ccnum{grid-area: ccnum;}
+                        .ccexpirmonth{grid-area: ccexpirmonth;}
+                        .ccexpiryear{grid-area: ccexpiryear;}
+                    }
                 }
             }
 
@@ -280,6 +287,11 @@
             </div>
             <div class="fields payment-info-fields">
                 <div class="left">
+                    <div class="field-group" style="text-align: left;">
+                        <input id="non-subscription" v-model="payment_info.payment_type" name="payment_type" value="subscription" type="radio" />
+                        <label for="non-subscription">I'd like to donate this as a subscription.</label>
+                    </div>
+
                     <div class="field-container left">
                         <label>Amount</label>
                         <div class="amount-container">
@@ -304,33 +316,39 @@
                     </div>
                 </div>
                 <div class="right">
-                    <form-field
-                            class-name="ccnum"
-                            id="ccnum"
-                            :is-required="true"
-                            placeholder-text="XXXX-XXXX-XXXX-XXXX"
-                            label-text="Card Number"
-                            :is-errored="errors.card_number"
-                            :model-value="payment_info.card_number"
-                            @onUpdate="onCCNumber" />
-                    <form-field
-                            class-name="ccexpirmonth"
-                            id="ccexpirmonth"
-                            :is-required="true"
-                            label-text="Expiration"
-                            :is-errored="errors.expiration_month"
-                            :model-value="payment_info.expiration_month"
-                            placeholder-text="MM"
-                            @onUpdate="onCCMonth" />
-                    <form-field
-                            class-name="ccexpiryear"
-                            id="ccexpiryear"
-                            :is-required="true"
-                            label-text=""
-                            placeholder-text="YYYY"
-                            :is-errored="errors.expiration_year"
-                            :model-value="payment_info.expiration_year"
-                            @onUpdate="onCCYear" />
+                    <div class="field-group" style="text-align: right;">
+                        <label for="subscription">One Time Donation.</label>
+                        <input id="subscription" v-model="payment_info.payment_type" name="payment_type" value="simple-donation" type="radio" />
+                    </div>
+                    <div class="right-container">
+                        <form-field
+                                class-name="ccnum"
+                                id="ccnum"
+                                :is-required="true"
+                                placeholder-text="XXXX-XXXX-XXXX-XXXX"
+                                label-text="Card Number"
+                                :is-errored="errors.card_number"
+                                :model-value="payment_info.card_number"
+                                @onUpdate="onCCNumber" />
+                        <form-field
+                                class-name="ccexpirmonth"
+                                id="ccexpirmonth"
+                                :is-required="true"
+                                label-text="Expiration"
+                                :is-errored="errors.expiration_month"
+                                :model-value="payment_info.expiration_month"
+                                placeholder-text="MM"
+                                @onUpdate="onCCMonth" />
+                        <form-field
+                                class-name="ccexpiryear"
+                                id="ccexpiryear"
+                                :is-required="true"
+                                label-text=""
+                                placeholder-text="YYYY"
+                                :is-errored="errors.expiration_year"
+                                :model-value="payment_info.expiration_year"
+                                @onUpdate="onCCYear" />
+                    </div>
                 </div>
             </div>
             <div class="submit">
@@ -371,6 +389,7 @@
                     email:'',
                 },
                 payment_info:{
+                    payment_type:'subscription',
                     card_number:'',
                     expiration_month:'',
                     expiration_year:'',
