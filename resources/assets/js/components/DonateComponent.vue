@@ -1,7 +1,9 @@
 <style lang="scss" scoped>
     .donate {
         margin-top: 50px;
+        padding-bottom: 160px;
     }
+
     h1 {
         color:var(--blue);
         font-size: 40px;
@@ -17,13 +19,14 @@
         font-weight: 900;
         padding: 0;
         text-align: center;
-        margin: auto;
         background-color: var(--white);
         display: grid;
-        grid-auto-columns: 200px 400px 200px;
+        grid-auto-columns: 250px 450px 250px;
+
         grid-auto-rows: 1fr;
         grid-template-areas: "hline1 hcontent hline2";
-        width: 800px;
+        width: 950px;
+        margin: auto auto 20px;
 
         .hline1,
         .hline2 {
@@ -67,16 +70,17 @@
         --column-gap: 20px;
 
         &.donate-form {
-            width: 800px;
+            width: 950px;
             margin:auto;
         }
 
         .submit {
             grid-area: submit;
+            margin-top:72px;
             text-align: center;
-            padding: 40px;
             .btn {
                 margin:auto;
+                padding: 20px 46px;
             }
         }
 
@@ -126,18 +130,16 @@
                 }
             }
 
-
-
             .field-container {
                 &.left {
                     .amount-container {
                         display: grid;
                         grid-template-columns: repeat(3, auto);
                         grid-template-rows: repeat(2, auto);
-                        grid-column-gap: 10px;
-                        grid-row-gap: 10px;
+                        grid-column-gap: 32px;
+                        grid-row-gap: 24px;
                         button{
-                            width:100px;
+                            width:100%;
                             height:50px;
                             line-height: 50px;
                         }
@@ -332,7 +334,7 @@
                 </div>
             </div>
             <div class="submit">
-                <button class="btn green" type="submit">SIGN ME UP</button>
+                <button class="btn green" type="submit">DONATE</button>
             </div>
         </form>
     </section>
