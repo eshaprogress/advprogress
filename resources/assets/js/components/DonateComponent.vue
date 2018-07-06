@@ -64,7 +64,7 @@
 
     form {
         --column-count: 6;
-        --column-width: 1fr;
+        --column-width: 100%;
         --column-gap: 20px;
 
         &.donate-form {
@@ -74,7 +74,7 @@
 
         .fields {
             display: grid;
-            grid-template-columns: repeat(var(--column-count), var(--column-width));
+            grid-template-columns: repeat(var(--column-count), auto);
             grid-template-rows: repeat(3, 100px);
             grid-template-areas:
                     "first_name first_name first_name last_name last_name last_name"
@@ -85,26 +85,6 @@
             grid-column-gap: var(--column-gap);
 
             .field {
-                label {
-                    color: var(--black);
-                    font-size: 22px;
-                    font-weight: 500;
-                    display: block;
-                    width: 100%;
-                    height:50px;
-                    line-height: 50px;
-                }
-                input[type=text] {
-                    background-color: var(--white1);
-                    color:var(--black);
-                    font-size: 22px;
-                    font-weight: 500;
-                    display: block;
-                    border:none;
-                    width: 100%;
-                    height: 45px;
-                    line-height: 45px;
-                }
                 &.first_name{ grid-area: first_name;}
                 &.last_name{ grid-area: last_name;}
                 &.address{ grid-area: address;}
@@ -143,51 +123,150 @@
                 <div class="line"></div>
             </div>
         </div>
-        <form class="donate-form">
+        <form @submit.prevent="onSubmit" class="donate-form">
             <div class="fields">
-                <div class="field first_name">
-                    <label for="first_name">First Name</label>
-                    <input id="first_name" name="first_name" type="text">
-                </div>
-                <div class="field last_name">
-                    <label for="last_name">Last Name</label>
-                    <input id="last_name" name="last_name" type="text">
-                </div>
-                <div class="field address">
-                    <label for="address">Address</label>
-                    <input id="address" name="address" type="text">
-                </div>
-                <div class="field city">
-                    <label for="city">City</label>
-                    <input id="city" name="city" type="text">
-                </div>
-                <div class="field state">
-                    <label for="state">State</label>
-                    <input id="state" name="state" type="text">
-                </div>
-                <div class="field zip_code">
-                    <label for="zip_code">Zip Code</label>
-                    <input id="zip_code" name="zip_code" type="text">
-                </div>
-                <div class="field email">
-                    <label for="email">Email</label>
-                    <input id="email" name="email" type="text">
-                </div>
-                <div class="field phone">
-                    <label for="phone">Phone</label>
-                    <input id="phone" name="phone" type="text">
-                </div>
+                <form-field
+                        class-name="first_name"
+                        id="first_name"
+                        :is-required="true"
+                        label-text="First Name"
+                        :model-value="first_name"
+                        @onUpdate="onFirstNameChange" />
+                <form-field
+                        class-name="last_name"
+                        id="last_name"
+                        :is-required="true"
+                        label-text="Last Name"
+                        :model-value="last_name"
+                        @onUpdate="onLastNameChange" />
+                <form-field
+                        class-name="address"
+                        id="address"
+                        :is-required="true"
+                        label-text="Address"
+                        :model-value="address"
+                        @onUpdate="onAddressChange" />
+                <form-field
+                        class-name="city"
+                        id="city"
+                        :is-required="true"
+                        label-text="City"
+                        :model-value="city"
+                        @onUpdate="onCityChange" />
+                <form-field
+                        class-name="state"
+                        id="state"
+                        :is-required="true"
+                        label-text="State"
+                        :model-value="state"
+                        @onUpdate="onStateChange" />
+                <form-field
+                        class-name="zip_code"
+                        id="zip_code"
+                        :is-required="true"
+                        label-text="Zip Code"
+                        :model-value="zip_code"
+                        @onUpdate="onZipChange" />
+                <form-field
+                        class-name="email"
+                        id="email"
+                        :is-required="true"
+                        label-text="Email"
+                        :model-value="email"
+                        @onUpdate="onEmailChange" />
+                <form-field
+                        class-name="phone"
+                        id="phone"
+                        :is-required="true"
+                        label-text="Phone"
+                        :model-value="phone"
+                        @onUpdate="onPhoneChange" />
                 <div class="submit">
                     <button class="btn green" type="submit">SIGN ME UP</button>
                 </div>
             </div>
-
+            <div class="header">
+                <div class="hline1">
+                    <div class="line"></div>
+                </div>
+                <div class="hcontent">Payment information</div>
+                <div class="hline2">
+                    <div class="line"></div>
+                </div>
+            </div>
         </form>
     </section>
 </template>
 
 <script>
+    import FormField from "./FormField";
+    import axios from 'axios';
+
     export default {
-        name:'donateComponent'
+        name:'donateComponent',
+        components:{
+            FormField
+        },
+        data(){
+            return {
+                first_name:'',
+                last_name:'',
+                address:'',
+                city:'',
+                state:'',
+                zip_code:'',
+                phone:'',
+                email:''
+            }
+        },
+        methods:{
+            onFirstNameChange(value)
+            {
+                this.first_name = value;
+            },
+            onLastNameChange(value)
+            {
+                this.last_name = value;
+            },
+            onPhoneChange(value)
+            {
+                this.phone = value;
+            },
+            onEmailChange(value)
+            {
+                this.email = value;
+            },
+            onAddressChange(value)
+            {
+                this.address = value;
+            },
+            onCityChange(value)
+            {
+                this.city = value;
+            },
+            onStateChange(value)
+            {
+                this.state = value;
+            },
+            onZipChange(value)
+            {
+                this.zip_code = value;
+            },
+            onSubmit()
+            {
+                let data = {
+                    first_name:this.first_name,
+                    last_name:this.last_name,
+                    address:this.address,
+                    city:this.city,
+                    state:this.state,
+                    zip_code:this.zip_code,
+                    phone:this.phone,
+                    email:this.email
+                };
+
+                console.log(data);
+            }
+        }
     }
 </script>

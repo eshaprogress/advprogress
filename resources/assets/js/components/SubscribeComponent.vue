@@ -41,28 +41,6 @@
             grid-template-rows: repeat(3, 100px);
             grid-column-gap: var(--column-gap);
 
-            .field {
-                label {
-                    color: var(--black);
-                    font-size: 22px;
-                    font-weight: 500;
-                    display: block;
-                    width: var(--column-width);
-                    height:50px;
-                    line-height: 50px;
-                }
-                input[type=text] {
-                    background-color: var(--white1);
-                    color:var(--black);
-                    font-size: 22px;
-                    font-weight: 500;
-                    display: block;
-                    border:none;
-                    width: var(--column-width);
-                    height: 45px;
-                    line-height: 45px;
-                }
-            }
             .submit {
                 grid-column: 1 / span 2;
                 text-align: center;
@@ -80,24 +58,36 @@
             <img src="/images/newsletter-icon.png" alt="">
             <p>Stay up to date with all of our progress and join the community!</p>
         </div>
-        <form class="subscribe-form">
+        <form @submit.prevent="onSubmit" class="subscribe-form">
             <div class="fields">
-                <div class="field">
-                    <label for="first_name">First Name</label>
-                    <input id="first_name" name="first_name" type="text">
-                </div>
-                <div class="field">
-                    <label for="email">Email</label>
-                    <input id="email" name="email" type="text">
-                </div>
-                <div class="field">
-                    <label for="last_name">Last Name</label>
-                    <input id="last_name" name="last_name" type="text">
-                </div>
-                <div class="field">
-                    <label for="zip_code">Zip Code</label>
-                    <input id="zip_code" name="zip_code" type="text">
-                </div>
+                <form-field
+                        id="first_name"
+                        :is-required="true"
+                        label-text="First Name"
+                        field-name="embedded_form_subscription[field_1]"
+                        :model-value="first_name"
+                        @onUpdate="onFirstNameChange" />
+                <form-field
+                        id="last_name"
+                        :is-required="true"
+                        label-text="Last Name"
+                        field-name="embedded_form_subscription[field_2]"
+                        :model-value="last_name"
+                        @onUpdate="onLastNameChange" />
+                <form-field
+                        id="zip_code"
+                        :is-required="true"
+                        label-text="Zip Code"
+                        field-name="embedded_form_subscription[field_3]"
+                        :model-value="zip_code"
+                        @onUpdate="onZipChange" />
+                <form-field
+                        id="email"
+                        :is-required="true"
+                        label-text="Email"
+                        field-name="embedded_form_subscription[field_0]"
+                        :model-value="email"
+                        @onUpdate="onEmailChange" />
                 <div class="submit">
                     <button class="btn green" type="submit">SIGN ME UP</button>
                 </div>
@@ -108,7 +98,56 @@
 </template>
 
 <script>
+    import FormField from "./FormField";
+    import axios from 'axios';
+
     export default {
-        name:'SubscribeComponent'
+        name:'SubscribeComponent',
+        components:{
+            FormField
+        },
+        data(){
+            return {
+                first_name:'',
+                last_name:'',
+                email:'',
+                zip_code:''
+            }
+        },
+        methods:{
+            onFirstNameChange(value)
+            {
+                this.first_name = value;
+            },
+            onLastNameChange(value){
+                this.last_name = value;
+            },
+            onEmailChange(value){
+                this.email = value;
+            },
+            onZipChange(value){
+                this.zip_code = value;
+            },
+            onSubmit()
+            {
+                let formData = new FormData();
+                formData.append('embedded_form_subscription[field_0]', this.email);
+                formData.append('embedded_form_subscription[field_1]', this.first_name);
+                formData.append('embedded_form_subscription[field_2]', this.last_name);
+                formData.append('embedded_form_subscription[field_3]', this.zip_code);
+
+                let subscribe_list_url = 'https://emailoctopus.com/lists/49d3b78f-7cee-11e8-a3c9-06b79b628af2/members/embedded/1.1/add';
+                axios({
+                    method: 'post',
+                    url: subscribe_list_url,
+                    data: formData,
+                    config: { headers: {'Content-Type': 'multipart/form-data' }}
+                }).then((data)=>{
+                    console.log(data);
+                }).catch((error)=>{
+                    console.error(error);
+                })
+            }
+        }
     }
 </script>

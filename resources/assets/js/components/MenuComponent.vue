@@ -60,7 +60,7 @@
                 <li class="navbar-item" ><router-link to="/">OUR STORY</router-link></li>
                 <li class="navbar-item" ><router-link to="/">THE TEAM</router-link></li>
                 <li class="navbar-item" ><router-link to="/">JOIN US</router-link></li>
-                <li class="navbar-item" ><router-link to="/">DONATE</router-link></li>
+                <li class="navbar-item" ><router-link to="/donate">DONATE</router-link></li>
             </ul>
         </div>
     </nav>
