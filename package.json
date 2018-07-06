@@ -17,7 +17,10 @@
         "lodash": "^4.17.4",
         "popper.js": "^1.12",
         "vue": "^2.5.7",
-        "vue-router": "^3.0.1"
+        "vue-router": "^3.0.1",
+        "@fortawesome/fontawesome-free": "^5.1.0",
+        "add": "^2.0.6",
+        "yarn": "^1.7.0"
     },
     "dependencies": {
     }
