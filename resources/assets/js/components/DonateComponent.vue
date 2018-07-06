@@ -267,7 +267,7 @@
                         :model-value="form.phone"
                         @onUpdate="onPhoneChange" />
             </div>
-            <div class="header">
+            <div class="header" style="margin-top:50px;">
                 <div class="hline1">
                     <div class="line"></div>
                 </div>
