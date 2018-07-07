@@ -1,7 +1,7 @@
 <style lang="scss" scoped>
     .subscribe {
         margin-top: 50px;
-        height:800px;
+        margin-bottom: 50px;
     }
     h2 {
         color:var(--blue);
@@ -54,6 +54,12 @@
         color: var(--green);
     }
 
+    .is-loading{
+        text-align: center;
+        font-size: 30px;
+        color: var(--white);
+    }
+
 </style>
 
 <template>
@@ -99,12 +105,17 @@
                         :model-value="form.email"
                         @onUpdate="onEmailChange" />
                 <div class="submit">
-                    <button class="btn green" type="submit">SIGN ME UP</button>
+                    <button class="btn green" type="submit">
+                        <span v-if="isLoading" class="is-loading">
+                            <div class="fa fa-spinner fa-spin"></div>
+                        </span>
+                        <span v-else>SIGN ME UP</span>
+                    </button>
                 </div>
             </div>
-
         </form>
         <div class="successful-subscription" v-else>Thank you for subscribing to our news letter!</div>
+
     </section>
 </template>
 
@@ -120,6 +131,7 @@
         data()
         {
             return {
+                isLoading:false,
                 emailoctopusId:window.emailoctopusId,
                 isSuccessful:false,
                 errors:{
@@ -174,12 +186,15 @@
                     return false;
                 }
 
+                this.isLoading = true;
                 // Had to use jQuery ajax call because the API provided by emailoctopus doesn't work at all with axios due to the CORS requirement.
                 $.ajax({
                     method: "POST",
                     url: subscribe_list_url,
                     data: $('form.subscribe-form').serialize(),
                 }).done(( json ) => {
+                    this.isLoading = false;
+
                     console.log(json);
                     if(json.success === true)
                     {
