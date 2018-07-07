@@ -63,6 +63,30 @@
             display: inline-block;
             border-radius: 21px;
             margin: 6px;
+            text-align: center;
+            position: relative;
+            .heart {
+                color: var(--red);
+                font-size: 34px;
+                position: absolute;
+                left: 4px;
+                top: 5px;
+                z-index: 100;
+            }
+            .money {
+                font-size: 14px;
+                color: var(--white);
+                background-color: var(--green);
+                display: block;
+                position: absolute;
+                z-index: 120;
+                width: 15px;
+                height: 15px;
+                border-radius: 7px;
+                top: 16px;
+                left: 20px;
+                border: solid 2px var(--white);
+            }
         }
         .text {
             width: 163px;
@@ -86,7 +110,10 @@
             <img src="/images/prisoners.png">
         </div>
         <router-link to="/donate" class="donate-btn">
-            <span class="circle"></span>
+            <span class="circle">
+                <i class="heart fas fa-heart"></i>
+                <i class="money fas fa-dollar-sign"></i>
+            </span>
             <span class="text">DONATE NOW</span>
         </router-link>
     </section>
