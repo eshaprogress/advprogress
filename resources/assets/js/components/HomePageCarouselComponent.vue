@@ -74,18 +74,19 @@
                 z-index: 100;
             }
             .money {
-                font-size: 14px;
+                font-size: 9px;
                 color: var(--white);
                 background-color: var(--green);
                 display: block;
                 position: absolute;
                 z-index: 120;
-                width: 15px;
-                height: 15px;
-                border-radius: 7px;
-                top: 16px;
-                left: 20px;
+                width: 12px;
+                height: 12px;
+                border-radius: 8px;
+                top: 18px;
+                left: 24px;
                 border: solid 2px var(--white);
+                line-height: 12px;
             }
         }
         .text {
