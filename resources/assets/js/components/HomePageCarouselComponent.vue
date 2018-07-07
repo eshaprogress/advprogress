@@ -96,6 +96,7 @@
             font-weight: 900;
             color: #ffffff;
             display: inline-block;
+            padding-left: 17px;
         }
     }
 </style>
