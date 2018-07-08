@@ -44,7 +44,7 @@
             :name="fieldName"
             v-bind:id="id"
             type="text"
-            @change="updateText" />
+            @keyup="updateText" />
     </div>
 </template>
 <script>
@@ -72,7 +72,6 @@
                 required:true
             },
             modelValue:{
-                type:String,
                 required:true
             },
             className:{
