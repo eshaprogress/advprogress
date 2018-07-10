@@ -180,12 +180,17 @@
                     grid-area: right;
                     .right-container {
                         display: grid;
-                        grid-template-columns: auto 10px auto;
+                        grid-template-columns: repeat(4, auto);
                         grid-template-rows: repeat(2, auto);
-                        grid-template-areas: "ccnum ccnum ccnum" "ccexpirmonth . ccexpiryear";
+                        grid-template-areas:
+                                "ccnum ccnum . cccvc"
+                                "ccexpirmonth . ccexpiryear .";
                         grid-column-gap: 10px;
                         .ccnum {
                             grid-area: ccnum;
+                        }
+                        .cc-cvc {
+                            grid-area: cccvc;
                         }
                         .ccexpirmonth {
                             grid-area: ccexpirmonth;
@@ -386,40 +391,10 @@
                         <input id="subscription" v-model="payment_info.payment_type" name="payment_type"
                                value="simple-donation" type="radio"/>
                     </div>
-                    <div class="right-container">
-                        <form-field
-                                class-name="ccnum"
-                                id="ccnum"
-                                :is-required="true"
-                                placeholder-text="XXXX-XXXX-XXXX-XXXX"
-                                label-text="Card Number"
-                                :is-errored="errors.card_number"
-                                :model-value="payment_info.card_number"
-                                @onUpdate="onCCNumber"/>
-                        <form-field
-                                class-name="ccexpirmonth"
-                                id="ccexpirmonth"
-                                :is-required="true"
-                                label-text="Expiration"
-                                :is-errored="errors.expiration_month"
-                                :model-value="payment_info.expiration_month"
-                                placeholder-text="MM"
-                                @onUpdate="onCCMonth"/>
-                        <form-field
-                                class-name="ccexpiryear"
-                                id="ccexpiryear"
-                                :is-required="true"
-                                label-text=""
-                                placeholder-text="YYYY"
-                                :is-errored="errors.expiration_year"
-                                :model-value="payment_info.expiration_year"
-                                @onUpdate="onCCYear"/>
-                    </div>
                 </div>
                 <div class="totals">
                     <div class="total_label">amounts:</div>
                     <div class="total_amount">${{getFormattedAmount}}</div>
-
                 </div>
                 <div class="submit">
                     <button class="btn green" type="submit">DONATE</button>
@@ -462,9 +437,9 @@
                 },
                 payment_info: {
                     payment_type: 'subscription',
-                    card_number: '',
-                    expiration_month: '',
-                    expiration_year: ''
+                    card_brand: '',
+                    strip_id:'',
+                    card_last_four:''
                 },
                 errors: {
                     first_name: false,
@@ -474,10 +449,7 @@
                     state: false,
                     zip_code: false,
                     phone: false,
-                    email: false,
-                    card_number: false,
-                    expiration_month: false,
-                    expiration_year: false,
+                    email: false
                 }
             }
         },
@@ -543,17 +515,22 @@
             {
                 this.form.amount = value;
             },
-            onCCNumber(value) {
-                this.payment_info.card_number = value;
-            },
-            onCCMonth(value) {
-                this.payment_info.expiration_month = value;
-            },
-            onCCYear(value) {
-                this.payment_info.expiration_year = value;
-            },
-            onSubmit() {
-                console.log(this.form);
+            onSubmit()
+            {
+                this.$checkout.open({
+                    name: 'Shut up and take my money!',
+                    currency: 'USD',
+                    amount: this.form.amount,
+                    token: (token) => {
+                        let {id, email, card} = token;
+
+                        console.log(token);
+                    }
+                });
+                // axios.post('/api/donate', {
+                //     form:this.form,
+                //     payment_info:this.payment_info
+                // }).then(json=>console.log(json));
             }
         }
     }

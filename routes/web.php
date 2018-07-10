@@ -13,5 +13,5 @@
 
 Route::get('/{all}', [
     'as' => 'catch.all',
-    'uses' => 'Controller@indexWildCard'
+    'uses' => 'Website@indexWildCard'
 ])->where(['all' => '.*']);
