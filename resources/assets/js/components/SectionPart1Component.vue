@@ -1,10 +1,6 @@
 <style lang="scss" scoped>
     .part-1 {
         margin-top:52px;
-    }
-    .parse-1-container {
-        max-width: 1150px;
-        margin: auto;
 
         h2 {
             font-size: 32px;
@@ -20,10 +16,17 @@
         }
     }
 
-    .parse-1-grid-container {
+    .part-1-container {
+        max-width: 1150px;
+        margin: auto;
+        display:flex;
+        justify-items: center;
+    }
 
+    .part-1-grid-container {
         display: grid;
-        grid-template-columns: repeat(3, auto);
+        grid-template-columns: repeat(3, min-content);
+        margin:auto;
 
         .items {
             display: flex;
@@ -31,15 +34,19 @@
             .item-container {
                 padding: 20px 20px 80px;
                 text-align: center;
+                width:275px;
                 .img-container {
                     height: 180px;
                     width: 120px;
                     background: no-repeat center bottom;
                     background-size: 120px auto;
-                    &.img-draft ,
-                    &.img-government {
+                    &.img-draft {
                         background-size: 140px auto;
                         width: 140px;
+                    }
+                    &.img-government {
+                        background-size: 150px auto;
+                        width: 160px;
                     }
                     margin: auto auto 60px;
                 }
@@ -61,9 +68,9 @@
 
 <template>
     <section class="section part-1">
-        <div class="parse-1-container">
-            <h2>What We Do?</h2>
-            <div class="parse-1-grid-container">
+        <h2>What We Do?</h2>
+        <div class="part-1-container">
+            <div class="part-1-grid-container">
                 <div class="items">
                     <div class="item-container">
                         <div class="img-container img-draft" style="background-image: url(/images/draft.svg)"></div>
