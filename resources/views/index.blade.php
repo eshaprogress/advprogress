@@ -16,7 +16,7 @@
             window.emailoctopusId = @json(config('app.octopus_id'));
             window.YOUR_STRIPE_PUBLISHABLE_KEY = @json(config('services.stripe.key'));
         </script>
-        <script src="https://js.stripe.com/v3/"></script>
+        <script src="https://js.stripe.com/v2/"></script>
         <script src="{{mix('/js/app.js')}}"></script>
     </body>
 </html>

@@ -153,29 +153,30 @@
                 .right {
                     grid-area: right;
                     .right-container {
-                        display: grid;
-                        grid-template-columns: repeat(4, auto);
-                        grid-template-rows: repeat(2, auto);
-                        grid-template-areas:
-                                "ccnum ccnum . cccvc"
-                                "ccexpirmonth . ccexpiryear .";
-                        grid-column-gap: 10px;
-                        .ccnum {
-                            grid-area: ccnum;
+                        display: flex;
+                        flex-flow: row wrap;
+                        .break {
+                            flex-basis: 100%;
+                            width: 0;
+                            height: 10px;
+                            overflow: hidden;
                         }
-                        .cc-cvc {
-                            grid-area: cccvc;
-                        }
-                        .ccexpirmonth {
-                            grid-area: ccexpirmonth;
-                        }
+                        .ccnum,
+                        .cc-cvc,
+                        .ccexpirmonth,
                         .ccexpiryear {
-                            grid-area: ccexpiryear;
+                            padding:0;
+                            margin: 0 2% 0 0;
                         }
+                        .ccnum {width:75%;}
+                        .cc-cvc {width:20%;}
+                        .ccexpirmonth {width:20%;}
+                        .ccexpiryear {width:20%;}
                     }
                 }
             }
             &.payment-confirmation {
+                padding-top:20px;
                 .submit {
                     text-align: center;
                     padding:20px;
@@ -254,14 +255,20 @@
                 &.left {
                     .amount-container {
                         display: grid;
-                        grid-template-columns: repeat(3, auto);
+                        grid-template-columns: repeat(3, 100px);
                         grid-template-rows: repeat(2, auto);
                         grid-column-gap: 32px;
                         grid-row-gap: 24px;
+                        label {
+                            font-size: 18px;
+                            font-weight: normal;
+                            font-style: normal;
+                            font-stretch: normal;
+                            line-height: normal;
+                            letter-spacing: normal;
+                        }
                         button {
                             width: 100%;
-                            height: 50px;
-                            line-height: 50px;
                         }
                     }
                     .amount-container-custom {
@@ -277,12 +284,15 @@
 
                 label {
                     color: var(--black);
-                    font-size: 22px;
-                    font-weight: 500;
+                    font-size: 18px;
+                    font-weight: normal;
+                    font-style: normal;
+                    font-stretch: normal;
+                    letter-spacing: normal;
                     display: block;
                     width: var(--column-width);
-                    height: 50px;
-                    line-height: 50px;
+                    height:34px;
+                    line-height: 34px;
                 }
                 button {
                     background-color: var(--white1);
@@ -432,12 +442,43 @@
                     </div>
                     <div class="right">
                         <div class="right-container">
-                            <card class='stripe-card'
-                                  :class='{ complete }'
-                                  :stripe='stripePublishToken'
-                                  :options='stripeOptions'
-                                  @change='complete = $event.complete'
-                            />
+                            <form-field
+                                    class-name="ccnum"
+                                    id="ccnum"
+                                    :is-required="true"
+                                    placeholder-text="XXXX-XXXX-XXXX-XXXX"
+                                    label-text="Card Number"
+                                    :model-value="card.number"
+                                    :is-errored="errors.card_number"
+                                    @onUpdate="onCC_Number" />
+                            <form-field
+                                    class-name="cc-cvc"
+                                    id="cccvc"
+                                    :is-required="true"
+                                    label-text=""
+                                    placeholder-text="CVC"
+                                    :model-value="card.cvc"
+                                    :is-errored="errors.card_cvc"
+                                    @onUpdate="onCC_CVC" />
+                            <div class="break"></div>
+                            <form-field
+                                    class-name="ccexpirmonth"
+                                    id="ccexpirmonth"
+                                    :is-required="true"
+                                    label-text="Expiration"
+                                    :model-value="card.exp_month"
+                                    :is-errored="errors.card_exp_month"
+                                    placeholder-text="MM"
+                                    @onUpdate="onCC_Month" />
+                            <form-field
+                                    class-name="ccexpiryear"
+                                    id="ccexpiryear"
+                                    :is-required="true"
+                                    label-text=""
+                                    placeholder-text="YYYY"
+                                    :model-value="card.exp_year"
+                                    :is-errored="errors.card_exp_year"
+                                    @onUpdate="onCC_Year" />
                         </div>
                     </div>
                 </div>
@@ -474,21 +515,17 @@
 <script>
     import FormField from "./FormField";
     import axios from 'axios';
-    import { stripeOptions } from '../stripeConfig.json'
-    import { Card, createToken } from 'vue-stripe-elements-plus'
 
     let stripeToken = window.YOUR_STRIPE_PUBLISHABLE_KEY;
 
     export default {
         name: 'donateComponent',
         components: {
-            FormField,
-            Card
+            FormField
         },
         data() {
             return {
                 stripePublishToken:stripeToken,
-                stripeOptions,
                 complete: false,
                 isSuccess: false,
                 amounts: {
@@ -510,6 +547,12 @@
                     email: '',
                     amount: 0
                 },
+                card:{
+                    number:'',
+                    cvc:'',
+                    exp_month:'',
+                    exp_year:''
+                },
                 payment_info: {
                     payment_type: 'subscription',
                     card_brand: '',
@@ -524,7 +567,12 @@
                     state: false,
                     zip_code: false,
                     phone: false,
-                    email: false
+                    email: false,
+
+                    card_number:false,
+                    card_cvc:false,
+                    card_exp_month:false,
+                    card_exp_year:false
                 }
             }
         },
@@ -590,14 +638,83 @@
             {
                 this.form.amount = value;
             },
+            onCC_Number(value){
+                this.card.number = value;
+            },
+            onCC_CVC(value) {
+                this.card.cvc = value;
+            },
+            onCC_Month(value) {
+                this.card.exp_month = value;
+            }, onCC_Year(value)
+            {
+                this.card.exp_year = value;
+            },
+            resetFields()
+            {
+                Object.keys(this.errors).forEach((key)=>{
+                    this.errors[key] = false;
+                });
+            },
             onSubmit()
             {
-                createToken().then(data => console.log(data))
+                let errors = 0;
+                let trim_values = ['number','exp_month','exp_year','cvc'];
+                let validate_values = ['first_name','last_name','address','city','state','zip_code'];
+
+                this.resetFields();
+
+                trim_values.forEach((key)=>{
+                    this.card[key] = this.card[key].trim();
+                });
+
+                if(!Stripe.card.validateCardNumber(this.card.number))
+                {
+                    this.errors.card_number = true;
+                    errors++;
+                }
+                if(!Stripe.card.validateExpiry(this.card.exp_month, this.card.exp_year))
+                {
+                    this.errors.card_exp_month = true;
+                    this.errors.card_exp_year = true;
+                    errors++;
+                }
+                if(!Stripe.card.validateCVC(this.card.cvc))
+                {
+                    this.errors.card_cvc = true;
+                    errors++;
+                }
+                validate_values.forEach((val)=>{
+                    this.errors[val] = (!this.form[val].length);
+                    if(this.errors[val]) errors++;
+                });
+
+                if(errors > 0)
+                    return;
+
+                Stripe.card.createToken({
+                    number: this.card.number,
+                    cvc: this.card.cvc,
+                    exp_month: this.card.exp_month,
+                    exp_year: this.card.exp_year,
+                    name:`${this.form.first_name} ${this.form.last_name}`,
+                    address_line1:this.form.address,
+                    address_city:this.form.city,
+                    address_state:this.form.state,
+                    address_zip:this.form.zip_code,
+                }, (status, response)=>{
+                    console.log('status',status, 'response', response);
+                });
                 // axios.post('/api/donate', {
                 //     form:this.form,
                 //     payment_info:this.payment_info
                 // }).then(json=>console.log(json));
             }
+        },
+        stripe$:null,
+        mounted(){
+            Stripe.setPublishableKey(this.stripePublishToken);
+
         }
     }
 </script>

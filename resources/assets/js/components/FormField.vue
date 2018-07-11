@@ -13,9 +13,10 @@
         label {
             color: var(--black);
             font-size: 18px;
-            font-weight: 600;
+            font-weight: normal;
             font-style: normal;
             font-stretch: normal;
+            line-height: normal;
             letter-spacing: normal;
             display: block;
             width: var(--column-width);
@@ -24,11 +25,11 @@
         }
         input[type=text] {
             background-color: var(--white1);
-            color:var(--black);
+            color: var(--black);
             font-size: 20px;
             font-weight: 500;
             display: block;
-            border:none;
+            border: none;
             width: var(--column-width);
             height: 40px;
             line-height: 40px;
