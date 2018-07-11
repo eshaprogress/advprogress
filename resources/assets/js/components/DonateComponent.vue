@@ -1,40 +1,49 @@
 <style lang="scss" scoped>
     .donate {
         margin-top: 50px;
-        padding-bottom: 160px;
+        padding-bottom: 50px;
+    }
+
+    .donate-container {
+        max-width:800px;
+        margin:auto;
     }
 
     h1 {
         color: var(--blue);
-        font-size: 40px;
-        font-weight: 900;
+        font-size: 32px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
         padding: 0;
         text-align: center;
         margin: 0 0 24px;
     }
 
     p {
-        font-size: 24px;
-        font-weight: 300;
-        max-width: 950px;
+        font-size: 16px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
         margin: 10px auto;
         text-align: justify;
         margin-bottom: 20px;
     }
 
     .header {
-        color: var(--blue);
-        font-size: 40px;
-        font-weight: 900;
+        color: var(--black);
         padding: 0;
         text-align: center;
         background-color: var(--white);
         display: grid;
-        grid-auto-columns: 250px 450px 250px;
+        grid-auto-columns: auto 280px auto;
 
         grid-auto-rows: 1fr;
         grid-template-areas: "hline1 hcontent hline2";
-        width: 950px;
         margin: auto auto 20px;
 
         .hline1,
@@ -52,6 +61,12 @@
 
         .hcontent {
             grid-area: hcontent;
+            font-size: 24px;
+            font-weight: 600;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: normal;
         }
 
         .line {
@@ -83,18 +98,7 @@
         --column-gap: 20px;
 
         &.donate-form {
-            width: 950px;
             margin: auto;
-        }
-
-        .submit {
-            grid-area: submit;
-            margin-top: 72px;
-            text-align: center;
-            .btn {
-                margin: auto;
-                padding: 20px 46px;
-            }
         }
 
         .fields {
@@ -141,38 +145,8 @@
                 grid-template-columns: repeat(2, 1fr);
                 grid-template-rows: repeat(2, auto);
                 grid-column-gap: 40px;
-                grid-template-areas:
-                        "left right"
-                        "totals totals"
-                        "submit submit";
-                .field-group {
-                    cursor: pointer;
-                    font-size: 20px;
-                    font-weight: 900;
-                    margin: 5px 5px 20px;
-                    padding: 10px 5px;
+                grid-template-areas: "left right";
 
-                    &.active {
-                        background-color: var(--white1);
-                    }
-                }
-                .totals {
-                    grid-area: totals;
-                    display: grid;
-                    grid-template-columns: repeat(5, 1fr);
-                    font-size: 30px;
-                    margin-top: 20px;
-                    border-top: solid 3px var(--green);
-                    border-bottom: solid 3px var(--green);
-                    .total_label {
-                        grid-column: 4;
-                        text-align: right;
-                    }
-                    .total_amount {
-                        grid-column: 5;
-                        text-align: right;
-                    }
-                }
                 .left {
                     grid-area: left;
                 }
@@ -198,6 +172,80 @@
                         .ccexpiryear {
                             grid-area: ccexpiryear;
                         }
+                    }
+                }
+            }
+            &.payment-confirmation {
+                .submit {
+                    text-align: center;
+                    padding:20px;
+                    .btn {
+                        margin: auto;
+                        padding: 20px 46px;
+                    }
+                }
+
+                .payment-choice {
+                    margin-top:10px;
+                    h3 {
+                        text-transform: uppercase;
+                        color:var(--red);
+                        font-size: 19px;
+                        font-weight: normal;
+                        font-style: normal;
+                        font-stretch: normal;
+                        line-height: normal;
+                        letter-spacing: normal;
+                        text-align: center;
+                        margin:0;
+                        padding:12px;
+                    }
+                    background-color: var(--white1);
+                    .payment-choice-container {
+                        margin:auto;
+                        width: 500px;
+                        padding:20px;
+                        label {
+                            cursor: pointer;
+                            font-size: 18px;
+                            font-weight: normal;
+                            font-style: normal;
+                            font-stretch: normal;
+                            line-height: normal;
+                            letter-spacing: normal;
+                            margin: 0;
+                            padding: 0px;
+                            display: inline-block;
+                            padding-right: 10px;
+
+                            &.active {
+                                background-color: var(--white1);
+                            }
+                        }
+                    }
+                }
+
+                .totals {
+                    font-size: 24px;
+                    font-weight: 600;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: normal;
+                    letter-spacing: normal;
+                    margin-top: 20px;
+                    text-align: center;
+                    .total_label {
+                        text-transform: uppercase;
+                        margin:11px;
+                    }
+                    .line {
+                        height: 2px;
+                        background-color: var(--green);
+                        width: 220px;
+                        margin:auto;
+                    }
+                    .total_amount {
+                        margin:11px;
                     }
                 }
             }
@@ -255,166 +303,193 @@
 
             }
         }
+
+
     }
 
 </style>
 
 <template>
     <section class="section donate">
-        <h1>CONTRIBUTE TO OUR EFFORTS</h1>
-        <p>Legislation to Advance Progress (“LEAP”) is a newly formed nonprofit organization dedicated to serving
-            the needs of activists, citizens and elected officials by helping to create model state and local
-            progressive legislation. The bold and consistent laws we put forth will place the needs of the many
-            above the narrow financial interests of the few. LEAP will also evaluate and develop regulations and
-            executive orders that will further our mission. Our participants include lawyers, scientists, professors
-            and activists from across the country.
-        </p>
-        <div class="header">
-            <div class="hline1">
-                <div class="line"></div>
-            </div>
-            <div class="hcontent">Contact information</div>
-            <div class="hline2">
-                <div class="line"></div>
-            </div>
-        </div>
-        <form @submit.prevent="onSubmit" class="donate-form">
-            <div class="fields contact-info-fields">
-                <form-field
-                        class-name="first_name"
-                        id="first_name"
-                        :is-required="true"
-                        label-text="First Name"
-                        :is-errored="errors.first_name"
-                        :model-value="form.first_name"
-                        @onUpdate="onFirstNameChange"/>
-                <form-field
-                        class-name="last_name"
-                        id="last_name"
-                        :is-required="true"
-                        label-text="Last Name"
-                        :is-errored="errors.last_name"
-                        :model-value="form.last_name"
-                        @onUpdate="onLastNameChange"/>
-                <form-field
-                        class-name="address"
-                        id="address"
-                        :is-required="true"
-                        label-text="Address"
-                        :is-errored="errors.address"
-                        :model-value="form.address"
-                        @onUpdate="onAddressChange"/>
-                <form-field
-                        class-name="city"
-                        id="city"
-                        :is-required="true"
-                        label-text="City"
-                        :is-errored="errors.city"
-                        :model-value="form.city"
-                        @onUpdate="onCityChange"/>
-                <form-field
-                        class-name="state"
-                        id="state"
-                        :is-required="true"
-                        label-text="State"
-                        :is-errored="errors.state"
-                        :model-value="form.state"
-                        @onUpdate="onStateChange"/>
-                <form-field
-                        class-name="zip_code"
-                        id="zip_code"
-                        :is-required="true"
-                        label-text="Zip Code"
-                        :is-errored="errors.zip_code"
-                        :model-value="form.zip_code"
-                        @onUpdate="onZipChange"/>
-                <form-field
-                        class-name="email"
-                        id="email"
-                        :is-required="true"
-                        label-text="Email"
-                        :is-errored="errors.email"
-                        :model-value="form.email"
-                        @onUpdate="onEmailChange"/>
-                <form-field
-                        class-name="phone"
-                        id="phone"
-                        :is-required="true"
-                        label-text="Phone"
-                        :is-errored="errors.phone"
-                        :model-value="form.phone"
-                        @onUpdate="onPhoneChange"/>
-            </div>
-            <div class="header" style="margin-top:50px;">
+        <div class="donate-container">
+            <h1>CONTRIBUTE TO OUR EFFORTS</h1>
+            <p>Legislation to Advance Progress (“LEAP”) is a newly formed nonprofit organization dedicated to serving
+                the needs of activists, citizens and elected officials by helping to create model state and local
+                progressive legislation. The bold and consistent laws we put forth will place the needs of the many
+                above the narrow financial interests of the few. LEAP will also evaluate and develop regulations and
+                executive orders that will further our mission. Our participants include lawyers, scientists, professors
+                and activists from across the country.
+            </p>
+            <div class="header">
                 <div class="hline1">
                     <div class="line"></div>
                 </div>
-                <div class="hcontent">Payment information</div>
+                <div class="hcontent">Contact information</div>
                 <div class="hline2">
                     <div class="line"></div>
                 </div>
             </div>
-            <div class="fields payment-info-fields">
-                <div class="left">
-                    <div v-bind:class="isPaymentTypeActive('subscription')" class="field-group" style="text-align: left;">
-                        <input id="non-subscription" v-model="payment_info.payment_type" name="payment_type"
-                               value="subscription" type="radio"/>
-                        <label for="non-subscription">I'd like to donate this as a subscription.</label>
+            <form @submit.prevent="onSubmit" class="donate-form">
+                <div class="fields contact-info-fields">
+                    <form-field
+                            class-name="first_name"
+                            id="first_name"
+                            :is-required="true"
+                            label-text="First Name"
+                            :is-errored="errors.first_name"
+                            :model-value="form.first_name"
+                            @onUpdate="onFirstNameChange"/>
+                    <form-field
+                            class-name="last_name"
+                            id="last_name"
+                            :is-required="true"
+                            label-text="Last Name"
+                            :is-errored="errors.last_name"
+                            :model-value="form.last_name"
+                            @onUpdate="onLastNameChange"/>
+                    <form-field
+                            class-name="address"
+                            id="address"
+                            :is-required="true"
+                            label-text="Address"
+                            :is-errored="errors.address"
+                            :model-value="form.address"
+                            @onUpdate="onAddressChange"/>
+                    <form-field
+                            class-name="city"
+                            id="city"
+                            :is-required="true"
+                            label-text="City"
+                            :is-errored="errors.city"
+                            :model-value="form.city"
+                            @onUpdate="onCityChange"/>
+                    <form-field
+                            class-name="state"
+                            id="state"
+                            :is-required="true"
+                            label-text="State"
+                            :is-errored="errors.state"
+                            :model-value="form.state"
+                            @onUpdate="onStateChange"/>
+                    <form-field
+                            class-name="zip_code"
+                            id="zip_code"
+                            :is-required="true"
+                            label-text="Zip Code"
+                            :is-errored="errors.zip_code"
+                            :model-value="form.zip_code"
+                            @onUpdate="onZipChange"/>
+                    <form-field
+                            class-name="email"
+                            id="email"
+                            :is-required="true"
+                            label-text="Email"
+                            :is-errored="errors.email"
+                            :model-value="form.email"
+                            @onUpdate="onEmailChange"/>
+                    <form-field
+                            class-name="phone"
+                            id="phone"
+                            :is-required="true"
+                            label-text="Phone"
+                            :is-errored="errors.phone"
+                            :model-value="form.phone"
+                            @onUpdate="onPhoneChange"/>
+                </div>
+                <div class="header" style="margin-top:50px;">
+                    <div class="hline1">
+                        <div class="line"></div>
                     </div>
-
-                    <div class="field-container left">
-                        <label>Amount</label>
-                        <div class="amount-container">
-                            <template v-for="amount in getAmounts">
-                                <button :key="amount"
-                                        v-bind:class="isActiveAmount(amount)"
-                                        v-on:click="donateAmount(amount)"
-                                        type="button"> ${{(amount !== 'custom'?amount:'_____')}} </button>
-                            </template>
+                    <div class="hcontent">Payment information</div>
+                    <div class="hline2">
+                        <div class="line"></div>
+                    </div>
+                </div>
+                <div class="fields payment-info-fields">
+                    <div class="left">
+                        <div class="field-container left">
+                            <label>Amount</label>
+                            <div class="amount-container">
+                                <template v-for="amount in getAmounts">
+                                    <button :key="amount"
+                                            v-bind:class="isActiveAmount(amount)"
+                                            v-on:click="donateAmount(amount)"
+                                            type="button"> ${{(amount !== 'custom'?amount:'_____')}} </button>
+                                </template>
+                            </div>
+                            <div class="amount-container-custom">
+                                <form-field
+                                        v-show="isCustomEnabled"
+                                        class-name="amount"
+                                        id="amount"
+                                        :is-required="true"
+                                        label-text="Custom Amount"
+                                        :is-errored="errors.amount"
+                                        :model-value="form.amount"
+                                        @onUpdate="onCustomAmount" />
+                            </div>
                         </div>
-                        <div class="amount-container-custom">
-                            <form-field
-                                    v-show="isCustomEnabled"
-                                    class-name="amount"
-                                    id="amount"
-                                    :is-required="true"
-                                    label-text="Custom Amount"
-                                    :is-errored="errors.amount"
-                                    :model-value="form.amount"
-                                    @onUpdate="onCustomAmount" />
+                    </div>
+                    <div class="right">
+                        <div class="right-container">
+                            <card class='stripe-card'
+                                  :class='{ complete }'
+                                  :stripe='stripePublishToken'
+                                  :options='stripeOptions'
+                                  @change='complete = $event.complete'
+                            />
                         </div>
                     </div>
                 </div>
-                <div class="right">
-                    <div v-bind:class="isPaymentTypeActive('simple-donation')" class="field-group" style="text-align: right;">
-                        <label for="subscription">One Time Donation.</label>
-                        <input id="subscription" v-model="payment_info.payment_type" name="payment_type"
-                               value="simple-donation" type="radio"/>
+                <div class="fields payment-confirmation">
+                    <div class="payment-choice">
+                        <h3>Please Select A Donation Option</h3>
+                        <div class="payment-choice-container">
+                            <label v-bind:class="isPaymentTypeActive('simple-donation')" for="simple-donation">
+                                <input id="simple-donation" v-model="payment_info.payment_type" name="payment_type"
+                                       value="simple-donation" type="radio"/>
+                                <span class="text">One Time Donation</span>
+                            </label>
+                            <label v-bind:class="isPaymentTypeActive('subscription')" for="subscription">
+                                <input id="subscription" v-model="payment_info.payment_type" name="payment_type"
+                                                                 value="subscription" type="radio"/>
+                                <span class="text">Reoccurring Monthly Donation</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="totals">
+                        <div class="total_label">Your Total Contribution</div>
+                        <div class="line"></div>
+                        <div class="total_amount">${{getFormattedAmount}}</div>
+                    </div>
+                    <div class="submit">
+                        <button class="btn green" type="submit">DONATE</button>
                     </div>
                 </div>
-                <div class="totals">
-                    <div class="total_label">amounts:</div>
-                    <div class="total_amount">${{getFormattedAmount}}</div>
-                </div>
-                <div class="submit">
-                    <button class="btn green" type="submit">DONATE</button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </section>
 </template>
 
 <script>
     import FormField from "./FormField";
     import axios from 'axios';
+    import { stripeOptions } from '../stripeConfig.json'
+    import { Card, createToken } from 'vue-stripe-elements-plus'
+
+    let stripeToken = window.YOUR_STRIPE_PUBLISHABLE_KEY;
 
     export default {
         name: 'donateComponent',
         components: {
-            FormField
+            FormField,
+            Card
         },
         data() {
             return {
+                stripePublishToken:stripeToken,
+                stripeOptions,
+                complete: false,
                 isSuccess: false,
                 amounts: {
                     '10': false,
@@ -517,16 +592,7 @@
             },
             onSubmit()
             {
-                this.$checkout.open({
-                    name: 'Shut up and take my money!',
-                    currency: 'USD',
-                    amount: this.form.amount,
-                    token: (token) => {
-                        let {id, email, card} = token;
-
-                        console.log(token);
-                    }
-                });
+                createToken().then(data => console.log(data))
                 // axios.post('/api/donate', {
                 //     form:this.form,
                 //     payment_info:this.payment_info

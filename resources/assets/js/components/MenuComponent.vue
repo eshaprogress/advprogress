@@ -1,67 +1,80 @@
 <style lang="scss" scoped>
     .navbar {
-        height:90px;
-        position: relative;
-    }
-    .navbar-item {
-        display: inline-block;
-    }
-    .navbar-brand {
-        display: flex;
-        align-items: center;
-        height:90px;
-
+        --nav-bar-height:72px;
+        .navbar-container {
+            position: relative;
+            max-width: 1150px;
+            margin:auto;
+        }
+        height:var(--nav-bar-height);
         .navbar-item {
+            display: inline-block;
+        }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            height:var(--nav-bar-height);
 
-            margin-left: 160px;
-            img {
-                max-height: 55px;
-            }
-            .logo {
-                width: 148px;
-                height: 55px;
+            .navbar-item {
+
+                margin-left: 106px;
+                img {
+                    max-height: 55px;
+                }
+                .logo {
+                    width: 118px;
+                    height: 44px;
+                }
             }
         }
-    }
-    .navbar-end {
-        position: absolute;
-        right:0;
-        top:0;
-        margin-right:111px;
-    }
-    .navbar-menu {
-        list-style: none;
-        margin:0;
-        padding:0;
-        .navbar-item {
+        .navbar-end {
+            position: absolute;
+            right:0;
+            top:0;
+            margin-right:103px;
+        }
+
+        .navbar-menu {
             list-style: none;
+            margin:0;
             padding:0;
-            display: inline-block;
-            line-height: 90px;
-            font-size: 20px;
-            a {
-                color:black;
-                text-decoration: none;
+            .navbar-item {
+                list-style: none;
+                padding:0;
+                display: inline-block;
+                line-height: var(--nav-bar-height);
+                font-size: 16px;
+
+                a {
+                    color:var(--black);
+                    text-transform: uppercase;
+                    text-decoration: none;
+                    &.router-link-active {
+                        color:var(--green);
+                    }
+                }
+                margin: 0 40px 0 0;
             }
-            margin: 0 25px 0 0;
         }
     }
 </style>
 
 <template>
     <nav class="navbar">
-        <div class="navbar-brand">
-            <router-link to="/" class="navbar-item">
-                <img class="logo" src="/images/logo.png"/>
-            </router-link>
-        </div>
-        <div class="navbar-end">
-            <ul class="navbar-menu">
-                <li class="navbar-item" ><router-link to="/">OUR STORY</router-link></li>
-                <li class="navbar-item" ><router-link to="/">THE TEAM</router-link></li>
-                <li class="navbar-item" ><router-link to="/">JOIN US</router-link></li>
-                <li class="navbar-item" ><router-link to="/donate">DONATE</router-link></li>
-            </ul>
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <router-link to="/" class="navbar-item">
+                    <img class="logo" src="/images/logo.png"/>
+                </router-link>
+            </div>
+            <div class="navbar-end">
+                <ul class="navbar-menu">
+                    <li class="navbar-item" ><router-link to="/">Home</router-link></li>
+                    <li class="navbar-item" ><router-link to="/our-story">OUR STORY</router-link></li>
+                    <li class="navbar-item" ><router-link to="/consultation">CONSULTATION</router-link></li>
+                    <li class="navbar-item" ><router-link to="/donate">DONATE</router-link></li>
+                </ul>
+            </div>
         </div>
     </nav>
 </template>

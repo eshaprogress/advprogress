@@ -12,23 +12,26 @@
 
         label {
             color: var(--black);
-            font-size: 22px;
-            font-weight: 500;
+            font-size: 18px;
+            font-weight: 600;
+            font-style: normal;
+            font-stretch: normal;
+            letter-spacing: normal;
             display: block;
             width: var(--column-width);
-            height:50px;
-            line-height: 50px;
+            height:34px;
+            line-height: 34px;
         }
         input[type=text] {
             background-color: var(--white1);
             color:var(--black);
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 500;
             display: block;
             border:none;
             width: var(--column-width);
-            height: 45px;
-            line-height: 45px;
+            height: 40px;
+            line-height: 40px;
             text-indent: 10px;
         }
     }

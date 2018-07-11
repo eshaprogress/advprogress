@@ -5,7 +5,7 @@
 @import "~@fortawesome/fontawesome-free/scss/fa-solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/fa-brands.scss";
 
-@import url("https://fonts.googleapis.com/css?family=Nunito");
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700');
 
 .container {
   max-width: 1440px;
@@ -14,7 +14,7 @@
 body {
   margin:0;
   padding:0;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 :root {
@@ -42,12 +42,15 @@ a, button {
     &.blue {
       background-color: var(--blue);
     }
-    font-size: 24px;
-    font-weight: 500;
+    font-size: 20px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
     color: white;
     text-decoration: none;
     padding: 12px 15px;
-    line-height: 24px;
+    line-height: 20px;
     display: inline-block;
     border:none;
   }

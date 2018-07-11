@@ -11,16 +11,6 @@ import Vue from 'vue';
 import BootStrapApp from './BootStrapApp';
 import router from './router';
 
-import VueStripeCheckout from 'vue-stripe-checkout';
-
-Vue.use(VueStripeCheckout, {
-    key: window.YOUR_STRIPE_PUBLISHABLE_KEY,
-    locale: 'auto',
-    currency: 'USD',
-    billingAddress: true,
-    panelLabel: 'Subscribe {{amount}}'
-});
-
 const app = new Vue({
     router,
     components:{

@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);/*!
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700);/*!
  * Font Awesome Free 5.1.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
@@ -4747,7 +4747,7 @@ readers do not read off random characters that represent icons */
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 :root {
@@ -4767,12 +4767,15 @@ body {
 
 a.btn,
 button.btn {
-  font-size: 24px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: normal;
   color: white;
   text-decoration: none;
   padding: 12px 15px;
-  line-height: 24px;
+  line-height: 20px;
   display: inline-block;
   border: none;
 }

@@ -5,24 +5,32 @@
     }
     h2 {
         color:var(--blue);
-        font-size: 40px;
-        font-weight: 900;
+        font-size: 32px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
         padding:0;
         text-align: center;
-        margin: 0 0 24px;
+        margin: 0;
     }
     .icon {
         text-align: center;
         margin-bottom:40px;
         img {
-            width: 141px;
-            height: 153px;
+            width: 108px;
+            margin:24px;
         }
         p {
             text-align: center;
-            font-size: 24px;
-            font-weight: 300;
-            width:650px;
+            font-size: 18px;
+            font-weight: normal;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            max-width:600px;
             margin:auto;
         }
     }
