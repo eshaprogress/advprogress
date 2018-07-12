@@ -711,14 +711,14 @@
                             payment_info:this.payment_info,
                             stripeToken:response.id
                         };
-                        axios.post('/api/donate', {
-                        }).then(json=>console.log(json));
+                        axios.post('/api/donate', data).then(json=>console.log(json));
                     }
                 });
             }
         },
         stripe$:null,
-        mounted(){
+        mounted()
+        {
             Stripe.setPublishableKey(this.stripePublishToken);
 
         }
