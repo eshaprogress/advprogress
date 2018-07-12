@@ -515,8 +515,7 @@
 <script>
     import FormField from "./FormField";
     import axios from 'axios';
-
-    let stripeToken = window.YOUR_STRIPE_PUBLISHABLE_KEY;
+    import {stripePublishToken} from '../environment.json';
 
     export default {
         name: 'donateComponent',
@@ -525,7 +524,7 @@
         },
         data() {
             return {
-                stripePublishToken:stripeToken,
+                stripePublishToken:stripePublishToken,
                 complete: false,
                 isSuccess: false,
                 amounts: {
@@ -704,11 +703,18 @@
                     address_zip:this.form.zip_code,
                 }, (status, response)=>{
                     console.log('status',status, 'response', response);
+
+                    if(status === 200)
+                    {
+                        let data = {
+                            form:this.form,
+                            payment_info:this.payment_info,
+                            stripeToken:response.id
+                        };
+                        axios.post('/api/donate', {
+                        }).then(json=>console.log(json));
+                    }
                 });
-                // axios.post('/api/donate', {
-                //     form:this.form,
-                //     payment_info:this.payment_info
-                // }).then(json=>console.log(json));
             }
         },
         stripe$:null,

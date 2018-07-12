@@ -130,6 +130,7 @@
 <script>
     import FormField from "./FormField";
     import $ from 'jquery';
+    import {emailOctopusId} from '../environment.json';
 
     export default {
         name:'SubscribeComponent',
@@ -140,7 +141,7 @@
         {
             return {
                 isLoading:false,
-                emailoctopusId:window.emailoctopusId,
+                emailoctopusId:emailoctopusId,
                 isSuccessful:false,
                 errors:{
                     first_name:false,

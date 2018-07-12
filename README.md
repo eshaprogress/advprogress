@@ -38,7 +38,7 @@
   - `yarn install`
   - `composer install`
   - `npm run dev` or `npm run watch` for watch listener
-  
+
 ### Troubleshooting
 --------------------------
 - sometimes you're in trouble, and things just break, you may need to rebuild your images
@@ -48,3 +48,10 @@
     - docker stop $(docker ps -a -q)
     - docker rm $(docker ps -a -q)
     - docker rmi $(docker images -q)
+
+#### Stripe Debugging
+=======================
+- Stripe debugging: https://stripe.com/docs/testing
+ - Has a list of Testing CC Values
+ - Using v2 JS API for front-end integration
+ - Make sure you're not in debug mode when using your specific public/secret keys
