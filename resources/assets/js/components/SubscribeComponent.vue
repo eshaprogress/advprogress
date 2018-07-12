@@ -79,7 +79,7 @@
         </div>
         <form v-if="!isSuccessful" @submit.prevent="onSubmit" action="" class="subscribe-form">
             <div class="fields">
-                <input :name="emailoctopusId" type="hidden" value="">
+                <input :name="emailOctopusId" type="hidden" value="">
                 <form-field
                         id="first_name"
                         :is-required="true"
@@ -141,7 +141,7 @@
         {
             return {
                 isLoading:false,
-                emailoctopusId:emailoctopusId,
+                emailOctopusId:emailOctopusId,
                 isSuccessful:false,
                 errors:{
                     first_name:false,
@@ -175,7 +175,7 @@
             {
                 let emailRegex = /\S+@\S+\.\S+/;
                 let zipCode = /^(\d{5})+(?:[-\s]\d{4})?$/;
-                let subscribe_list_url = `https://emailoctopus.com/lists/${this.emailoctopusId}/members/embedded/1.1/add`;
+                let subscribe_list_url = `https://emailoctopus.com/lists/${this.emailOctopusId}/members/embedded/1.1/add`;
 
                 let errors = 0;
                 if(!emailRegex.test(this.form.email))
