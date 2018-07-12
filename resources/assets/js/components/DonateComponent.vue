@@ -517,6 +517,8 @@
     import axios from 'axios';
     import {stripePublishToken} from '../environment.json';
 
+    import { Base64 } from 'js-base64';
+
     export default {
         name: 'donateComponent',
         components: {
@@ -704,14 +706,23 @@
                 }, (status, response)=>{
                     console.log('status',status, 'response', response);
 
+                    let {id:stripeTokenId, card} = response;
+                    let {brand, last4, name, id:cardToken} = card;
+                    this.payment_info.card_brand = brand;
+                    this.payment_info.card_last_four = last4;
+
                     if(status === 200)
                     {
                         let data = {
                             form:this.form,
                             payment_info:this.payment_info,
-                            stripeToken:response.id
+                            name:name,
+                            cardToken,
+                            stripeToken:stripeTokenId
                         };
-                        axios.post('/api/donate', data).then(json=>console.log(json));
+                        let json_str = JSON.stringify(data);
+                        let encodedResponse = {data:Base64.encode(json_str)};
+                        axios.post('/api/donate', encodedResponse).then(json=>console.log(json));
                     }
                 });
             }

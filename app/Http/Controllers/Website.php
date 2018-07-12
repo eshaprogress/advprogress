@@ -20,7 +20,9 @@ class Website extends Controller
     public function donationSubmit(Request $request)
     {
         Stripe::setApiKey(config('app.stripe.secret'));
-
-        return response()->json([$request->all()]);
+        $requestData = $request->all();
+        $json = base64_decode($requestData['data']);
+        $data = json_decode($json);
+        return response()->json($data);
     }
 }
