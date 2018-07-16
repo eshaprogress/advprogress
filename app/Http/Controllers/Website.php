@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Stripe\Charge;
 use Stripe\Customer;
-use \Stripe\Stripe;
-use \Stripe\Account;
+use Stripe\Stripe;
 use Stripe\Subscription;
 
 class Website extends Controller
