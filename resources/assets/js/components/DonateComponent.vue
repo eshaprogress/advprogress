@@ -34,6 +34,18 @@
         margin-bottom: 20px;
     }
 
+    .success {
+        margin-top: 70px;
+        h2 {
+            color: var(--green);
+            text-align: center;
+            background-color: var(--white1);
+            padding: 20px;
+            display: block;
+            margin:0;
+        }
+    }
+
     .header {
         color: var(--black);
         padding: 0;
@@ -330,184 +342,196 @@
                 executive orders that will further our mission. Our participants include lawyers, scientists, professors
                 and activists from across the country.
             </p>
-            <div class="header">
-                <div class="hline1">
-                    <div class="line"></div>
+            <template v-if="isSuccessful">
+                <div class="success">
+                    <h2>Thank you for donating to our cause.</h2>
                 </div>
-                <div class="hcontent">Contact information</div>
-                <div class="hline2">
-                    <div class="line"></div>
-                </div>
-            </div>
-            <form @submit.prevent="onSubmit" class="donate-form">
-                <div class="fields contact-info-fields">
-                    <form-field
-                            class-name="first_name"
-                            id="first_name"
-                            :is-required="true"
-                            label-text="First Name"
-                            :is-errored="errors.first_name"
-                            :model-value="form.first_name"
-                            @onUpdate="onFirstNameChange"/>
-                    <form-field
-                            class-name="last_name"
-                            id="last_name"
-                            :is-required="true"
-                            label-text="Last Name"
-                            :is-errored="errors.last_name"
-                            :model-value="form.last_name"
-                            @onUpdate="onLastNameChange"/>
-                    <form-field
-                            class-name="address"
-                            id="address"
-                            :is-required="true"
-                            label-text="Address"
-                            :is-errored="errors.address"
-                            :model-value="form.address"
-                            @onUpdate="onAddressChange"/>
-                    <form-field
-                            class-name="city"
-                            id="city"
-                            :is-required="true"
-                            label-text="City"
-                            :is-errored="errors.city"
-                            :model-value="form.city"
-                            @onUpdate="onCityChange"/>
-                    <form-field
-                            class-name="state"
-                            id="state"
-                            :is-required="true"
-                            label-text="State"
-                            :is-errored="errors.state"
-                            :model-value="form.state"
-                            @onUpdate="onStateChange"/>
-                    <form-field
-                            class-name="zip_code"
-                            id="zip_code"
-                            :is-required="true"
-                            label-text="Zip Code"
-                            :is-errored="errors.zip_code"
-                            :model-value="form.zip_code"
-                            @onUpdate="onZipChange"/>
-                    <form-field
-                            class-name="email"
-                            id="email"
-                            :is-required="true"
-                            label-text="Email"
-                            :is-errored="errors.email"
-                            :model-value="form.email"
-                            @onUpdate="onEmailChange"/>
-                    <form-field
-                            class-name="phone"
-                            id="phone"
-                            :is-required="true"
-                            label-text="Phone"
-                            :is-errored="errors.phone"
-                            :model-value="form.phone"
-                            @onUpdate="onPhoneChange"/>
-                </div>
-                <div class="header" style="margin-top:50px;">
+            </template>
+            <template v-else>
+                <div class="header">
                     <div class="hline1">
                         <div class="line"></div>
                     </div>
-                    <div class="hcontent">Payment information</div>
+                    <div class="hcontent">Contact information</div>
                     <div class="hline2">
                         <div class="line"></div>
                     </div>
                 </div>
-                <div class="fields payment-info-fields">
-                    <div class="left">
-                        <div class="field-container left">
-                            <label>Amount</label>
-                            <div class="amount-container">
-                                <template v-for="amount in getAmounts">
-                                    <button :key="amount"
-                                            v-bind:class="isActiveAmount(amount)"
-                                            v-on:click="donateAmount(amount)"
-                                            type="button"> ${{(amount !== 'custom'?amount:'_____')}} </button>
-                                </template>
+                <form @submit.prevent="onSubmit" class="donate-form">
+                    <div class="fields contact-info-fields">
+                        <form-field
+                                class-name="first_name"
+                                id="first_name"
+                                :is-required="true"
+                                label-text="First Name"
+                                :is-errored="errors.first_name"
+                                :model-value="form.first_name"
+                                @onUpdate="onFirstNameChange"/>
+                        <form-field
+                                class-name="last_name"
+                                id="last_name"
+                                :is-required="true"
+                                label-text="Last Name"
+                                :is-errored="errors.last_name"
+                                :model-value="form.last_name"
+                                @onUpdate="onLastNameChange"/>
+                        <form-field
+                                class-name="address"
+                                id="address"
+                                :is-required="true"
+                                label-text="Address"
+                                :is-errored="errors.address"
+                                :model-value="form.address"
+                                @onUpdate="onAddressChange"/>
+                        <form-field
+                                class-name="city"
+                                id="city"
+                                :is-required="true"
+                                label-text="City"
+                                :is-errored="errors.city"
+                                :model-value="form.city"
+                                @onUpdate="onCityChange"/>
+                        <form-field
+                                class-name="state"
+                                id="state"
+                                :is-required="true"
+                                label-text="State"
+                                :is-errored="errors.state"
+                                :model-value="form.state"
+                                @onUpdate="onStateChange"/>
+                        <form-field
+                                class-name="zip_code"
+                                id="zip_code"
+                                :is-required="true"
+                                label-text="Zip Code"
+                                :is-errored="errors.zip_code"
+                                :model-value="form.zip_code"
+                                @onUpdate="onZipChange"/>
+                        <form-field
+                                class-name="email"
+                                id="email"
+                                :is-required="true"
+                                label-text="Email"
+                                :is-errored="errors.email"
+                                :model-value="form.email"
+                                @onUpdate="onEmailChange"/>
+                        <form-field
+                                class-name="phone"
+                                id="phone"
+                                :is-required="true"
+                                label-text="Phone"
+                                :is-errored="errors.phone"
+                                :model-value="form.phone"
+                                @onUpdate="onPhoneChange"/>
+                    </div>
+                    <div class="header" style="margin-top:50px;">
+                        <div class="hline1">
+                            <div class="line"></div>
+                        </div>
+                        <div class="hcontent">Payment information</div>
+                        <div class="hline2">
+                            <div class="line"></div>
+                        </div>
+                    </div>
+                    <div class="fields payment-info-fields">
+                        <div class="left">
+                            <div class="field-container left">
+                                <label>Amount</label>
+                                <div class="amount-container">
+                                    <template v-for="amount in getAmounts">
+                                        <button :key="amount"
+                                                v-bind:class="isActiveAmount(amount)"
+                                                v-on:click="donateAmount(amount)"
+                                                type="button"> ${{(amount !== 'custom'?amount:'_____')}} </button>
+                                    </template>
+                                </div>
+                                <div class="amount-container-custom">
+                                    <form-field
+                                            v-show="isCustomEnabled"
+                                            class-name="amount"
+                                            id="amount"
+                                            :is-required="true"
+                                            label-text="Custom Amount"
+                                            :is-errored="errors.amount"
+                                            :model-value="form.amount"
+                                            @onUpdate="onCustomAmount" />
+                                </div>
                             </div>
-                            <div class="amount-container-custom">
+                        </div>
+                        <div class="right">
+                            <div class="right-container">
                                 <form-field
-                                        v-show="isCustomEnabled"
-                                        class-name="amount"
-                                        id="amount"
+                                        class-name="ccnum"
+                                        id="ccnum"
                                         :is-required="true"
-                                        label-text="Custom Amount"
-                                        :is-errored="errors.amount"
-                                        :model-value="form.amount"
-                                        @onUpdate="onCustomAmount" />
+                                        placeholder-text="XXXX-XXXX-XXXX-XXXX"
+                                        label-text="Card Number"
+                                        :model-value="card.number"
+                                        :is-errored="errors.card_number"
+                                        @onUpdate="onCC_Number" />
+                                <form-field
+                                        class-name="cc-cvc"
+                                        id="cccvc"
+                                        :is-required="true"
+                                        label-text=""
+                                        placeholder-text="CVC"
+                                        :model-value="card.cvc"
+                                        :is-errored="errors.card_cvc"
+                                        @onUpdate="onCC_CVC" />
+                                <div class="break"></div>
+                                <form-field
+                                        class-name="ccexpirmonth"
+                                        id="ccexpirmonth"
+                                        :is-required="true"
+                                        label-text="Expiration"
+                                        :model-value="card.exp_month"
+                                        :is-errored="errors.card_exp_month"
+                                        placeholder-text="MM"
+                                        @onUpdate="onCC_Month" />
+                                <form-field
+                                        class-name="ccexpiryear"
+                                        id="ccexpiryear"
+                                        :is-required="true"
+                                        label-text=""
+                                        placeholder-text="YYYY"
+                                        :model-value="card.exp_year"
+                                        :is-errored="errors.card_exp_year"
+                                        @onUpdate="onCC_Year" />
                             </div>
                         </div>
                     </div>
-                    <div class="right">
-                        <div class="right-container">
-                            <form-field
-                                    class-name="ccnum"
-                                    id="ccnum"
-                                    :is-required="true"
-                                    placeholder-text="XXXX-XXXX-XXXX-XXXX"
-                                    label-text="Card Number"
-                                    :model-value="card.number"
-                                    :is-errored="errors.card_number"
-                                    @onUpdate="onCC_Number" />
-                            <form-field
-                                    class-name="cc-cvc"
-                                    id="cccvc"
-                                    :is-required="true"
-                                    label-text=""
-                                    placeholder-text="CVC"
-                                    :model-value="card.cvc"
-                                    :is-errored="errors.card_cvc"
-                                    @onUpdate="onCC_CVC" />
-                            <div class="break"></div>
-                            <form-field
-                                    class-name="ccexpirmonth"
-                                    id="ccexpirmonth"
-                                    :is-required="true"
-                                    label-text="Expiration"
-                                    :model-value="card.exp_month"
-                                    :is-errored="errors.card_exp_month"
-                                    placeholder-text="MM"
-                                    @onUpdate="onCC_Month" />
-                            <form-field
-                                    class-name="ccexpiryear"
-                                    id="ccexpiryear"
-                                    :is-required="true"
-                                    label-text=""
-                                    placeholder-text="YYYY"
-                                    :model-value="card.exp_year"
-                                    :is-errored="errors.card_exp_year"
-                                    @onUpdate="onCC_Year" />
+                    <div class="fields payment-confirmation">
+                        <div class="payment-choice">
+                            <h3>Please Select A Donation Option</h3>
+                            <div class="payment-choice-container">
+                                <label v-bind:class="isPaymentTypeActive('simple-donation')" for="simple-donation">
+                                    <input id="simple-donation" v-model="payment_info.payment_type" name="payment_type"
+                                           value="simple-donation" type="radio"/>
+                                    <span class="text">One Time Donation</span>
+                                </label>
+                                <label v-bind:class="isPaymentTypeActive('subscription')" for="subscription">
+                                    <input id="subscription" v-model="payment_info.payment_type" name="payment_type"
+                                                                     value="subscription" type="radio"/>
+                                    <span class="text">Reoccurring Monthly Donation</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="totals">
+                            <div class="total_label">Your Total Contribution</div>
+                            <div class="line"></div>
+                            <div class="total_amount">${{getFormattedAmount}}</div>
+                        </div>
+                        <div class="submit">
+                            <button class="btn green" type="submit">
+                                <span v-if="isSubmitting" class="is-loading">
+                                    <div class="fa fa-spinner fa-spin"></div>
+                                </span>
+                                <span v-else>DONATE</span>
+                            </button>
                         </div>
                     </div>
-                </div>
-                <div class="fields payment-confirmation">
-                    <div class="payment-choice">
-                        <h3>Please Select A Donation Option</h3>
-                        <div class="payment-choice-container">
-                            <label v-bind:class="isPaymentTypeActive('simple-donation')" for="simple-donation">
-                                <input id="simple-donation" v-model="payment_info.payment_type" name="payment_type"
-                                       value="simple-donation" type="radio"/>
-                                <span class="text">One Time Donation</span>
-                            </label>
-                            <label v-bind:class="isPaymentTypeActive('subscription')" for="subscription">
-                                <input id="subscription" v-model="payment_info.payment_type" name="payment_type"
-                                                                 value="subscription" type="radio"/>
-                                <span class="text">Reoccurring Monthly Donation</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="totals">
-                        <div class="total_label">Your Total Contribution</div>
-                        <div class="line"></div>
-                        <div class="total_amount">${{getFormattedAmount}}</div>
-                    </div>
-                    <div class="submit">
-                        <button class="btn green" type="submit">DONATE</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </template>
         </div>
     </section>
 </template>
@@ -527,8 +551,8 @@
         data() {
             return {
                 stripePublishToken:stripePublishToken,
-                complete: false,
-                isSuccess: false,
+                isSubmitting:false,
+                isSuccessful: false,
                 amounts: {
                     '10': false,
                     '15': false,
@@ -696,6 +720,8 @@
                 if(errors > 0)
                     return;
 
+                this.isSubmitting = true;
+
                 Stripe.card.createToken({
                     number: this.card.number,
                     cvc: this.card.cvc,
@@ -727,7 +753,20 @@
                         };
                         let json_str = JSON.stringify(data);
                         let encodedResponse = {data:Base64.encode(json_str)};
-                        axios.post('/api/donate', encodedResponse).then(json=>console.log(json));
+                        axios.post('/api/donate', encodedResponse).then(json=>{
+                            if(json.status)
+                            {
+                                this.isSubmitting = false;
+                                this.isSuccessful = true;
+                            }
+                        }).catch((error)=>{
+                            console.error(error);
+                            this.isSuccessful = false;
+                            this.isSubmitting = false;
+                        });
+                    } else {
+                        this.isSubmitting = false;
+                        this.isSuccessfulful = false;
                     }
                 });
             }
