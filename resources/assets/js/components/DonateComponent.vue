@@ -546,7 +546,8 @@
                     zip_code: '',
                     phone: '',
                     email: '',
-                    amount: 0
+                    amount: 0,
+                    isCustom:false,
                 },
                 card:{
                     number:'',
@@ -557,7 +558,6 @@
                 payment_info: {
                     payment_type: 'subscription',
                     card_brand: '',
-                    strip_id:'',
                     card_last_four:''
                 },
                 errors: {
@@ -668,19 +668,22 @@
                 trim_values.forEach((key)=>{
                     this.card[key] = this.card[key].trim();
                 });
+                let testCardNumber = Stripe.card.validateCardNumber(this.card.number);
+                let testExpirationDate = Stripe.card.validateExpiry(this.card.exp_month, this.card.exp_year);
+                let testCVVNumber = Stripe.card.validateCVC(this.card.cvc);
 
-                if(!Stripe.card.validateCardNumber(this.card.number))
+                if(!testCardNumber)
                 {
                     this.errors.card_number = true;
                     errors++;
                 }
-                if(!Stripe.card.validateExpiry(this.card.exp_month, this.card.exp_year))
+                if(!testExpirationDate)
                 {
                     this.errors.card_exp_month = true;
                     this.errors.card_exp_year = true;
                     errors++;
                 }
-                if(!Stripe.card.validateCVC(this.card.cvc))
+                if(!testCVVNumber)
                 {
                     this.errors.card_cvc = true;
                     errors++;
@@ -713,6 +716,8 @@
 
                     if(status === 200)
                     {
+                        this.form.isCustom = this.isCustomEnabled;
+
                         let data = {
                             form:this.form,
                             payment_info:this.payment_info,
