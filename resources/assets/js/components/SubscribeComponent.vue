@@ -82,35 +82,40 @@
                 <input :name="emailOctopusId" type="hidden" value="">
                 <form-field
                         id="first_name"
-                        :is-required="true"
-                        :is-errored="errors.first_name"
                         label-text="First Name"
                         field-name="embedded_form_subscription[field_1]"
+                        auto-complete="given-name"
+                        :is-required="true"
+                        :is-errored="errors.first_name"
                         :model-value="form.first_name"
                         @onUpdate="onFirstNameChange" />
                 <form-field
                         id="last_name"
-                        :is-required="true"
-                        :is-errored="errors.last_name"
                         label-text="Last Name"
                         field-name="embedded_form_subscription[field_2]"
+                        auto-complete="family-name"
                         :model-value="form.last_name"
+                        :is-required="true"
+                        :is-errored="errors.last_name"
                         @onUpdate="onLastNameChange" />
                 <form-field
                         id="zip_code"
-                        :is-required="true"
-                        :is-errored="errors.zip_code"
                         label-text="Zip Code"
                         field-name="embedded_form_subscription[field_3]"
+                        auto-complete="postal-code"
                         :model-value="form.zip_code"
+                        :is-required="true"
+                        :is-errored="errors.zip_code"
                         @onUpdate="onZipChange" />
                 <form-field
                         id="email"
-                        :is-required="true"
-                        :is-errored="errors.email"
                         label-text="Email"
                         field-name="embedded_form_subscription[field_0]"
+                        field-type="email"
+                        auto-complete="email"
                         :model-value="form.email"
+                        :is-required="true"
+                        :is-errored="errors.email"
                         @onUpdate="onEmailChange" />
                 <div class="submit">
                     <button class="btn green" type="submit">

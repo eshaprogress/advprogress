@@ -362,66 +362,76 @@
                         <form-field
                                 class-name="first_name"
                                 id="first_name"
-                                :is-required="true"
                                 label-text="First Name"
-                                :is-errored="errors.first_name"
+                                auto-complete="given-name"
                                 :model-value="form.first_name"
+                                :is-required="true"
+                                :is-errored="errors.first_name"
                                 @onUpdate="onFirstNameChange"/>
                         <form-field
                                 class-name="last_name"
                                 id="last_name"
-                                :is-required="true"
                                 label-text="Last Name"
-                                :is-errored="errors.last_name"
+                                auto-complete="family-name"
                                 :model-value="form.last_name"
+                                :is-required="true"
+                                :is-errored="errors.last_name"
                                 @onUpdate="onLastNameChange"/>
                         <form-field
                                 class-name="address"
                                 id="address"
-                                :is-required="true"
                                 label-text="Address"
-                                :is-errored="errors.address"
+                                auto-complete="street-address"
                                 :model-value="form.address"
+                                :is-required="true"
+                                :is-errored="errors.address"
                                 @onUpdate="onAddressChange"/>
                         <form-field
                                 class-name="city"
                                 id="city"
-                                :is-required="true"
                                 label-text="City"
-                                :is-errored="errors.city"
+                                auto-complete="address-level2"
                                 :model-value="form.city"
+                                :is-required="true"
+                                :is-errored="errors.city"
                                 @onUpdate="onCityChange"/>
                         <form-field
                                 class-name="state"
                                 id="state"
-                                :is-required="true"
                                 label-text="State"
-                                :is-errored="errors.state"
+                                auto-complete="address-level1"
                                 :model-value="form.state"
+                                :is-required="true"
+                                :is-errored="errors.state"
                                 @onUpdate="onStateChange"/>
                         <form-field
                                 class-name="zip_code"
                                 id="zip_code"
-                                :is-required="true"
                                 label-text="Zip Code"
-                                :is-errored="errors.zip_code"
+                                auto-complete="postal-code"
                                 :model-value="form.zip_code"
+                                :is-required="true"
+                                :is-errored="errors.zip_code"
                                 @onUpdate="onZipChange"/>
                         <form-field
                                 class-name="email"
                                 id="email"
-                                :is-required="true"
+                                field-type="email'"
                                 label-text="Email"
-                                :is-errored="errors.email"
+                                auto-complete="email"
                                 :model-value="form.email"
+                                :is-required="true"
+                                :is-errored="errors.email"
                                 @onUpdate="onEmailChange"/>
                         <form-field
                                 class-name="phone"
                                 id="phone"
-                                :is-required="true"
                                 label-text="Phone"
-                                :is-errored="errors.phone"
+                                auto-complete="tel-national"
+                                field-type="tel"
                                 :model-value="form.phone"
+                                :is-required="true"
+                                :is-errored="errors.phone"
                                 @onUpdate="onPhoneChange"/>
                     </div>
                     <div class="header" style="margin-top:50px;">
@@ -450,10 +460,10 @@
                                             v-show="isCustomEnabled"
                                             class-name="amount"
                                             id="amount"
-                                            :is-required="true"
                                             label-text="Custom Amount"
-                                            :is-errored="errors.amount"
                                             :model-value="form.amount"
+                                            :is-required="true"
+                                            :is-errored="errors.amount"
                                             @onUpdate="onCustomAmount" />
                                 </div>
                             </div>
@@ -463,38 +473,42 @@
                                 <form-field
                                         class-name="ccnum"
                                         id="ccnum"
-                                        :is-required="true"
                                         placeholder-text="XXXX-XXXX-XXXX-XXXX"
                                         label-text="Card Number"
+                                        auto-complete="cc-number"
                                         :model-value="card.number"
+                                        :is-required="true"
                                         :is-errored="errors.card_number"
                                         @onUpdate="onCC_Number" />
                                 <form-field
                                         class-name="cc-cvc"
                                         id="cccvc"
-                                        :is-required="true"
                                         label-text=""
                                         placeholder-text="CVC"
+                                        auto-complete="cc-csc"
                                         :model-value="card.cvc"
+                                        :is-required="true"
                                         :is-errored="errors.card_cvc"
                                         @onUpdate="onCC_CVC" />
                                 <div class="break"></div>
                                 <form-field
                                         class-name="ccexpirmonth"
                                         id="ccexpirmonth"
-                                        :is-required="true"
                                         label-text="Expiration"
+                                        auto-complete="cc-exp-month"
+                                        placeholder-text="MM"
                                         :model-value="card.exp_month"
                                         :is-errored="errors.card_exp_month"
-                                        placeholder-text="MM"
+                                        :is-required="true"
                                         @onUpdate="onCC_Month" />
                                 <form-field
                                         class-name="ccexpiryear"
                                         id="ccexpiryear"
-                                        :is-required="true"
                                         label-text=""
+                                        auto-complete="cc-exp-year"
                                         placeholder-text="YYYY"
                                         :model-value="card.exp_year"
+                                        :is-required="true"
                                         :is-errored="errors.card_exp_year"
                                         @onUpdate="onCC_Year" />
                             </div>

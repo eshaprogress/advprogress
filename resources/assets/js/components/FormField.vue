@@ -23,7 +23,7 @@
             height:34px;
             line-height: 34px;
         }
-        input[type=text] {
+        input {
             background-color: var(--white1);
             color: var(--black);
             font-size: 20px;
@@ -40,14 +40,15 @@
 
 <template>
     <div class="field" v-bind:class="setClassNames">
-        <label v-bind:for="id">{{labelText}}</label>
+        <label :for="id">{{labelText}}</label>
         <input
             v-model="value"
             :placeholder="placeholderText"
             :required="isRequired"
             :name="fieldName"
-            v-bind:id="id"
-            type="text"
+            :type="fieldType"
+            :id="id"
+            :autocomplete="autoComplete"
             @keyup="updateText" />
     </div>
 </template>
@@ -87,6 +88,14 @@
                 default:false
             },
             placeholderText:{
+                type:String,
+                default:''
+            },
+            fieldType:{
+                type:String,
+                default:'text'
+            },
+            autoComplete:{
                 type:String,
                 default:''
             }
