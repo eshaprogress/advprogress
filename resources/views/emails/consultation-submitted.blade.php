@@ -19,4 +19,4 @@
     <div><strong>Phone:</strong> {{$data['phone']}}</div>
 </div>
 
-<p><strong>Comment</strong> <br > {{$data['comment']}}</p>
+<p><strong>Comment</strong> <br /> {{$data['comment']}}</p>
