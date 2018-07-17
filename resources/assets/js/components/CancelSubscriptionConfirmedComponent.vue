@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-    .cancel-subscipriont-confirmation {
+    .cancel-subscription-confirmation {
         margin-top: 50px;
         margin-bottom: 50px;
     }
@@ -71,11 +71,11 @@
 </style>
 
 <template>
-    <section class="section cancel-subscipriont-confirmation">
+    <section class="section cancel-subscription-confirmation">
         <h2>Cancel Subscription Confirmation</h2>
         <div class="icon">
-            <p>We're sad to see you go, this form will allow you to look up your email and let us know you want to cancel your subscription. <br />
-                Once submitted, this will cancel your subscription with us.</p>
+            <p>You still have an opportunity to not cancel, this is your last chance.</p>
+            <p>Once submitted, this will cancel your subscription with us.</p>
         </div>
         <form v-if="!isSuccessful" @submit.prevent="onSubmit" action="" class="cancel-subscribe-form">
             <div class="fields">
@@ -123,25 +123,17 @@
             }
         },
         methods:{
-            onCodeChange(value){
-                this.form.zip_code = value;
+            onCodeChange(value)
+            {
+                this.form.code = value;
             },
             onSubmit()
             {
-                let emailRegex = /\S+@\S+\.\S+/;
-                let zipCode = /^(\d{5})+(?:[-\s]\d{4})?$/;
-
                 let errors = 0;
-                if(!emailRegex.test(this.form.email))
+                if(!this.form.code.length)
                 {
                     errors++;
-                    this.errors.email = true;
-                }
-
-                if(!zipCode.test(this.form.zip_code))
-                {
-                    errors++;
-                    this.errors.zip_code = true;
+                    this.errors.code = true;
                 }
 
                 if(errors>0)
@@ -151,7 +143,7 @@
 
                 this.isSubmitting = true;
 
-                axios.post('/api/cancel-subscipriont-confirmation', this.form).then(json=>{
+                axios.post('/api/cancel-subscription-confirmed', this.form).then(json=>{
                     if(json.status)
                     {
                         this.isSubmitting = false;

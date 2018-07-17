@@ -14,10 +14,14 @@ class CancelDonationSubscription extends Migration
     public function up()
     {
         Schema::create("cancel_donation_subscription", function(Blueprint $t){
+            $t->integer('id', true);
             $t->string('email', 120);
             $t->string('zip_code', strlen('00000-0000'));
             $t->uuid('code');
             $t->boolean('used');
+            $t->timestamps();
+            $t->index(['email','zip_code']);
+            $t->index('code');
         });
     }
 

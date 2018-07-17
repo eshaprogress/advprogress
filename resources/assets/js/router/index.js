@@ -4,6 +4,7 @@ Vue.use(VueRouter);
 
 import HomeComponent from '../components/HomeComponent';
 import DonateComponent from '../components/DonateComponent';
+import CancelSubscriptionComponent from '../components/CancelSubscriptionComponent';
 import CancelSubscriptionConfirmedComponent from '../components/CancelSubscriptionConfirmedComponent';
 import NotFoundComponent from '../components/NotFoundComponent';
 
@@ -18,12 +19,12 @@ const routes = [
         component: DonateComponent
     },
     {
-        path: '/cancel-subscription',
-        component: CancelSubscriptionComponent
-    },
-    {
         path: '/cancel-subscription/confirm',
         component: CancelSubscriptionConfirmedComponent
+    },
+    {
+        path: '/cancel-subscription',
+        component: CancelSubscriptionComponent
     },
     {
         path: '/not-found',

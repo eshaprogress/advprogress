@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
+use Ramsey\Uuid\Uuid;
 use Stripe\Charge;
 use Stripe\Customer;
 use Stripe\Stripe;
@@ -46,7 +47,6 @@ class Website extends Controller
         $form = $data['form'];
 
         $customerStripeId = null;
-        $customerStripeCardToken = null;
         $customer = Customer::all([
             "limit" => 1,
             'email'=>$form['email']
@@ -54,7 +54,6 @@ class Website extends Controller
         if(count($customer['data']) > 0)
         {
             $customerStripeId = $customer['data'][0]['id'];
-            $customerStripeCardToken = $customer['data'][0]['default_source'];
         }
         else
         {
@@ -147,8 +146,6 @@ class Website extends Controller
                 'success'=>false
             ]);
         }
-
-        return response()->json($data);
     }
 
     public function cancelSubscription(Request $request)
@@ -157,7 +154,9 @@ class Website extends Controller
 
         $data = $request->all();
 
+        $uuid1 = Uuid::uuid1();
         $cancel = new CancelDonationSubscription();
+        $cancel->code = $uuid1->toString();
         $cancel->email = $data['email'];
         $cancel->zip_code = $data['zip_code'];
         $cancel->used = false;
@@ -176,7 +175,7 @@ class Website extends Controller
         });
 
         return response()->json([
-            'success'=>false
+            'success'=>true
         ]);
     }
 
