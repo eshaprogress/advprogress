@@ -8,6 +8,7 @@ use Stripe\Charge;
 use Stripe\Customer;
 use Stripe\Stripe;
 use Stripe\Subscription;
+use App\CancelDonationSubscription;
 
 class Website extends Controller
 {
@@ -21,11 +22,16 @@ class Website extends Controller
         return view('index');
     }
 
-    public function donationSubmit(Request $request)
+    private static function bootStrapStripe()
     {
         Stripe::setApiKey(config('services.stripe.secret'));
         Stripe::setClientId(config('services.stripe.key'));
         Stripe::setApiVersion("2018-05-21");
+    }
+
+    public function donationSubmit(Request $request)
+    {
+        self::bootStrapStripe();
 
         $plans = config('services.stripe.plans');
         $planHighestValue = array_map(function($val)
@@ -142,7 +148,84 @@ class Website extends Controller
             ]);
         }
 
-
         return response()->json($data);
+    }
+
+    public function cancelSubscription(Request $request)
+    {
+        self::bootStrapStripe();
+
+        $data = $request->all();
+
+        $cancel = new CancelDonationSubscription();
+        $cancel->email = $data['email'];
+        $cancel->zip_code = $data['zip_code'];
+        $cancel->used = false;
+        $cancel->save();
+
+        \Mail::send('emails.cancel-confirm', ['data' => [
+            'email'=>$cancel->email,
+            'code'=>$cancel->code
+        ]], function (Message $m) use ($data) {
+            $domain = config('services.mailgun.domain');
+            $m->from("noreply@{$domain}", config('app.name'));
+
+            $appName = config('app.name');
+            $subject = "{$appName} really wishes you'd reconsider";
+            $m->to($data['email'], "Patron")->subject($subject);
+        });
+
+        return response()->json([
+            'success'=>false
+        ]);
+    }
+
+    public function confirmCancelSubscription(Request $request)
+    {
+        self::bootStrapStripe();
+
+        $data = $request->all();
+        $cancelInfo = CancelDonationSubscription::whereCode($data['code'])->first();
+        $customers = Customer::all([
+            "limit" => 1,
+            'email'=> $cancelInfo->email
+        ]);
+
+        $cancelInfo->used = true;
+        $cancelInfo->save();
+
+        if(count($customers['data']) > 0)
+        {
+            foreach($customers['data'] as $customer)
+            {
+                if(
+                    $cancelInfo->email === $customer['email'] &&
+                    $cancelInfo->zip_code === $customer['shipping']['address']['postal_code'])
+                {
+                    foreach($customer['subscriptions']['data'] as $subscription)
+                    {
+                        $pull = Subscription::retrieve($subscription['id']);
+                        $pull->cancel();
+                    }
+
+                    \Mail::send('emails.cancel-confirmed', [], function (Message $m) use ($cancelInfo) {
+                        $domain = config('services.mailgun.domain');
+                        $m->from("noreply@{$domain}", config('app.name'));
+
+                        $appName = config('app.name');
+                        $subject = "{$appName} hopes to see you back soon.";
+                        $m->to($cancelInfo->email, "Patron")->subject($subject);
+                    });
+
+                    return response()->json([
+                        'success'=>true
+                    ]);
+                }
+            }
+
+            return response()->json([
+                'success'=>false
+            ]);
+        }
     }
 }

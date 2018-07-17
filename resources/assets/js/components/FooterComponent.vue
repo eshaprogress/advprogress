@@ -116,6 +116,9 @@
                         <li>
                             <router-link to="/donate">Donations</router-link>
                         </li>
+                        <li>
+                            <router-link to="/cancel-subscription">Cancel Subscription</router-link>
+                        </li>
                     </ul>
                 </div>
                 <div class="link-list contact-us">
