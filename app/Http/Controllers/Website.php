@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Mail\Message;
 use Stripe\Charge;
 use Stripe\Customer;
 use Stripe\Stripe;
@@ -80,6 +81,7 @@ class Website extends Controller
         }
         $plan = array_pop($plan);
 
+        $isSuccessful = false;
         switch($data['payment_info']['payment_type'])
         {
             case 'subscription':
@@ -98,24 +100,48 @@ class Website extends Controller
                 ];
 
                 Subscription::create($submitSubscription);
-                return response()->json([
-                    'success'=>true
-                ]);
+                $isSuccessful = true;
+                break;
 
             case 'simple-donation':
                 $format_charge_cost = number_format($amount);
                 $submitCharge = [
                     "amount" => $amount * 100,
                     "currency" => "usd",
-                    "source" => $data['cardToken'],
+                    "customer" => $customerStripeId,
                     "description" => "Charge for {$form['email']} for: {$format_charge_cost}"
                 ];
 
                 Charge::create($submitCharge);
-                return response()->json([
-                    'success'=>true
-                ]);
+                $isSuccessful = true;
+                break;
+
+            default:
+                throw new \Exception("Fix Logic");
         }
+
+        if($isSuccessful)
+        {
+            \Mail::send('emails.welcome', ['data' => $data], function (Message $m) use ($data) {
+                $domain = config('services.mailgun.domain');
+                $m->from("noreply@{$domain}", config('app.name'));
+
+                $appName = config('app.name');
+                $subject = "{$appName} Thanks you for your donation";
+                $m->to($data['form']['email'], $data['name'])->subject($subject);
+            });
+
+            return response()->json([
+                'success'=>true
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'success'=>false
+            ]);
+        }
+
 
         return response()->json($data);
     }
