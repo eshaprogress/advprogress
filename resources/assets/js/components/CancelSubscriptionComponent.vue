@@ -108,8 +108,7 @@
                 </div>
             </div>
         </form>
-        <div class="successful-subscription" v-else>Thank you for subscribing to our news letter!</div>
-
+        <div class="successful-subscription" v-else>Please reconsider cancellation of your subscription.</div>
     </section>
 </template>
 

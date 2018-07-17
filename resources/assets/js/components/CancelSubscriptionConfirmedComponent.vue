@@ -96,7 +96,7 @@
                 </div>
             </div>
         </form>
-        <div class="successful-cancellation" v-else>Bye..</div>
+        <div class="successful-cancellation" v-else>Good Bye Patron.</div>
     </section>
 </template>
 
