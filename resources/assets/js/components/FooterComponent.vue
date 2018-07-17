@@ -2,6 +2,17 @@
     .footer {
         height: 390px;
         background-image: linear-gradient(to top, #03bf3c, #009de1);
+        position: relative;
+        .bird-footer {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 376px;
+            height: 200px;
+            overflow: hidden;
+            background-size: 400px;
+            background: url(/images/bird_footer.svg) no-repeat;
+        }
         .footer-container {
             color:var(--white);
             max-width: 1150px;
@@ -10,6 +21,7 @@
             align-items: center;
             justify-content: center;
             margin:auto;
+
             .share-icons {
                 padding-top: 225px;
                 width: 600px;
@@ -140,6 +152,7 @@
                 </div>
             </div>
         </div>
+        <div class="bird-footer"></div>
     </footer>
 </template>
 
