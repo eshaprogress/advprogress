@@ -7,8 +7,8 @@
             position: absolute;
             bottom: 0;
             right: 0;
-            width: 376px;
-            height: 200px;
+            width: 390px;
+            height: 220px;
             overflow: hidden;
             background: url(/images/bird_footer.svg) no-repeat;
             background-size: 400px;
