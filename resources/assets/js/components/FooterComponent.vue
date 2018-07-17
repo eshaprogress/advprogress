@@ -50,6 +50,7 @@
                     font-stretch: normal;
                     line-height: normal;
                     letter-spacing: normal;
+                    text-transform: uppercase;
                 }
             }
             .link-list-container {

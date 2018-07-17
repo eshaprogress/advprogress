@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ConsultationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
 use Ramsey\Uuid\Uuid;
@@ -146,6 +147,43 @@ class Website extends Controller
                 'success'=>false
             ]);
         }
+    }
+
+    public function consultationSubmit(Request $request)
+    {
+        $validateConsultationRequest = new ConsultationRequest();
+        $data = $request->all();
+        $validation = \Validator::make($data, $validateConsultationRequest->rules());
+        if($validation->fails()) {
+            return response()->json([
+                'status' => false,
+                'errors' => $validation->errors()
+            ], 200);
+        }
+
+        $data['name'] = "{$data['first_name']} {$data['last_name']}";
+
+        \Mail::send('emails.consultation-submitted', ['data' => $data], function (Message $m) use ($data) {
+            $domain = config('services.mailgun.domain');
+            $m->from("noreply@{$domain}", config('app.name'));
+
+            $appName = config('app.name');
+            $subject = "{$appName} Consultation Submitted";
+            $m->to($data['email'], $data['name'])->subject($subject);
+        });
+
+        \Mail::send('emails.consultation-request', ['data' => $data], function (Message $m) use ($data) {
+            $domain = config('services.mailgun.domain');
+            $m->from("noreply@{$domain}", config('app.name'));
+
+            $appName = config('app.name');
+            $subject = "{$appName} Consultation requested by {$data['name']}";
+            $m->to(config('app.contact_email'), "Admin")->subject($subject);
+        });
+
+        return response()->json([
+            'success'=>true
+        ]);
     }
 
     public function cancelSubscription(Request $request)

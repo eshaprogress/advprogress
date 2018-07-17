@@ -10,6 +10,10 @@
             }
         }
 
+        &.disabled {
+            opacity: .5;
+        }
+
         label {
             color: var(--black);
             font-size: 18px;
@@ -35,21 +39,57 @@
             line-height: 40px;
             text-indent: 10px;
         }
+
+        label, input {
+            .disabled {
+                background-color: var(--gray);
+                color:var(--gray);
+            }
+        }
+
+        textarea {
+            background-color: var(--white1);
+            color: var(--black);
+            font-size: 20px;
+            font-weight: 500;
+            display: block;
+            border: none;
+            width: var(--column-width);
+            max-width: var(--column-width);
+            min-width: var(--column-width);
+            min-height: var(--min-height);
+            line-height: 40px;
+            text-indent: 10px;
+        }
     }
 </style>
 
 <template>
     <div class="field" v-bind:class="setClassNames">
-        <label :for="id">{{labelText}}</label>
-        <input
-            v-model="value"
-            :placeholder="placeholderText"
-            :required="isRequired"
-            :name="fieldName"
-            :type="fieldType"
-            :id="id"
-            :autocomplete="autoComplete"
-            @keyup="updateText" />
+        <label :for="id" :class="{disabled:isDisabled}">{{labelText}}</label>
+        <template v-if="isTextArea">
+            <textarea v-model="value"
+                      :placeholder="placeholderText"
+                      :required="isRequired"
+                      :name="fieldName"
+                      :type="fieldType"
+                      :id="id"
+                      :autocomplete="autoComplete"
+                      :style="styleVars"
+                      @keyup="updateText"></textarea>
+        </template>
+        <template v-else>
+            <input v-model="value"
+                   :class="{disabled:isDisabled}"
+                   :disabled="isDisabled"
+                   :placeholder="placeholderText"
+                   :required="isRequired"
+                   :name="fieldName"
+                   :type="fieldType"
+                   :id="id"
+                   :autocomplete="autoComplete"
+                   @keyup="updateText" />
+        </template>
     </div>
 </template>
 <script>
@@ -98,6 +138,18 @@
             autoComplete:{
                 type:String,
                 default:''
+            },
+            isTextArea:{
+                type:Boolean,
+                default:false
+            },
+            styleVars:{
+                type:String,
+                default:''
+            },
+            isDisabled:{
+                type:Boolean,
+                default:false
             }
         },
         computed:{
@@ -106,6 +158,9 @@
                 let tmp = {};
                 if(this.className.length > 0)
                     tmp[this.className] = true;
+
+                if(this.isDisabled)
+                    tmp['disabled'] = true;
 
                 if(this.isErrored)
                     tmp['error'] = true;

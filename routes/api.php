@@ -19,5 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/donate', 'Website@indexWildCard');
 Route::post('/donate', 'Website@donationSubmit');
+Route::post('/consultation', 'Website@consultationSubmit');
 Route::post('/cancel-subscription', 'Website@cancelSubscription');
 Route::post('/cancel-subscription-confirmed', 'Website@confirmCancelSubscription');

@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 import HomeComponent from '../components/HomeComponent';
+import ConsultationComponent from '../components/ConsultationComponent';
 import DonateComponent from '../components/DonateComponent';
 import CancelSubscriptionComponent from '../components/CancelSubscriptionComponent';
 import CancelSubscriptionConfirmedComponent from '../components/CancelSubscriptionConfirmedComponent';
@@ -17,6 +18,10 @@ const routes = [
     {
         path: '/donate',
         component: DonateComponent
+    },
+    {
+        path: '/consultation',
+        component: ConsultationComponent
     },
     {
         path: '/cancel-subscription/confirm',

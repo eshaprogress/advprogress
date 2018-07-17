@@ -109,6 +109,7 @@ return [
     'cipher' => 'AES-256-CBC',
 
     'octopus_id' => env('OCTOPUS_ID',''),
+    'contact_email' => env('CONTACT_EMAIL',''),
 
     /*
     |--------------------------------------------------------------------------

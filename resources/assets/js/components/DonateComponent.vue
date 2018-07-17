@@ -538,7 +538,7 @@
                         <div class="submit">
                             <button class="btn green" type="submit">
                                 <span v-if="isSubmitting" class="is-loading">
-                                    <div class="fa fa-spinner fa-spin"></div>
+                                    <i class="fa fa-spinner fa-spin"></i>
                                 </span>
                                 <span v-else>DONATE</span>
                             </button>
