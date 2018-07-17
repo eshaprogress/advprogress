@@ -10,8 +10,8 @@
             width: 376px;
             height: 200px;
             overflow: hidden;
-            background-size: 400px;
             background: url(/images/bird_footer.svg) no-repeat;
+            background-size: 400px;
         }
         .footer-container {
             color:var(--white);
