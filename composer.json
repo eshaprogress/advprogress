@@ -57,7 +57,8 @@
         ],
         "post-install-cmd": [
             "php artisan config:cache",
-            "php artisan clear-compiled"
+            "php artisan clear-compiled",
+            "php artisan install:js:conf"
         ],
         "dev-update": [
             "php artisan ide-helper:generate",
