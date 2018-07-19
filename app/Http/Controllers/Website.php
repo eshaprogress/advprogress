@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ConsultationRequest;
+use App\Http\Requests\DonationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
 use Ramsey\Uuid\Uuid;
@@ -31,9 +32,20 @@ class Website extends Controller
         Stripe::setApiVersion("2018-05-21");
     }
 
+    // TODO: Figure out what a cc decline looks like and attach to front-end logic.
     public function donationSubmit(Request $request)
     {
         self::bootStrapStripe();
+
+        $validateDonationRequest = new DonationRequest();
+        $data = $request->request->all();
+        $validation = \Validator::make($data, $validateDonationRequest->rules(), $validateDonationRequest->messages());
+        if($validation->fails()) {
+            return response()->json([
+                'status' => false,
+                'errors' => $validation->errors()
+            ], 422);
+        }
 
         $plans = config('services.stripe.plans');
         $planHighestValue = array_map(function($val)
@@ -42,9 +54,6 @@ class Website extends Controller
         }, $plans);
         $planHighestValue = max($planHighestValue);
 
-        $requestData = $request->all();
-        $json = base64_decode($requestData['data']);
-        $data = json_decode($json, true);
         $form = $data['form'];
 
         $customerStripeId = null;
@@ -128,25 +137,33 @@ class Website extends Controller
 
         if($isSuccessful)
         {
-            \Mail::send('emails.welcome', ['data' => $data], function (Message $m) use ($data) {
-                $domain = config('services.mailgun.domain');
-                $m->from("noreply@{$domain}", config('app.name'));
+            try
+            {
+                \Mail::send('emails.welcome', ['data' => $data], function (Message $m) use ($data) {
+                    $domain = config('services.mailgun.domain');
+                    $m->from("noreply@{$domain}", config('app.name'));
 
-                $appName = config('app.name');
-                $subject = "{$appName} Thanks you for your donation";
-                $m->to($data['form']['email'], $data['name'])->subject($subject);
-            });
+                    $appName = config('app.name');
+                    $subject = "{$appName} Thanks you for your donation";
+                    $m->to($data['form']['email'], $data['name'])->subject($subject);
+                });
 
-            return response()->json([
-                'success'=>true
-            ]);
+                return response()->json([
+                    'success'=>true
+                ]);
+            }
+            catch(\Exception $e)
+            {
+                \Log::emergency($e->getMessage()."\n".$e->getTraceAsString());
+                return response()->json([
+                    'success'=>false
+                ], 422);
+            }
         }
-        else
-        {
-            return response()->json([
-                'success'=>false
-            ]);
-        }
+
+        return response()->json([
+            'success'=>false
+        ]);
     }
 
     public function consultationSubmit(Request $request)
@@ -158,7 +175,7 @@ class Website extends Controller
             return response()->json([
                 'status' => false,
                 'errors' => $validation->errors()
-            ], 200);
+            ], 422);
         }
 
         $data['name'] = "{$data['first_name']} {$data['last_name']}";

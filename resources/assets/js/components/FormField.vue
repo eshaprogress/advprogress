@@ -15,6 +15,14 @@
         }
 
         label {
+            &.error-message {
+                color: var(--red);
+                font-size: 12px;
+                line-height: 12px;
+                padding-top: 5px;
+                height: auto;
+                text-align: right;
+            }
             color: var(--black);
             font-size: 18px;
             font-weight: normal;
@@ -76,6 +84,7 @@
                       :id="id"
                       :autocomplete="autoComplete"
                       :style="styleVars"
+                      @blur="updateText"
                       @keyup="updateText"></textarea>
         </template>
         <template v-else>
@@ -88,8 +97,10 @@
                    :type="fieldType"
                    :id="id"
                    :autocomplete="autoComplete"
+                   @blur="updateText"
                    @keyup="updateText" />
         </template>
+        <label v-if="isErrored && errorMessage.length" :for="id" class="error-message">{{errorMessage}}</label>
     </div>
 </template>
 <script>
@@ -126,6 +137,10 @@
             isErrored:{
                 type:Boolean,
                 default:false
+            },
+            errorMessage:{
+                type:String,
+                default:'',
             },
             placeholderText:{
                 type:String,

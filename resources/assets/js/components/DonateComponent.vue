@@ -189,15 +189,6 @@
             }
             &.payment-confirmation {
                 padding-top:20px;
-                .submit {
-                    text-align: center;
-                    padding:20px;
-                    .btn {
-                        margin: auto;
-                        padding: 20px 46px;
-                    }
-                }
-
                 .payment-choice {
                     margin-top:10px;
                     h3 {
@@ -326,7 +317,28 @@
             }
         }
 
+        .submit {
+            text-align: center;
+            padding:20px;
+            margin:auto;
+            .btn {
+                margin: auto;
+                padding: 20px 46px;
+            }
+        }
 
+        .genera-errors {
+            color: var(--red);
+            width: 400px;
+            padding: 10px;
+            margin: 10px auto;
+            .error-item {
+                font-size: 15px;
+                border-bottom: dashed 1px var(--red);
+                margin-bottom: 2px;
+                line-height: 20px;
+            }
+        }
     }
 
 </style>
@@ -367,6 +379,7 @@
                                 :model-value="form.first_name"
                                 :is-required="true"
                                 :is-errored="errors.first_name"
+                                :error-message="errors.first_name_msg"
                                 @onUpdate="onFirstNameChange"/>
                         <form-field
                                 class-name="last_name"
@@ -376,6 +389,7 @@
                                 :model-value="form.last_name"
                                 :is-required="true"
                                 :is-errored="errors.last_name"
+                                :error-message="errors.last_name_msg"
                                 @onUpdate="onLastNameChange"/>
                         <form-field
                                 class-name="address"
@@ -385,6 +399,7 @@
                                 :model-value="form.address"
                                 :is-required="true"
                                 :is-errored="errors.address"
+                                :error-message="errors.address_msg"
                                 @onUpdate="onAddressChange"/>
                         <form-field
                                 class-name="city"
@@ -394,6 +409,7 @@
                                 :model-value="form.city"
                                 :is-required="true"
                                 :is-errored="errors.city"
+                                :error-message="errors.city_msg"
                                 @onUpdate="onCityChange"/>
                         <form-field
                                 class-name="state"
@@ -403,6 +419,7 @@
                                 :model-value="form.state"
                                 :is-required="true"
                                 :is-errored="errors.state"
+                                :error-message="errors.state_msg"
                                 @onUpdate="onStateChange"/>
                         <form-field
                                 class-name="zip_code"
@@ -412,6 +429,7 @@
                                 :model-value="form.zip_code"
                                 :is-required="true"
                                 :is-errored="errors.zip_code"
+                                :error-message="errors.zip_code_msg"
                                 @onUpdate="onZipChange"/>
                         <form-field
                                 class-name="email"
@@ -422,6 +440,7 @@
                                 :model-value="form.email"
                                 :is-required="true"
                                 :is-errored="errors.email"
+                                :error-message="errors.email_msg"
                                 @onUpdate="onEmailChange"/>
                         <form-field
                                 class-name="phone"
@@ -432,6 +451,7 @@
                                 :model-value="form.phone"
                                 :is-required="true"
                                 :is-errored="errors.phone"
+                                :error-message="errors.phone_msg"
                                 @onUpdate="onPhoneChange"/>
                     </div>
                     <div class="header" style="margin-top:50px;">
@@ -464,6 +484,7 @@
                                             :model-value="form.amount"
                                             :is-required="true"
                                             :is-errored="errors.amount"
+                                            :error-message="errors.amount_msg"
                                             @onUpdate="onCustomAmount" />
                                 </div>
                             </div>
@@ -479,6 +500,7 @@
                                         :model-value="card.number"
                                         :is-required="true"
                                         :is-errored="errors.card_number"
+                                        :error-message="errors.card_number_msg"
                                         @onUpdate="onCC_Number" />
                                 <form-field
                                         class-name="cc-cvc"
@@ -489,6 +511,7 @@
                                         :model-value="card.cvc"
                                         :is-required="true"
                                         :is-errored="errors.card_cvc"
+                                        :error-message="errors.card_cvc_msg"
                                         @onUpdate="onCC_CVC" />
                                 <div class="break"></div>
                                 <form-field
@@ -499,6 +522,7 @@
                                         placeholder-text="MM"
                                         :model-value="card.exp_month"
                                         :is-errored="errors.card_exp_month"
+                                        :error-message="errors.card_exp_month_msg"
                                         :is-required="true"
                                         @onUpdate="onCC_Month" />
                                 <form-field
@@ -510,6 +534,7 @@
                                         :model-value="card.exp_year"
                                         :is-required="true"
                                         :is-errored="errors.card_exp_year"
+                                        :error-message="errors.card_exp_year_msg"
                                         @onUpdate="onCC_Year" />
                             </div>
                         </div>
@@ -518,31 +543,42 @@
                         <div class="payment-choice">
                             <h3>Please Select A Donation Option</h3>
                             <div class="payment-choice-container">
-                                <label v-bind:class="isPaymentTypeActive('simple-donation')" for="simple-donation">
-                                    <input id="simple-donation" v-model="payment_info.payment_type" name="payment_type"
+                                <label for="simple-donation"
+                                       v-bind:class="isPaymentTypeActive('simple-donation')" >
+                                    <input id="simple-donation"
+                                           v-model="payment_info.payment_type"
+                                           name="payment_type"
                                            value="simple-donation" type="radio"/>
                                     <span class="text">One Time Donation</span>
                                 </label>
-                                <label v-bind:class="isPaymentTypeActive('subscription')" for="subscription">
-                                    <input id="subscription" v-model="payment_info.payment_type" name="payment_type"
-                                                                     value="subscription" type="radio"/>
+                                <label for="subscription"
+                                       v-bind:class="isPaymentTypeActive('subscription')" >
+                                    <input id="subscription"
+                                           v-model="payment_info.payment_type"
+                                           name="payment_type"
+                                           value="subscription" type="radio"/>
                                     <span class="text">Reoccurring Monthly Donation</span>
                                 </label>
                             </div>
+                        </div>
+                        <div v-if="hasGeneralErrors" class="genera-errors">
+                            <template v-for="error_msg in errors.general_error_msg">
+                                <div :key="error_msg" class="error-item">{{error_msg}}</div>
+                            </template>
                         </div>
                         <div class="totals">
                             <div class="total_label">Your Total Contribution</div>
                             <div class="line"></div>
                             <div class="total_amount">${{getFormattedAmount}}</div>
                         </div>
-                        <div class="submit">
-                            <button class="btn green" type="submit">
-                                <span v-if="isSubmitting" class="is-loading">
-                                    <i class="fa fa-spinner fa-spin"></i>
-                                </span>
-                                <span v-else>DONATE</span>
-                            </button>
-                        </div>
+                    </div>
+                    <div class="submit">
+                        <button :disabled="isSubmitting" class="btn green" type="submit">
+                            <span v-if="isSubmitting" class="is-loading">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </span>
+                            <span v-else>DONATE</span>
+                        </button>
                     </div>
                 </form>
             </template>
@@ -556,6 +592,33 @@
     import {stripePublishToken} from '../environment.json';
 
     import { Base64 } from 'js-base64';
+
+    const mapToFormErrors = ({responseErrors, formErrorObj})=>{
+        let validation_map = {
+            'form.first_name':{field:'first_name'},
+            'form.last_name':{field:'last_name'},
+            'form.address':{field:'address'},
+            'form.city':{field:'city'},
+            'form.state':{field:'state'},
+            'form.zip_code':{field:'zip_code'},
+            'form.phone':{field:'phone'},
+            'form.email':{field:'email'},
+            'form.amount':{field:'amount'}
+        };
+
+        Object.keys(responseErrors).forEach((key)=>{
+            let map = validation_map[key];
+            if(map)
+            {
+                formErrorObj[map.field] = true;
+                formErrorObj[`${map.field}_msg`] = responseErrors[key].join('');
+                return;
+            }
+
+            formErrorObj['general_error'] = true;
+            formErrorObj['general_error_msg'].push(`[${key}] ${responseErrors[key].join('')}`);
+        });
+    };
 
     export default {
         name: 'donateComponent',
@@ -598,20 +661,52 @@
                     card_brand: '',
                     card_last_four:''
                 },
+                error_keys: [
+                    'first_name',
+                    'last_name',
+                    'address',
+                    'city',
+                    'state',
+                    'zip_code',
+                    'phone',
+                    'email',
+                    'amount',
+                    'card_number',
+                    'card_cvc',
+                    'card_exp_month',
+                    'card_exp_year',
+                ],
                 errors: {
                     first_name: false,
+                    first_name_msg: '',
                     last_name: false,
+                    last_name_msg: '',
                     address: false,
+                    address_msg: '',
                     city: false,
+                    city_msg: '',
                     state: false,
+                    state_msg: '',
                     zip_code: false,
+                    zip_code_msg: '',
                     phone: false,
+                    phone_msg: '',
                     email: false,
+                    email_msg: '',
+                    amount: false,
+                    amount_msg: '',
 
                     card_number:false,
+                    card_number_msg: '',
                     card_cvc:false,
+                    card_cvc_msg: '',
                     card_exp_month:false,
-                    card_exp_year:false
+                    card_exp_month_msg: '',
+                    card_exp_year:false,
+                    card_exp_year_msg: '',
+
+                    general_error:true,
+                    general_error_msg:[]
                 }
             }
         },
@@ -624,6 +719,10 @@
             },
             getFormattedAmount(){
                 return this.form.amount.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+            },
+            hasGeneralErrors()
+            {
+                return this.errors.general_error  && this.errors.general_error_msg.length > 0;
             }
         },
         methods: {
@@ -685,27 +784,42 @@
             },
             onCC_Month(value) {
                 this.card.exp_month = value;
-            }, onCC_Year(value)
+            },
+            onCC_Year(value)
             {
                 this.card.exp_year = value;
             },
             resetFields()
             {
-                Object.keys(this.errors).forEach((key)=>{
+                this.error_keys.forEach((key)=>{
                     this.errors[key] = false;
+                    this.errors[key+'_msg'] = '';
+                });
+
+                this.errors.general_error = false;
+                this.errors.general_error_msg = [];
+            },
+            trimValues() {
+                let trim_values = ['number','exp_month','exp_year','cvc'];
+                trim_values.forEach((key)=>{
+                    this.card[key] = this.card[key].trim();
                 });
             },
             onSubmit()
             {
                 let errors = 0;
-                let trim_values = ['number','exp_month','exp_year','cvc'];
-                let validate_values = ['first_name','last_name','address','city','state','zip_code'];
+                let validate_values = [
+                    'first_name',
+                    'last_name',
+                    'address',
+                    'city',
+                    'state',
+                    'zip_code'
+                ];
 
                 this.resetFields();
+                this.trimValues();
 
-                trim_values.forEach((key)=>{
-                    this.card[key] = this.card[key].trim();
-                });
                 let testCardNumber = Stripe.card.validateCardNumber(this.card.number);
                 let testExpirationDate = Stripe.card.validateExpiry(this.card.exp_month, this.card.exp_year);
                 let testCVVNumber = Stripe.card.validateCVC(this.card.cvc);
@@ -773,15 +887,24 @@
                                 this.isSubmitting = false;
                                 this.isSuccessful = true;
                             }
-                        }).catch((error)=>{
-                            console.error(error);
+                        }).catch(resp => {
+                            let json = resp.response.data;
                             this.isSuccessful = false;
                             this.isSubmitting = false;
+
+                            if(json.errors)
+                            {
+                                mapToFormErrors({
+                                    responseErrors:json.errors,
+                                    formErrorObj:this.errors
+                                });
+                            }
                         });
-                    } else {
-                        this.isSubmitting = false;
-                        this.isSuccessfulful = false;
+                        return;
                     }
+
+                    this.isSubmitting = false;
+                    this.isSuccessful = false;
                 });
             }
         },
@@ -789,7 +912,6 @@
         mounted()
         {
             Stripe.setPublishableKey(this.stripePublishToken);
-
         }
     }
 </script>
