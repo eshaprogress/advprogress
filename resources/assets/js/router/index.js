@@ -2,42 +2,76 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
+import LayoutCalculator from '../layouts/LayoutCalculator';
 import HomeComponent from '../components/HomeComponent';
+import HomeMobileComponent from '../components/mobile/HomeMobileComponent';
 import ConsultationComponent from '../components/ConsultationComponent';
 import DonateComponent from '../components/DonateComponent';
+import DonateMobileComponent from '../components/mobile/DonateMobileComponent';
 import CancelSubscriptionComponent from '../components/CancelSubscriptionComponent';
+import CancelSubscriptionMobileComponent from '../components/mobile/CancelSubscriptionMobileComponent';
 import CancelSubscriptionConfirmedComponent from '../components/CancelSubscriptionConfirmedComponent';
+import CancelSubscriptionConfirmedMobileComponent from '../components/mobile/CancelSubscriptionConfirmedMobileComponent';
 import NotFoundComponent from '../components/NotFoundComponent';
+import NotFoundMobileComponent from '../components/mobile/NotFoundMobileComponent';
 
 const routes = [
     {
         default: 'home',
         path: '/',
-        component: HomeComponent
+        component: LayoutCalculator,
+        children:[
+            {
+                path: '',
+                component: HomeComponent,
+                components:{
+                    standard:HomeComponent,
+                    mobile:HomeMobileComponent,
+                }
+            },
+            {
+                path: 'donate',
+                component: DonateComponent,
+                components:{
+                    standard:DonateComponent,
+                    mobile:DonateMobileComponent,
+                }
+            },
+            {
+                path: 'consultation',
+                component: ConsultationComponent,
+                components:{
+                    standard:ConsultationComponent,
+                    mobile:HomeMobileComponent,
+                }
+            },
+            {
+                path: 'cancel-subscription/confirm',
+                components:{
+                    standard:CancelSubscriptionConfirmedComponent,
+                    mobile:CancelSubscriptionConfirmedMobileComponent,
+                }
+            },
+            {
+                path: 'cancel-subscription',
+                components:{
+                    standard:CancelSubscriptionComponent,
+                    mobile:CancelSubscriptionMobileComponent,
+                }
+            },
+            {
+                path: 'not-found',
+                components:{
+                    standard:NotFoundComponent,
+                    mobile:NotFoundMobileComponent,
+                }
+            },
+            {
+                path: '*', redirect: '/not-found'
+            }
+        ]
     },
-    {
-        path: '/donate',
-        component: DonateComponent
-    },
-    {
-        path: '/consultation',
-        component: ConsultationComponent
-    },
-    {
-        path: '/cancel-subscription/confirm',
-        component: CancelSubscriptionConfirmedComponent
-    },
-    {
-        path: '/cancel-subscription',
-        component: CancelSubscriptionComponent
-    },
-    {
-        path: '/not-found',
-        component: NotFoundComponent
-    },
-    {
-        path: '*', redirect: '/not-found'
-    }
+
 ];
 
 // 3. Create the router instance and pass the `routes` option

@@ -81,6 +81,6 @@
 
 <script>
     export default {
-        name:'MenuComponent'
+        name:'MenuMobileComponent'
     }
 </script>
