@@ -145,9 +145,9 @@
             </div>
             <div class="share-icons">
                 <h4>JOIN THE CONVERSATION</h4>
-                <i class="icon fab fa-twitter"></i>
-                <i class="icon fab fa-instagram"></i>
-                <i class="icon fab fa-facebook-square"></i>
+                <a class="icon" href="#"><i class="fab fa-twitter"></i></a>
+                <a class="icon" href="#"><i class="fab fa-instagram"></i></a>
+                <a class="icon" href="#"><i class="fab fa-facebook-square"></i></a>
                 <div class="copyright">
                     &copy; 2018 Legislation for Equality Advance Progress. All Rights Reserved.
                 </div>
