@@ -5,7 +5,6 @@
     }
 
     .donate-container {
-        max-width:800px;
         margin:auto;
     }
 
@@ -99,7 +98,6 @@
             text-align: center;
             font-size: 24px;
             font-weight: 300;
-            width: 650px;
             margin: auto;
         }
     }
@@ -332,7 +330,6 @@
 
         .genera-errors {
             color: var(--red);
-            width: 400px;
             padding: 10px;
             margin: 10px auto;
             .error-item {
