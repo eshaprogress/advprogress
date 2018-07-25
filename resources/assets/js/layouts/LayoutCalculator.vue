@@ -1,9 +1,20 @@
+<style lang="scss" scoped>
+    .layout-calculator,
+    .computed-mobile,
+    .computed-standard{
+        width:100%;
+        display: block;
+        margin:0;
+        padding:0;
+    }
+</style>
+
 <template>
-    <div class="container layout">
-        <mq-layout :mq="['m_tiny','m_small','m_bigger', 'tablet']">
+    <div class="layout-calculator">
+        <mq-layout class="computed-mobile" :mq="['m_tiny','m_small','m_bigger', 'tablet']">
             <mobile-layout />
         </mq-layout>
-        <mq-layout mq="standard">
+        <mq-layout class="computed-standard" mq="standard">
             <standard-layout />
         </mq-layout>
     </div>

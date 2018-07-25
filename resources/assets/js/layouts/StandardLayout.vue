@@ -1,12 +1,15 @@
+<style lang="scss" scoped>
+
+</style>
 
 <template>
-    <section class="container">
+    <div class="standard-layout">
         <menu-component />
         <section class="container">
             <router-view name="standard" />
         </section>
         <footer-component />
-    </section>
+    </div>
 </template>
 
 <script>

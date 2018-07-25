@@ -25,5 +25,6 @@ const app = new Vue({
     router,
     components:{
         BootStrapApp
-    }
+    },
+    render(h){return h(BootStrapApp)}
 }).$mount('#app');

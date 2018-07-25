@@ -323,7 +323,7 @@
 </template>
 
 <script>
-    import FormField from "./FormField";
+    import FormField from "../FormField";
     import axios from 'axios';
 
     const mapToFormErrors = ({responseErrors, formErrorObj})=>{

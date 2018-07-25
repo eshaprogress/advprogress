@@ -9,9 +9,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     <body>
-        <div id="app">
-            <boot-strap-app />
-        </div>
+        <div id="app"></div>
         <script src="https://js.stripe.com/v2/"></script>
         <script src="{{mix('/js/app.js')}}"></script>
     </body>
