@@ -171,6 +171,9 @@ class Website extends Controller
         $validateConsultationRequest = new ConsultationRequest();
         $data = $request->all();
         $validation = \Validator::make($data, $validateConsultationRequest->rules());
+        $validation->sometimes('organization_name', 'required', function ($input) {
+            return $input->isOrganization;
+        });
         if($validation->fails()) {
             return response()->json([
                 'status' => false,

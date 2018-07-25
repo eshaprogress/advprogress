@@ -26,7 +26,6 @@ class ConsultationRequest extends FormRequest
         return [
             'first_name'=>'required',
             'last_name'=>'required',
-            'organization_name'=>'required',
             'address'=>'required',
             'city'=>'required',
             'state'    =>'required',

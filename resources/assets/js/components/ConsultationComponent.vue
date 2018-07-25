@@ -206,6 +206,7 @@
                                     :is-disabled="!isAnOrganization"
                                     :is-required="true"
                                     :is-errored="errors.organization_name"
+                                    :error-message="errors.organization_name_msg"
                                     @onUpdate="onOrganizationNameChange"/>
                         </div>
                     </div>
@@ -218,6 +219,7 @@
                                 :model-value="form.first_name"
                                 :is-required="true"
                                 :is-errored="errors.first_name"
+                                :error-message="errors.first_name_msg"
                                 @onUpdate="onFirstNameChange"/>
                         <form-field
                                 class-name="last_name"
@@ -227,6 +229,7 @@
                                 :model-value="form.last_name"
                                 :is-required="true"
                                 :is-errored="errors.last_name"
+                                :error-message="errors.last_name_msg"
                                 @onUpdate="onLastNameChange"/>
                         <form-field
                                 class-name="address"
@@ -236,6 +239,7 @@
                                 :model-value="form.address"
                                 :is-required="true"
                                 :is-errored="errors.address"
+                                :error-message="errors.address_msg"
                                 @onUpdate="onAddressChange"/>
                         <form-field
                                 class-name="city"
@@ -245,6 +249,7 @@
                                 :model-value="form.city"
                                 :is-required="true"
                                 :is-errored="errors.city"
+                                :error-message="errors.city_msg"
                                 @onUpdate="onCityChange"/>
                         <form-field
                                 class-name="state"
@@ -254,6 +259,7 @@
                                 :model-value="form.state"
                                 :is-required="true"
                                 :is-errored="errors.state"
+                                :error-message="errors.state_msg"
                                 @onUpdate="onStateChange"/>
                         <form-field
                                 class-name="zip_code"
@@ -263,6 +269,7 @@
                                 :model-value="form.zip_code"
                                 :is-required="true"
                                 :is-errored="errors.zip_code"
+                                :error-message="errors.zip_code_msg"
                                 @onUpdate="onZipChange"/>
                         <form-field
                                 class-name="email"
@@ -273,6 +280,7 @@
                                 :model-value="form.email"
                                 :is-required="true"
                                 :is-errored="errors.email"
+                                :error-message="errors.email_msg"
                                 @onUpdate="onEmailChange"/>
                         <form-field
                                 class-name="phone"
@@ -283,6 +291,7 @@
                                 :model-value="form.phone"
                                 :is-required="true"
                                 :is-errored="errors.phone"
+                                :error-message="errors.phone_msg"
                                 @onUpdate="onPhoneChange"/>
                     </div>
                     <div class="line"></div>
@@ -296,6 +305,7 @@
                                 :is-text-area="true"
                                 :is-required="true"
                                 :is-errored="errors.comment"
+                                :error-message="errors.comment_msg"
                                 @onUpdate="onCommentChange"/>
                     </div>
                     <div class="submit">
@@ -315,6 +325,34 @@
 <script>
     import FormField from "./FormField";
     import axios from 'axios';
+
+    const mapToFormErrors = ({responseErrors, formErrorObj})=>{
+        let validation_map = {
+            'first_name':{field:'first_name'},
+            'comment':{field:'comment'},
+            'organization_name':{field:'organization_name'},
+            'last_name':{field:'last_name'},
+            'address':{field:'address'},
+            'city':{field:'city'},
+            'state':{field:'state'},
+            'zip_code':{field:'zip_code'},
+            'phone':{field:'phone'},
+            'email':{field:'email'},
+        };
+
+        Object.keys(responseErrors).forEach((key)=>{
+            let map = validation_map[key];
+            if(map)
+            {
+                formErrorObj[map.field] = true;
+                formErrorObj[`${map.field}_msg`] = responseErrors[key].join('');
+                return;
+            }
+
+            formErrorObj['general_error'] = true;
+            formErrorObj['general_error_msg'].push(`[${key}] ${responseErrors[key].join('')}`);
+        });
+    };
 
     export default {
         name: 'ConsultationComponent',
@@ -338,17 +376,44 @@
                     comment: '',
                     isOrganization: false
                 },
+                error_keys: [
+                    'first_name',
+                    'last_name',
+                    'address',
+                    'city',
+                    'state',
+                    'zip_code',
+                    'phone',
+                    'email',
+                    'comment',
+                    'organization_name'
+                ],
                 errors: {
                     first_name: false,
+                    first_name_msg: '',
                     last_name: false,
-                    organization_name: false,
+                    last_name_msg: '',
                     address: false,
+                    address_msg: '',
                     city: false,
+                    city_msg: '',
                     state: false,
+                    state_msg: '',
                     zip_code: false,
+                    zip_code_msg: '',
                     phone: false,
+                    phone_msg: '',
+                    email: false,
+                    email_msg: '',
+
+                    organization_name: false,
+                    organization_name_msg: '',
                     comment: false,
-                    email: false
+                    comment_msg: '',
+
+                    general_error:true,
+                    general_error_msg:[]
+
                 }
             }
         },
@@ -392,9 +457,13 @@
             },
             resetFields()
             {
-                Object.keys(this.errors).forEach((key)=>{
+                this.error_keys.forEach((key)=>{
                     this.errors[key] = false;
+                    this.errors[key+'_msg'] = '';
                 });
+
+                this.errors.general_error = false;
+                this.errors.general_error_msg = [];
             },
             onSubmit()
             {
@@ -419,10 +488,18 @@
                         this.isSubmitting = false;
                         this.isSuccessful = true;
                     }
-                }).catch((error)=>{
-                    console.error(error);
+                }).catch(resp => {
+                    let json = resp.response.data;
                     this.isSuccessful = false;
                     this.isSubmitting = false;
+
+                    if(json.errors)
+                    {
+                        mapToFormErrors({
+                            responseErrors:json.errors,
+                            formErrorObj:this.errors
+                        });
+                    }
                 });
             }
         },
