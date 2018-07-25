@@ -2,6 +2,7 @@
     .subscribe {
         margin-top: 50px;
         margin-bottom: 50px;
+        padding: 20px;
     }
     h2 {
         color:var(--blue);
@@ -30,25 +31,19 @@
             font-stretch: normal;
             line-height: normal;
             letter-spacing: normal;
-            max-width:600px;
             margin:auto;
         }
     }
 
     form {
-        --column-width: 430px;
-        --column-gap: 40px;
+        --column-width: 100%;
         &.subscribe-form {
-            width: calc(var(--column-width) * 2 + var(--column-gap));
             margin:auto;
         }
 
         .fields {
-            display: grid;
-            grid-template-columns: repeat(2, var(--column-width));
-            grid-template-rows: repeat(3, 100px);
-            grid-column-gap: var(--column-gap);
-
+            display: flex;
+            flex-flow: column;
             .submit {
                 grid-column: 1 / span 2;
                 text-align: center;

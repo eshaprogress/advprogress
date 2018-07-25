@@ -7,6 +7,9 @@
         margin:0;
         padding:0;
     }
+    .computed-mobile {
+        padding-top: 72px;
+    }
 </style>
 
 <template>

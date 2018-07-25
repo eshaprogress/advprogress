@@ -1,7 +1,7 @@
 <style lang="scss" scoped>
     .donate {
-        margin-top: 50px;
-        padding-bottom: 50px;
+        margin-top: 0;
+        padding: 20px;
     }
 
     .donate-container {
@@ -105,7 +105,7 @@
     }
 
     form {
-        --column-count: 6;
+        --column-count: 9;
         --column-width: 100%;
         --column-gap: 20px;
 
@@ -116,13 +116,18 @@
         .fields {
             &.contact-info-fields {
                 display: grid;
-                grid-template-columns: repeat(var(--column-count), auto);
-                grid-template-rows: repeat(4, 100px);
+                grid-template-columns: auto;
+                grid-template-rows: repeat(var(--column-count), auto);
+
                 grid-template-areas:
-                    "first_name first_name first_name last_name last_name last_name"
-                    "address address address address address address"
-                    "city city state state zip_code zip_code"
-                    "email email email phone phone phone";
+                    "first_name"
+                    "last_name"
+                    "address"
+                    "city"
+                    "state"
+                    "zip_code"
+                    "email"
+                    "phone";
                 grid-column-gap: var(--column-gap);
 
                 .field {
@@ -154,10 +159,10 @@
             }
             &.payment-info-fields {
                 display: grid;
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: auto;
                 grid-template-rows: repeat(2, auto);
                 grid-column-gap: 40px;
-                grid-template-areas: "left right";
+                grid-template-areas: "left" "right";
 
                 .left {
                     grid-area: left;
@@ -193,23 +198,23 @@
                     margin-top:10px;
                     h3 {
                         text-transform: uppercase;
-                        color:var(--red);
-                        font-size: 19px;
+                        color: var(--red);
+                        font-size: 16px;
                         font-weight: normal;
                         font-style: normal;
                         font-stretch: normal;
                         line-height: normal;
                         letter-spacing: normal;
                         text-align: center;
-                        margin:0;
-                        padding:12px;
+                        margin: 0;
+                        padding: 10px;
                     }
                     background-color: var(--white1);
                     .payment-choice-container {
                         margin:auto;
-                        width: 500px;
-                        padding:20px;
+                        padding:10px;
                         label {
+                            display: block;
                             cursor: pointer;
                             font-size: 18px;
                             font-weight: normal;
@@ -218,9 +223,7 @@
                             line-height: normal;
                             letter-spacing: normal;
                             margin: 0;
-                            padding: 0px;
-                            display: inline-block;
-                            padding-right: 10px;
+                            padding: 10px;
 
                             &.active {
                                 background-color: var(--white1);
@@ -275,7 +278,7 @@
                         }
                     }
                     .amount-container-custom {
-                        margin: 5px;
+                        margin: 20px 0 0;
                     }
                 }
 

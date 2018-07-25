@@ -1,11 +1,10 @@
 <style lang="scss" scoped>
     .consultation {
-        margin-top: 50px;
-        padding-bottom: 50px;
+        margin: 0;
+        padding: 20px;
     }
 
     .consultation-container {
-        max-width:800px;
         margin:auto;
     }
 
@@ -19,7 +18,7 @@
         letter-spacing: normal;
         padding: 0;
         text-align: center;
-        margin: 0 0 24px;
+        margin: 0;
     }
 
     p {
@@ -65,7 +64,7 @@
     .line {
         background-color: var(--blue);
         height: 2px;
-        margin: 40px 0;
+        margin: 0;
     }
 
     form {
@@ -79,14 +78,12 @@
 
         .fields {
             &.organization-info-fields {
-                display: grid;
-                grid-template-columns: auto;
-                grid-template-rows: repeat(2, auto);
-                grid-template-areas: "left" "right";
+                display: flex;
+                flex-flow: column;
                 margin-bottom: 20px;
-                .left {
+                .top {
                     h3 {
-                        text-align: center;
+                        text-align: left;
                         font-size: 19px;
                         font-weight: normal;
                         font-style: normal;
@@ -103,55 +100,16 @@
                             font-stretch: normal;
                             line-height: normal;
                             letter-spacing: normal;
+                            margin: 20px auto;
                         }
-                        width:50%;
-                        margin:auto;
                     }
                 }
-                .right {}
+                .bottom {}
             }
 
             &.contact-info-fields {
-                display: grid;
-                grid-template-columns: auto;
-                grid-template-rows: repeat(8, 100px);
-                grid-template-areas:
-                        "first_name"
-                        "last_name"
-                        "address"
-                        "city"
-                        "state"
-                        "zip_code"
-                        "email"
-                        "phone";
-                grid-column-gap: var(--column-gap);
-
-                .field {
-                    &.first_name {
-                        grid-area: first_name;
-                    }
-                    &.last_name {
-                        grid-area: last_name;
-                    }
-                    &.address {
-                        grid-area: address;
-                    }
-                    &.city {
-                        grid-area: city;
-                    }
-                    &.state {
-                        grid-area: state;
-                    }
-                    &.zip_code {
-                        grid-area: zip_code;
-                    }
-                    &.email {
-                        grid-area: email;
-                    }
-                    &.phone {
-                        grid-area: phone;
-                    }
-                }
+                display: flex;
+                flex-flow: column;
             }
 
             &.comment-field {
@@ -166,8 +124,6 @@
             width:50%;
             text-align: center;
         }
-
-
     }
 
 </style>
@@ -185,7 +141,7 @@
             <template v-else>
                 <form @submit.prevent="onSubmit" class="consultation-form">
                     <div class="fields organization-info-fields">
-                        <div class="left">
+                        <div class="top">
                             <h3>ARE YOU:</h3>
                             <div class="organization-choice-container">
                                 <label for="is-organization">
@@ -200,7 +156,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="right">
+                        <div class="bottom">
                             <form-field
                                     class-name="organization_name"
                                     auto-complete="organization"

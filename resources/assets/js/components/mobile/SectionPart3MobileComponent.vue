@@ -24,8 +24,8 @@
 
     .part-3-grid-container {
 
-        display: grid;
-        grid-template-columns: repeat(3, min-content);
+        display: flex;
+        flex-flow: column;
         margin:auto;
 
         .items {
@@ -33,7 +33,7 @@
             justify-content: center;
             .item-container {
                 width:275px;
-                padding: 20px 20px 80px;
+                padding: 0;
                 text-align: center;
                 .img-container {
                     height: 180px;

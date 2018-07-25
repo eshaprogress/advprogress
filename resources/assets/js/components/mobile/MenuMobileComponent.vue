@@ -1,86 +1,122 @@
 <style lang="scss" scoped>
     .navbar {
-        --nav-bar-height:72px;
-        .navbar-container {
-            position: relative;
-            max-width: 1150px;
-            margin:auto;
-        }
-        height:var(--nav-bar-height);
-        .navbar-item {
-            display: inline-block;
-        }
-        .navbar-brand {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background-color: white;
+        .navbar-top {
             display: flex;
-            align-items: center;
-            height:var(--nav-bar-height);
+            justify-content: space-between;
+            .left, .right {
+                margin: 0 10px;
+            }
 
-            .navbar-item {
+            .navbar-btn {
+                margin: 0;
 
-                margin-left: 106px;
-                img {
-                    max-height: 55px;
+                button {
+                    border: none;
+                    margin: 0;
+                    padding: 0;
+                    border-radius: 25px;
+                    font-size: 30px;
+                    height: 50px;
+                    width: 50px;
+                    display: inline-block;
+                    background-color: transparent;
                 }
+            }
+
+            .nav-bar-logo {
                 .logo {
-                    width: 118px;
-                    height: 44px;
+                    width: 65px;
+                    height: 22px;
+                    padding-left: 20px;
                 }
             }
         }
-        .navbar-end {
-            position: absolute;
-            right:0;
-            top:0;
-            margin-right:103px;
+
+        .nav-bar-logo,
+        .navbar-btn {
+            line-height: 72px;
+            height: 72px;
         }
 
         .navbar-menu {
-            list-style: none;
-            margin:0;
-            padding:0;
+            background-color: white;
+            padding: 0;
+            margin: 0;
+            display: none;
+            align-items: center;
+            flex-flow: column;
             .navbar-item {
+                font-size: 24px;
+                line-height: 50px;
                 list-style: none;
-                padding:0;
-                display: inline-block;
-                line-height: var(--nav-bar-height);
-                font-size: 16px;
-
-                a {
-                    color:var(--black);
-                    text-transform: uppercase;
+                margin: 20px;
+                padding: 0;
+                & > a{
+                    color: black;
                     text-decoration: none;
-                    &.router-link-exact-active {
-                        color:var(--green);
-                    }
                 }
-                margin: 0 40px 0 0;
             }
+        }
+
+        &.menu-enabled {
+            .navbar-menu {
+                display: flex;
+            }
+            bottom: 0;
         }
     }
 </style>
 
 <template>
-    <nav class="navbar">
-        <div class="navbar-container">
-            <div class="navbar-brand">
-                <router-link to="/" class="navbar-item">
+    <nav class="navbar" :class="{'menu-enabled':isMenuEnabled}">
+        <div class="navbar-top">
+            <div class="left">
+                <router-link to="/" class="nav-bar-logo">
                     <img class="logo" src="/images/logo.png"/>
                 </router-link>
             </div>
-            <div class="navbar-end">
-                <ul class="navbar-menu">
-                    <li class="navbar-item" ><router-link to="/">Home</router-link></li>
-                    <li class="navbar-item" ><router-link to="/our-story">OUR STORY</router-link></li>
-                    <li class="navbar-item" ><router-link to="/consultation">CONSULTATION</router-link></li>
-                    <li class="navbar-item" ><router-link to="/donate">DONATE</router-link></li>
-                </ul>
+            <div class="right">
+                <div class="navbar-btn">
+                    <button @click="menuEnabled" type="button">
+                        <template v-if="isMenuEnabled">
+                            X
+                        </template>
+                        <template v-else>
+                            <i class="fas fa-bars icon"></i>
+                        </template>
+                    </button>
+                </div>
             </div>
         </div>
+        <ul class="navbar-menu">
+            <li class="navbar-item" ><router-link @click.native="menuEnabled" to="/">HOME</router-link></li>
+            <li class="navbar-item" ><router-link @click.native="menuEnabled" to="/our-story">OUR STORY</router-link></li>
+            <li class="navbar-item" ><router-link @click.native="menuEnabled" to="/consultation">CONSULTATION</router-link></li>
+            <li class="navbar-item" ><router-link @click.native="menuEnabled" to="/donate">DONATE</router-link></li>
+            <li class="navbar-item" ><router-link @click.native="menuEnabled" to="/contact-us">CONTACT US</router-link></li>
+        </ul>
     </nav>
 </template>
 
 <script>
     export default {
-        name:'MenuMobileComponent'
+        name:'MenuMobileComponent',
+        data(){
+            return {
+                isMenuEnabled:false
+            }
+        },
+        methods:{
+            menuEnabled()
+            {
+                this.isMenuEnabled = !this.isMenuEnabled;
+            }
+        }
     }
 </script>

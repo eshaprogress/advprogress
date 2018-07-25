@@ -25,14 +25,15 @@
 
     .part-1-grid-container {
         display: grid;
-        grid-template-columns: repeat(3, min-content);
+        grid-template-columns: auto;
+        grid-template-rows: repeat(3, min-content);
         margin:auto;
 
         .items {
             display: flex;
             justify-content: center;
             .item-container {
-                padding: 20px 20px 80px;
+                padding: 20px;
                 text-align: center;
                 width:275px;
                 .img-container {
