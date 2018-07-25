@@ -259,10 +259,10 @@
                 &.left {
                     .amount-container {
                         display: grid;
-                        grid-template-columns: repeat(3, 100px);
+                        grid-template-columns: repeat(3, 32%);
                         grid-template-rows: repeat(2, auto);
-                        grid-column-gap: 32px;
-                        grid-row-gap: 24px;
+                        grid-column-gap: 2px;
+                        grid-row-gap: 2px;
                         label {
                             font-size: 18px;
                             font-weight: normal;
