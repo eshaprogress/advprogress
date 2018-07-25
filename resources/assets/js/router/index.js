@@ -23,7 +23,6 @@ const routes = [
         children:[
             {
                 path: '',
-                component: HomeComponent,
                 components:{
                     standard:HomeComponent,
                     mobile:HomeMobileComponent,
@@ -31,7 +30,6 @@ const routes = [
             },
             {
                 path: 'donate',
-                component: DonateComponent,
                 components:{
                     standard:DonateComponent,
                     mobile:DonateMobileComponent,
@@ -39,7 +37,6 @@ const routes = [
             },
             {
                 path: 'consultation',
-                component: ConsultationComponent,
                 components:{
                     standard:ConsultationComponent,
                     mobile:HomeMobileComponent,
