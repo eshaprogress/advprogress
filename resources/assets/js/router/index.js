@@ -15,6 +15,7 @@ import CancelSubscriptionConfirmedComponent from '../components/CancelSubscripti
 import CancelSubscriptionConfirmedMobileComponent from '../components/mobile/CancelSubscriptionConfirmedMobileComponent';
 import NotFoundComponent from '../components/NotFoundComponent';
 import NotFoundMobileComponent from '../components/mobile/NotFoundMobileComponent';
+import OurStoryComponent from '../components/OurStoryComponent';
 
 const routes = [
     {
@@ -48,6 +49,13 @@ const routes = [
                 components:{
                     standard:CancelSubscriptionConfirmedComponent,
                     mobile:CancelSubscriptionConfirmedMobileComponent,
+                }
+            },
+            {
+                path: 'our-story',
+                components:{
+                    standard:OurStoryComponent,
+                    mobile:OurStoryComponent,
                 }
             },
             {
