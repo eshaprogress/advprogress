@@ -80,8 +80,9 @@
         .fields {
             &.organization-info-fields {
                 display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                grid-template-areas: "left right";
+                grid-template-columns: auto;
+                grid-template-rows: repeat(2, auto);
+                grid-template-areas: "left" "right";
                 margin-bottom: 20px;
                 .left {
                     h3 {
@@ -112,13 +113,17 @@
 
             &.contact-info-fields {
                 display: grid;
-                grid-template-columns: repeat(var(--column-count), auto);
-                grid-template-rows: repeat(4, 100px);
+                grid-template-columns: auto;
+                grid-template-rows: repeat(8, 100px);
                 grid-template-areas:
-                        "first_name first_name first_name last_name last_name last_name"
-                        "address address address address address address"
-                        "city city state state zip_code zip_code"
-                        "email email email phone phone phone";
+                        "first_name"
+                        "last_name"
+                        "address"
+                        "city"
+                        "state"
+                        "zip_code"
+                        "email"
+                        "phone";
                 grid-column-gap: var(--column-gap);
 
                 .field {

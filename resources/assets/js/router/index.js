@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
-import LayoutCalculator from '../layouts/LayoutCalculator';
+import LayoutCalculator from '../LayoutCalculator';
 import HomeComponent from '../components/HomeComponent';
 import HomeMobileComponent from '../components/mobile/HomeMobileComponent';
 import ConsultationComponent from '../components/ConsultationComponent';
