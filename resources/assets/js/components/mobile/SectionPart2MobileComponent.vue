@@ -8,11 +8,11 @@
                 display: grid;
                 flex-flow: column;
                 .top {
-                    width:100%;
-                    height:591px;
                     background-image: url(/images/photo-2.png);
+                    height: 400px;
+                    background-size: contain;
+                    -o-object-fit: contain;
                     background-repeat: no-repeat;
-                    object-fit: fill;
                     background-position: center;
                 }
                 .bottom {
