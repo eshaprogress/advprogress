@@ -2,11 +2,10 @@
 
     .carousel {
         padding:0;
-        height:561px;
 
         h2 {
             padding: 0;
-            font-size: 32px;
+            font-size: 20px;
             font-weight: bold;
             font-style: normal;
             font-stretch: normal;
@@ -24,9 +23,6 @@
             line-height: normal;
             letter-spacing: normal;
         }
-        p, a {
-            margin-left: 25px;
-        }
         a {
             &.btn {
                 position: absolute;
@@ -34,24 +30,23 @@
             }
         }
         .carousel-container {
-            max-width: 1150px;
             position: relative;
             overflow: hidden;
             margin:auto;
         }
         .carousel-item {
+            &.img-1 {
+                height: 324px;
+                background: url(/images/mobile/prisoners.png) no-repeat center center fixed;
+                background-size: cover;
+            }
             .content {
                 color: white;
                 position: absolute;
-                left: 100px;
+                left: 30px;
+                right:0;
                 bottom: 0;
-                width: 550px;
                 height: 240px;
-            }
-            img {
-                width:1150px;
-                height:561px;
-                object-fit: contain;
             }
         }
     }
@@ -123,7 +118,6 @@
                     <p>American Prisoner's disenfranchisement is a problem. Let's fix it.</p>
                     <router-link to="/" class="btn green">LEARN MORE</router-link>
                 </div>
-                <img src="/images/prisoners.png">
             </div>
             <router-link to="/donate" class="donate-btn">
                 <span class="circle">

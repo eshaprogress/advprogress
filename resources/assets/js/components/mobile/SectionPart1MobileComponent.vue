@@ -1,6 +1,6 @@
 <style lang="scss" scoped>
     .part-1 {
-        margin-top:52px;
+        padding: 20px;
 
         h2 {
             font-size: 32px;

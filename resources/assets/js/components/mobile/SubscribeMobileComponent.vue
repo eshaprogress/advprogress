@@ -1,7 +1,6 @@
 <style lang="scss" scoped>
     .subscribe {
-        margin-top: 50px;
-        margin-bottom: 50px;
+        margin: 0;
         padding: 20px;
     }
     h2 {
