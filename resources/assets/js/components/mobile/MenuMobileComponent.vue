@@ -6,6 +6,7 @@
         right: 0;
         z-index: 1000;
         background-color: white;
+        box-shadow: 3px 3px 7px rgba(0,0,0,.1);
         .navbar-top {
             display: flex;
             justify-content: space-between;
@@ -53,13 +54,17 @@
             flex-flow: column;
             .navbar-item {
                 font-size: 24px;
-                line-height: 50px;
+                margin: 0;
                 list-style: none;
-                margin: 20px;
                 padding: 0;
+                display: block;
+                width: 100%;
                 & > a{
                     color: black;
                     text-decoration: none;
+                    line-height: 50px;
+                    display: block;
+                    text-align: center;
                 }
             }
         }
