@@ -14,6 +14,7 @@ let mix = require('laravel-mix');
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
     .copyDirectory('resources/assets/images/', 'public/images')
+    .copyDirectory('resources/fonts/fontawesome-free-5.2.0-web/webfonts/', 'public/fonts')
     .options({ extractVueStyles: true });
 
 if (process.env.npm_lifecycle_event !== 'hot')
