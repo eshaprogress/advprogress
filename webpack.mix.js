@@ -13,15 +13,17 @@ let mix = require('laravel-mix');
 
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
-    .copyDirectory('resources/assets/images/', 'public/images');
+    .copyDirectory('resources/assets/images/', 'public/images')
+    .options({ extractVueStyles: true });
 
 if (process.env.npm_lifecycle_event !== 'hot')
 {
-    mix.version()
+    mix.version();
+    mix.sourceMaps(false);
 }
 
 if (process.env.npm_lifecycle_event === 'dev')
 {
     mix.disableNotifications();
-    mix.sourceMaps();
+    mix.sourceMaps(false);
 }
