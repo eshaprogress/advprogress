@@ -5,6 +5,9 @@
  
  If you have a MAC os you can use
  `sudo nginx -s stop`
+ 
+If you're using heroku
+`heroku plugins:install heroku-config`
 
 # Setup code-base
 --------------------------
