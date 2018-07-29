@@ -22,12 +22,10 @@
         "lodash": "^4.17.4",
         "popper.js": "^1.12",
         "vue": "^2.5.7",
+        "vue-mq": "^0.2.1",
         "vue-router": "^3.0.1",
         "yarn": "^1.7.0"
     },
     "dependencies": {
-        "vue-mq": "^0.2.1",
-        "vue-stripe-checkout": "^1.0.7",
-        "vue-stripe-elements-plus": "^0.2.8"
     }
 }
