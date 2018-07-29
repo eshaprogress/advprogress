@@ -16,7 +16,7 @@ class CreateExistingLegislationsTable extends Migration
         Schema::create('existing_legislations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title_of_existing_legislation');
-            $table->string('citation')->unique();
+            $table->string('citation', 128)->unique();
             $table->longtext('text_of_existing_legislation');
             $table->mediumtext('summary_of_existing_legislation');
             $table->integer('category')->unsigned();
