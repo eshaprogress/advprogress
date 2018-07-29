@@ -5,10 +5,18 @@
  
  If you have a MAC os you can use
  `sudo nginx -s stop`
- 
-If you're using heroku
-`heroku plugins:install heroku-config`
 
+If you're using heroku to initialize project file
+- (this will ush all .env files to environment vars)
+  - `heroku plugins:install heroku-config`
+  - `heroku config:push`
+- (setup mysql)
+  - `heroku addons:create cleardb:ignite`
+- `heroku buildpacks:add heroku/nodejs`
+- `heroku config:set NPM_CONFIG_PRODUCTION=false`
+- `heroku buildpacks:add https://github.com/heroku/heroku-buildpack-php`
+- Permissions update
+  - `heroku run chmod 777 ./bootstrap ./storage -R`
 # Setup code-base
 --------------------------
 - `chmod +x ./install-env.sh && ./install-env.sh`
