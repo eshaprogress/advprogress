@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+git clone https://github.com/Laradock/laradock.git
 cp ./env-laradock ./laradock/.env
 chmod 777 ./bootstrap ./storage -R
 cp ./env-laravel ./.env
