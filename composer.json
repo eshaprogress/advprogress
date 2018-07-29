@@ -56,6 +56,7 @@
             "@php artisan package:discover"
         ],
         "post-install-cmd": [
+            "php artisan view:clear",
             "php artisan route:cache",
             "php artisan config:cache",
             "php artisan clear-compiled",
