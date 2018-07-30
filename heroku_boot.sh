@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Permissions settings
+chmod 777 /app/bootstrap /app/storage -R
+
 # Artisan commands
 /app/.heroku/php/bin/php /app/artisan clear-compiled
 /app/.heroku/php/bin/php /app/artisan view:clear
