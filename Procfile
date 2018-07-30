@@ -1,1 +1,1 @@
-web: sh support/app_boot.sh
+web: sh heroku_boot.sh
