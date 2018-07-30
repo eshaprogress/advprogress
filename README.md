@@ -1,10 +1,10 @@
 # Pre-requisites
 --------------------------
 
- please make sure that http services are not running on your local machine, if so, locate the local nginx/apache service and stop the daemon
+Please make sure that http services are not running on your local machine, if so, locate the local nginx/apache service and stop the daemon
  
- If you have a MAC os you can use
- `sudo nginx -s stop`
+If you have a MAC os you can use
+- `sudo nginx -s stop`
 
 If you're using heroku to initialize project file
 - (this will ush all .env files to environment vars)
