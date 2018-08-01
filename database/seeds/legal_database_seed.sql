@@ -25,10 +25,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `model_legislations_dummy`
+-- Table structure for table `proposed_legislation`
 --
 
-CREATE TABLE `model_legislations_dummy` (
+CREATE TABLE `proposed_legislation` (
   `mleg_id` int(11) NOT NULL,
   `title_of_model_legislation` longtext COLLATE utf8_unicode_ci NOT NULL,
   `text_of_model_legislation` longtext COLLATE utf8_unicode_ci NOT NULL,
@@ -41,10 +41,10 @@ CREATE TABLE `model_legislations_dummy` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `model_legislations_dummy`
+-- Dumping data for table `proposed_legislation`
 --
 
-INSERT INTO `model_legislations_dummy` (`mleg_id`, `title_of_model_legislation`, `text_of_model_legislation`, `summary`, `state`, `type`, `display_file_name`, `purpose`, `preamble`) VALUES
+INSERT INTO `proposed_legislation` (`mleg_id`, `title_of_model_legislation`, `text_of_model_legislation`, `summary`, `state`, `type`, `display_file_name`, `purpose`, `preamble`) VALUES
 (1, 'Dummy Legislation', 'There is a lot to be said about dummies and this legislation does not hold back.', 'Legislation that talks about dummies.', 'AZ', NULL, NULL, NULL, NULL),
 (2, 'Dummy Legislation 2', 'There is a lot to be said about dummies and this legislation does not hold back.', 'Legislation that talks about dummies.', 'AZ', NULL, NULL, NULL, NULL),
 (3, 'cqfh', 'Voluptatem modi exercitationem quia fugit. Esse consequatur aliquam reprehenderit consequatur et veniam. Quisquam reiciendis magni ut accusamus. Placeat voluptate harum officia.', 'DOTH THE LITTLE BUSY BEE,\" but it puzzled her a good thing!\' she said to the voice of the house!\' (Which was very deep, or she fell past it. \'Well!\' thought Alice to herself. At this moment Five,.', 'NorthCarolina', '041', 'voluptatem', 'Queen: so she felt sure it would make with the day and night! You see the Hatter asked triumphantly. Alice did not answer, so Alice soon came upon a neat little house, on the slate. \'Herald, read.', NULL),
@@ -127,7 +127,7 @@ INSERT INTO `model_legislations_dummy` (`mleg_id`, `title_of_model_legislation`,
 (80, 'bzki', 'Dolore voluptatem facilis corrupti nostrum ducimus. Eum exercitationem ut aut nobis eius praesentium. Nesciunt eos unde rem sed minima sunt.', 'Hatter. \'Nor I,\' said the Mock Turtle had just begun to dream that she was always ready to sink into the teapot. \'At any rate I\'ll never go THERE again!\' said Alice timidly. \'Would you like the look.', 'Michigan', '945', 'et', 'Hatter: \'but you could manage it?) \'And what an ignorant little girl or a worm. The question is, what did the Dormouse indignantly. However, he consented to go on. \'And so these three little.', NULL),
 (81, 'ekmh', 'Autem itaque sit iure voluptates. Rerum reiciendis id sequi tenetur. Delectus pariatur dolorem molestias molestias sed. Voluptatibus qui ducimus beatae distinctio.', 'You see the Mock Turtle angrily: \'really you are painting those roses?\' Five and Seven said nothing, but looked at poor Alice, who had been anxiously looking across the garden, where Alice could.', 'Florida', '226', 'recusandae', 'White Rabbit interrupted: \'UNimportant, your Majesty means, of course,\' said the Caterpillar; and it put the hookah out of THIS!\' (Sounds of more energetic remedies--\' \'Speak English!\' said the.', NULL),
 (82, 'tnru', 'Et libero id nemo. Ut provident molestiae necessitatibus saepe. Adipisci libero vero voluptas et pariatur. Dignissimos et possimus omnis expedita ducimus quis iusto deserunt. Dolorem eum velit aut dolor amet accusantium et.', 'Dodo replied very politely, \'if I had our Dinah here, I know who I am! But I\'d better take him his fan and the second verse of the shelves as she passed; it was done. They had a door leading right.', 'District of Columbia', '801', 'vel', 'Alice thought she might as well wait, as she was shrinking rapidly; so she went back to the little door, so she felt sure it would be wasting our breath.\" \"I\'ll be judge, I\'ll be jury,\" Said cunning.', NULL);
-INSERT INTO `model_legislations_dummy` (`mleg_id`, `title_of_model_legislation`, `text_of_model_legislation`, `summary`, `state`, `type`, `display_file_name`, `purpose`, `preamble`) VALUES
+INSERT INTO `proposed_legislation` (`mleg_id`, `title_of_model_legislation`, `text_of_model_legislation`, `summary`, `state`, `type`, `display_file_name`, `purpose`, `preamble`) VALUES
 (83, 'dxtu', 'Consequuntur placeat laudantium aspernatur facere eius omnis. Quia nemo earum distinctio dolores dignissimos. Quod voluptatem corporis reiciendis doloremque. Voluptatem illo minima architecto sunt facilis sed ut.', 'I\'ve nothing to do: once or twice, half hoping that they couldn\'t see it?\' So she went on just as she listened, or seemed to be sure, she had read several nice little histories about children who.', 'Illinois', '671', 'quo', 'FENDER, (WITH ALICE\'S LOVE). Oh dear, what nonsense I\'m talking!\' Just then her head pressing against the roof of the busy farm-yard--while the lowing of the garden: the roses growing on it (as she.', NULL),
 (84, 'kgbp', 'Et deserunt et rerum quis vel laudantium. Blanditiis ducimus quis nam placeat quae ea vitae. Consequatur facere magnam non labore natus. Reiciendis quis rerum nisi quas. Provident et eos architecto ea dolore laudantium fuga veniam.', 'Which way?\', holding her hand in hand with Dinah, and saying to herself, \'I wonder what Latitude or Longitude either, but thought they were nowhere to be Number One,\' said Alice. \'That\'s the reason.', 'RhodeIsland', '751', 'corrupti', 'I didn\'t!\' interrupted Alice. \'You must be,\' said the Lory, who at last in the direction in which the cook was busily stirring the soup, and seemed not to be no chance of her hedgehog. The hedgehog.', NULL),
 (85, 'ccwy', 'Quia consequuntur odit praesentium et aliquid. Quia et ad occaecati omnis aliquam. Veritatis itaque dolores provident in ut aut voluptate aut. Aliquid cum fugit debitis odio commodi maiores rerum.', 'Alice, in a minute, nurse! But I\'ve got to the jury, in a trembling voice to its feet, \'I move that the hedgehog a blow with its wings. \'Serpent!\' screamed the Queen. \'I never heard it say to this:.', 'Florida', '182', 'voluptatem', 'Queen\'s hedgehog just now, only it ran away when it had no idea what to beautify is, I suppose?\' \'Yes,\' said Alice in a day is very confusing.\' \'It isn\'t,\' said the Dormouse: \'not in that soup!\'.', NULL),
@@ -154,9 +154,9 @@ INSERT INTO `model_legislations_dummy` (`mleg_id`, `title_of_model_legislation`,
 --
 
 --
--- Indexes for table `model_legislations_dummy`
+-- Indexes for table `proposed_legislation`
 --
-ALTER TABLE `model_legislations_dummy`
+ALTER TABLE `proposed_legislation`
   ADD PRIMARY KEY (`mleg_id`);
 
 --
@@ -164,9 +164,9 @@ ALTER TABLE `model_legislations_dummy`
 --
 
 --
--- AUTO_INCREMENT for table `model_legislations_dummy`
+-- AUTO_INCREMENT for table `proposed_legislation`
 --
-ALTER TABLE `model_legislations_dummy`
+ALTER TABLE `proposed_legislation`
   MODIFY `mleg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 COMMIT;
 

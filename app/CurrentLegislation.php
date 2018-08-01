@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ModelLegislation extends Model
+class CurrentLegislation extends Model
 {
     /**
      *
@@ -12,8 +12,8 @@ class ModelLegislation extends Model
      *
      **/
 
-    protected $table = 'model_legislations';
-    protected $primaryKey = 'mleg_id';
+    protected $table = 'current_legislation';
+    protected $primaryKey = 'id';
     public $timestamps = false;
     protected $fillable = [
         'title_of_model_legislation',
