@@ -13,7 +13,11 @@ class RenameLegislationTable extends Migration
      */
     public function up()
     {
-        Schema::rename('existing_legislations', 'current_legislation');
+        try{
+            Schema::rename('existing_legislations', 'current_legislation');
+        }catch(\Exception $e){
+            echo $e->getMessage();
+        }
     }
 
     /**
@@ -23,6 +27,6 @@ class RenameLegislationTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::rename('current_legislation', 'existing_legislations');
     }
 }

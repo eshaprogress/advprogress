@@ -37,6 +37,6 @@ class AddProposedLegislation extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('proposed_legislation');
     }
 }
