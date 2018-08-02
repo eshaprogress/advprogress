@@ -66,39 +66,17 @@
         position: absolute;
         display: flex;
         text-decoration: none;
-        .circle {
-            width: 33px;
-            height: 33px;
-            background-color: white;
-            display: inline-block;
-            border-radius: 21px;
-            margin: 6px;
-            text-align: center;
-            position: relative;
-            .heart {
-                color: var(--red);
-                font-size: 26px;
-                position: absolute;
-                left: 3px;
-                top: 5px;
-                z-index: 100;
-            }
-            .money {
-                font-size: 8px;
-                color: var(--white);
-                background-color: var(--green);
-                display: block;
-                position: absolute;
-                z-index: 120;
-                width: 10px;
-                height: 10px;
-                border-radius: 8px;
-                top: 14px;
-                left: 18px;
-                border: solid 2px var(--white);
-                line-height: 10px;
-            }
+
+        .heart-icon {
+            display: block;
+            height: 35px;
+            width: 35px;
+            background-image: url(/images/CircleHeartBig.svg);
+            background-size: 35px;
+            background-repeat: no-repeat;
+            margin: 5px 6px;
         }
+
         .text {
             width: 150px;
             height: 44px;
@@ -126,10 +104,7 @@
                 <img src="/images/prisoners.png">
             </div>
             <router-link to="/donate" class="donate-btn">
-                <span class="circle">
-                    <i class="heart fas fa-heart"></i>
-                    <i class="money fas fa-dollar-sign"></i>
-                </span>
+                <span class="heart-icon"></span>
                 <span class="text">DONATE NOW</span>
             </router-link>
         </div>

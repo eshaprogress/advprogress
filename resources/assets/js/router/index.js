@@ -5,6 +5,8 @@ Vue.use(VueRouter);
 import LayoutCalculator from '../LayoutCalculator';
 import HomeComponent from '../components/HomeComponent';
 import HomeMobileComponent from '../components/mobile/HomeMobileComponent';
+import SubscribeComponent from '../components/SubscribeComponent';
+import SubscribeMobileComponent from '../components/mobile/SubscribeMobileComponent';
 import ConsultationComponent from '../components/ConsultationComponent';
 import ConsultationMobileComponent from '../components/mobile/ConsultationMobileComponent';
 import DonateComponent from '../components/DonateComponent';
@@ -38,6 +40,13 @@ const routes = [
                 components:{
                     standard:DonateComponent,
                     mobile:DonateMobileComponent,
+                }
+            },
+            {
+                path: 'subscribe',
+                components:{
+                    standard:SubscribeComponent,
+                    mobile:SubscribeMobileComponent,
                 }
             },
             {

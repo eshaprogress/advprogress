@@ -51,54 +51,43 @@
             }
         }
     }
-    .donate-btn {
-        width: 250px;
+
+    .donate-ribbon {
         height: 44px;
-        border-radius: 100px;
         background-color: #009de1;
         line-height: 44px;
-        right: -25px;
-        top: 47px;
-        position: absolute;
-        display: flex;
+        display: block;
         text-decoration: none;
-        .circle {
-            width: 33px;
-            height: 33px;
-            background-color: white;
-            display: inline-block;
-            border-radius: 21px;
-            margin: 6px;
-            text-align: center;
-            position: relative;
-            .heart {
-                color: var(--red);
-                font-size: 26px;
-                position: absolute;
-                left: 3px;
-                top: 5px;
-                z-index: 100;
-            }
-            .money {
-                font-size: 8px;
-                color: var(--white);
-                background-color: var(--green);
-                display: block;
-                position: absolute;
-                z-index: 120;
-                width: 10px;
-                height: 10px;
-                border-radius: 8px;
-                top: 14px;
-                left: 18px;
-                border: solid 2px var(--white);
-                line-height: 10px;
-            }
+
+        .donate-ribbon-container {
+            background-color: var(--white);
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            grid-column-gap: 5px;
         }
+
+        .heart-icon {
+            display: block;
+            height: 30px;
+            width: 30px;
+            background-image: url(/images/CircleHeartBig.svg);
+            background-size: 30px;
+            background-repeat: no-repeat;
+            margin: 5px 6px;
+            position: absolute;
+            top: 2px;
+            right: -23px;
+        }
+
         .text {
-            width: 150px;
-            height: 44px;
-            font-size: 18px;
+            &.left {
+                background-color: var(--blue);
+                position: relative;
+            }
+            &.right {
+                background-color: var(--green);
+            }
+            font-size: 16px;
             font-weight: 600;
             font-style: normal;
             font-stretch: normal;
@@ -106,6 +95,8 @@
             color: #ffffff;
             display: inline-block;
             padding-left: 17px;
+            text-decoration: none;
+            text-align: center;
         }
     }
 </style>
@@ -113,6 +104,14 @@
 <template>
     <section class="section carousel">
         <div class="carousel-container">
+            <div class="donate-ribbon">
+                <div class="donate-ribbon-container">
+                    <router-link title="Donate" to="/donate" class="text left">DONATE
+                        <span class="heart-icon"></span>
+                    </router-link>
+                    <router-link title="Join US / Subscribe" to="/subscribe" class="text right">JOIN US</router-link>
+                </div>
+            </div>
             <div class="carousel-item img-1">
                 <div class="content">
                     <h2>THE STATELESS</h2>
@@ -120,13 +119,7 @@
                     <router-link to="/" class="btn green">LEARN MORE</router-link>
                 </div>
             </div>
-            <router-link to="/donate" class="donate-btn">
-                <span class="circle">
-                    <i class="heart fas fa-heart"></i>
-                    <i class="money fas fa-dollar-sign"></i>
-                </span>
-                <span class="text">DONATE NOW</span>
-            </router-link>
+
         </div>
     </section>
 </template>
