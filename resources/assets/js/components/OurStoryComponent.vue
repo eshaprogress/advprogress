@@ -5,6 +5,14 @@
     .container {
         max-width: 800px;
         margin:auto;
+        .icon {
+            text-align: center;
+            display: block;
+            margin-top: 40px;
+            img {
+                margin:auto;
+            }
+        }
     }
     h2 {
         color:var(--blue);
@@ -103,6 +111,9 @@
     <section class="section our-story">
         <div class="container">
             <h2>OUR STORY</h2>
+            <div class="icon">
+                <img src="/images/story-icon.png" alt="Story Icon">
+            </div>
             <div class="time-line">
                 <ul>
                     <li v-for="(info, index) in story_time_line" v-bind:key="index">
