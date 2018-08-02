@@ -120,33 +120,13 @@
 </template>
 
 <script>
+    import data from '../../data/story_time_line.json';
+
     export default {
         name:'OurStoryComponent',
         data(){
             return {
-                story_time_line:[
-                    {
-                        "description":`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`,
-                        "yearStart":"2009",
-                        "yearEnd":"2014"
-                    },
-                    {
-                        "description":`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`,
-                        "yearStart":"2005",
-                        "yearEnd":"2009"
-                    },
-                    {
-                        "description":`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`,
-                        "yearStart":"1999",
-                        "yearEnd":"2005"
-                    }
-                ]
+                story_time_line:data
             }
         }
     }
