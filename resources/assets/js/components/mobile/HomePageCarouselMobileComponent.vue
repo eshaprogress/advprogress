@@ -33,12 +33,13 @@
             position: relative;
             overflow: hidden;
             margin:auto;
+            background-color: var(--white2);
         }
         .carousel-item {
             &.img-1 {
                 height: 324px;
-                background: url(/images/mobile/prisoners.png) no-repeat center center fixed;
                 background-size: cover;
+                background: url(/images/mobile/prisoners.png) no-repeat center center;
             }
             .content {
                 color: white;

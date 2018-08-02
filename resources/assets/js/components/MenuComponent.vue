@@ -71,6 +71,7 @@
                 <ul class="navbar-menu">
                     <li class="navbar-item" ><router-link to="/">Home</router-link></li>
                     <li class="navbar-item" ><router-link to="/our-story">OUR STORY</router-link></li>
+                    <li class="navbar-item" ><router-link to="/projects">PROJECTS</router-link></li>
                     <li class="navbar-item" ><router-link to="/consultation">CONSULTATION</router-link></li>
                     <li class="navbar-item" ><router-link to="/donate">DONATE</router-link></li>
                 </ul>

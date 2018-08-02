@@ -102,6 +102,7 @@
         <ul class="navbar-menu">
             <li class="navbar-item" ><router-link @click.native="menuEnabled" to="/">HOME</router-link></li>
             <li class="navbar-item" ><router-link @click.native="menuEnabled" to="/our-story">OUR STORY</router-link></li>
+            <li class="navbar-item" ><router-link @click.native="menuEnabled" to="/projects">PROJECTS</router-link></li>
             <li class="navbar-item" ><router-link @click.native="menuEnabled" to="/consultation">CONSULTATION</router-link></li>
             <li class="navbar-item" ><router-link @click.native="menuEnabled" to="/donate">DONATE</router-link></li>
             <li class="navbar-item" ><router-link @click.native="menuEnabled" to="/contact-us">CONTACT US</router-link></li>
