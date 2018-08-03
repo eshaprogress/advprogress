@@ -14,9 +14,9 @@ import VueMq from 'vue-mq'
 Vue.use(VueMq, {
     breakpoints: { // default breakpoints - customize this
         m_tiny: 500,
-        m_small: 800,
-        m_bigger: 1100,
-        tablet: 1250,
+        m_small: 600,
+        m_bigger: 9000,
+        tablet: 1160,
         standard: Infinity,
     }
 });
