@@ -13,10 +13,7 @@ import router from './router';
 import VueMq from 'vue-mq'
 Vue.use(VueMq, {
     breakpoints: { // default breakpoints - customize this
-        m_tiny: 500,
-        m_small: 600,
-        m_bigger: 900,
-        tablet: 1160,
+        mobile: 1150,
         standard: Infinity,
     }
 });

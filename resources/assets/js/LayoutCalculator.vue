@@ -24,7 +24,7 @@
 
 <template>
     <div class="layout-calculator">
-        <mq-layout class="computed-mobile" :mq="['m_tiny','m_small','m_bigger', 'tablet']">
+        <mq-layout class="computed-mobile" mq="mobile">
             <menu-mobile-component />
             <section class="container">
                 <router-view name="mobile" />
