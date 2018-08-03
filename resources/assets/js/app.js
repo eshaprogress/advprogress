@@ -15,7 +15,7 @@ Vue.use(VueMq, {
     breakpoints: { // default breakpoints - customize this
         m_tiny: 500,
         m_small: 600,
-        m_bigger: 9000,
+        m_bigger: 900,
         tablet: 1160,
         standard: Infinity,
     }
