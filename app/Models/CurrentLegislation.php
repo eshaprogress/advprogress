@@ -14,7 +14,7 @@ class CurrentLegislation extends Model
         'text_of_existing_legislation',
         'summary_of_existing_legislation',
         'category',
-        'city',
+        'jurisdiction',
         'state',
     ];
     public $timestamps = false;
