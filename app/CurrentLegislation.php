@@ -6,19 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class CurrentLegislation extends Model
 {
-    /**
-     *
-     * table specific parameters
-     *
-     **/
-
     protected $table = 'current_legislation';
     protected $primaryKey = 'id';
-    public $timestamps = false;
     protected $fillable = [
-        'title_of_model_legislation',
+        'title_of_existing_legislation',
+        'citation',
+        'text_of_existing_legislation',
+        'summary_of_existing_legislation',
         'category',
-        'text_of_model_legislation',
-        'summary'
+        'city',
+        'state',
     ];
+    public $timestamps = false;
 }
