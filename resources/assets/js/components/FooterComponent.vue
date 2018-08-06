@@ -1,8 +1,30 @@
 <style lang="scss" scoped>
     .footer {
-        height: 390px;
         background-image: linear-gradient(to top, #03bf3c, #009de1);
         position: relative;
+
+        .disclaimer {
+            color: var(--white);
+            max-width: 500px;
+            padding: 20px;
+            margin: 50px auto auto;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: solid 1px rgba(0, 0, 0, 0.1);
+            strong {
+                font-size: 20px;
+                margin: 0;
+                padding: 10px;
+                display: block;
+                text-align: center;
+                padding-top: 0;
+            }
+            p {
+                font-size: 12px;
+                margin:0;
+                padding:0;
+                display: block;
+            }
+        }
         .bird-footer {
             position: absolute;
             bottom: 0;
@@ -154,6 +176,13 @@
             </div>
         </div>
         <div class="bird-footer"></div>
+        <div class="disclaimer">
+            <strong>DISCLAIMER</strong>
+            <p>The content provided by LEAP or its representatives is not intended as legal advice or guidance, and you may not rely upon it in that manner.
+                Communications between you and representatives of LEAP are protected by our Privacy Policy but not by the attorney-client privilege or as work product.
+                LEAP is not a law firm or a substitute for an attorney or law firm. We cannot provide advice, explanation, opinion, or recommendation about possible legal rights, remedies, defenses, options, selection of forms, or strategies.
+                You should retain and consult an attorney regarding your rights and obligations.  Your access to this website and its content are subject to our Terms of Use.</p>
+        </div>
     </footer>
 </template>
 
