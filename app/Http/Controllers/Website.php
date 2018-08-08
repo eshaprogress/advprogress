@@ -198,7 +198,7 @@ class Website extends Controller
 
             $appName = config('app.name');
             $subject = "{$appName} Consultation requested by {$data['name']}";
-            $m->to(config('app.contact_email'), "Admin")->subject($subject);
+            $m->to(config('app.consultation_email'), "CONSULTATION")->subject($subject);
         });
 
         return response()->json([

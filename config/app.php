@@ -110,6 +110,7 @@ return [
 
     'octopus_id' => env('OCTOPUS_ID',''),
     'contact_email' => env('CONTACT_EMAIL',''),
+    'consultation_email' => env('CONSULTATION_EMAIL',''),
 
     /*
     |--------------------------------------------------------------------------
