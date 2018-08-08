@@ -32,6 +32,15 @@ class Website extends Controller
         Stripe::setApiVersion("2018-05-21");
     }
 
+    private static function getAppName()
+    {
+        $isProduction = (config('app.env') == 'production');
+        $appName = config('app.name');
+        if(!$isProduction)
+            $appName = "[DEV] {$appName}";
+        return $appName;
+    }
+
     // TODO: Figure out what a cc decline looks like and attach to front-end logic.
     public function donationSubmit(Request $request)
     {
@@ -135,10 +144,7 @@ class Website extends Controller
                 throw new \Exception("Fix Logic");
         }
 
-        $isProduction = (config('app.env') === 'production');
-        $appName = config('app.name');
-        if(!$isProduction)
-            $appName = "[DEV] {$appName}";
+        $appName = self::getAppName();
 
         if($isSuccessful)
         {
@@ -187,10 +193,7 @@ class Website extends Controller
 
         $data['name'] = "{$data['first_name']} {$data['last_name']}";
 
-        $isProduction = (config('app.env') === 'production');
-        $appName = config('app.name');
-        if(!$isProduction)
-            $appName = "[DEV] {$appName}";
+        $appName = self::getAppName();
 
         \Mail::send('emails.consultation-submitted', ['data' => $data], function (Message $m) use ($appName, $data) {
             $domain = config('services.mailgun.domain');
@@ -226,10 +229,7 @@ class Website extends Controller
         $cancel->used = false;
         $cancel->save();
 
-        $isProduction = (config('app.env') === 'production');
-        $appName = config('app.name');
-        if(!$isProduction)
-            $appName = "[DEV] {$appName}";
+        $appName = self::getAppName();
 
         \Mail::send('emails.cancel-confirm', ['data' => [
             'email'=>$cancel->email,
@@ -261,10 +261,7 @@ class Website extends Controller
         $cancelInfo->used = true;
         $cancelInfo->save();
 
-        $isProduction = (config('app.env') === 'production');
-        $appName = config('app.name');
-        if(!$isProduction)
-            $appName = "[DEV] {$appName}";
+        $appName = self::getAppName();
 
         if(count($customers['data']) > 0)
         {
