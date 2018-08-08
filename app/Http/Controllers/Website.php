@@ -135,15 +135,19 @@ class Website extends Controller
                 throw new \Exception("Fix Logic");
         }
 
+        $isProduction = (config('app.env') === 'production');
+        $appName = config('app.name');
+        if(!$isProduction)
+            $appName = "[DEV] {$appName}";
+
         if($isSuccessful)
         {
             try
             {
-                \Mail::send('emails.welcome', ['data' => $data], function (Message $m) use ($data) {
+                \Mail::send('emails.welcome', ['data' => $data], function (Message $m) use ($appName, $data) {
                     $domain = config('services.mailgun.domain');
                     $m->from("noreply@{$domain}", config('app.name'));
 
-                    $appName = config('app.name');
                     $subject = "{$appName} Thanks you for your donation";
                     $m->to($data['form']['email'], $data['name'])->subject($subject);
                 });
@@ -183,20 +187,22 @@ class Website extends Controller
 
         $data['name'] = "{$data['first_name']} {$data['last_name']}";
 
-        \Mail::send('emails.consultation-submitted', ['data' => $data], function (Message $m) use ($data) {
+        $isProduction = (config('app.env') === 'production');
+        $appName = config('app.name');
+        if(!$isProduction)
+            $appName = "[DEV] {$appName}";
+
+        \Mail::send('emails.consultation-submitted', ['data' => $data], function (Message $m) use ($appName, $data) {
             $domain = config('services.mailgun.domain');
             $m->from("noreply@{$domain}", config('app.name'));
 
-            $appName = config('app.name');
             $subject = "{$appName} Consultation Submitted";
             $m->to($data['email'], $data['name'])->subject($subject);
         });
 
-        \Mail::send('emails.consultation-request', ['data' => $data], function (Message $m) use ($data) {
+        \Mail::send('emails.consultation-request', ['data' => $data], function (Message $m) use ($appName, $data) {
             $domain = config('services.mailgun.domain');
             $m->from("noreply@{$domain}", config('app.name'));
-
-            $appName = config('app.name');
             $subject = "{$appName} Consultation requested by {$data['name']}";
             $m->to(config('app.consultation_email'), "CONSULTATION")->subject($subject);
         });
@@ -220,14 +226,18 @@ class Website extends Controller
         $cancel->used = false;
         $cancel->save();
 
+        $isProduction = (config('app.env') === 'production');
+        $appName = config('app.name');
+        if(!$isProduction)
+            $appName = "[DEV] {$appName}";
+
         \Mail::send('emails.cancel-confirm', ['data' => [
             'email'=>$cancel->email,
             'code'=>$cancel->code
-        ]], function (Message $m) use ($data) {
+        ]], function (Message $m) use ($appName, $data) {
             $domain = config('services.mailgun.domain');
             $m->from("noreply@{$domain}", config('app.name'));
 
-            $appName = config('app.name');
             $subject = "{$appName} really wishes you'd reconsider";
             $m->to($data['email'], "Patron")->subject($subject);
         });
@@ -251,6 +261,11 @@ class Website extends Controller
         $cancelInfo->used = true;
         $cancelInfo->save();
 
+        $isProduction = (config('app.env') === 'production');
+        $appName = config('app.name');
+        if(!$isProduction)
+            $appName = "[DEV] {$appName}";
+
         if(count($customers['data']) > 0)
         {
             foreach($customers['data'] as $customer)
@@ -265,11 +280,10 @@ class Website extends Controller
                         $pull->cancel();
                     }
 
-                    \Mail::send('emails.cancel-confirmed', [], function (Message $m) use ($cancelInfo) {
+                    \Mail::send('emails.cancel-confirmed', [], function (Message $m) use ($appName, $cancelInfo) {
                         $domain = config('services.mailgun.domain');
                         $m->from("noreply@{$domain}", config('app.name'));
 
-                        $appName = config('app.name');
                         $subject = "{$appName} hopes to see you back soon.";
                         $m->to($cancelInfo->email, "Patron")->subject($subject);
                     });
