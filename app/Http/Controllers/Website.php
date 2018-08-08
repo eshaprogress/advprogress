@@ -206,7 +206,9 @@ class Website extends Controller
         \Mail::send('emails.consultation-request', ['data' => $data], function (Message $m) use ($appName, $data) {
             $domain = config('services.mailgun.domain');
             $m->from("noreply@{$domain}", config('app.name'));
-            $subject = "{$appName} Consultation requested by {$data['name']}";
+
+            $time = date(\DATE_ATOM);
+            $subject = "{$appName} Consultation requested by {$data['name']} @ {$time}";
             $m->to(config('app.consultation_email'), "CONSULTATION")->subject($subject);
         });
 
