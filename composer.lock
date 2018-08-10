@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ba504718810813e951bb6ba0e440050",
+    "content-hash": "cfcf979581383be36e79aa1d9b90a2d2",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -915,6 +915,112 @@
                 "url"
             ],
             "time": "2017-03-20T17:10:46+00:00"
+        },
+        {
+            "name": "konekt/enum",
+            "version": "2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/artkonekt/enum.git",
+                "reference": "ab37d89e1a6f88a76f25c6dd88b56b8892de86f2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/artkonekt/enum/zipball/ab37d89e1a6f88a76f25c6dd88b56b8892de86f2",
+                "reference": "ab37d89e1a6f88a76f25c6dd88b56b8892de86f2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "6.2 - 7.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Konekt\\Enum\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Attila Fulop",
+                    "homepage": "https://github.com/fulopattila122"
+                }
+            ],
+            "description": "SPL inspired PHP enum class implementation",
+            "keywords": [
+                "artkonekt",
+                "enum",
+                "konekt"
+            ],
+            "time": "2018-06-09T13:03:01+00:00"
+        },
+        {
+            "name": "konekt/enum-eloquent",
+            "version": "1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/artkonekt/enum-eloquent.git",
+                "reference": "f67c981d549f69cddb9956ef51d16267c050a0c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/artkonekt/enum-eloquent/zipball/f67c981d549f69cddb9956ef51d16267c050a0c9",
+                "reference": "f67c981d549f69cddb9956ef51d16267c050a0c9",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.*",
+                "konekt/enum": "^2.0.2",
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "illuminate/events": "5.*",
+                "phpunit/phpunit": "~6.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Konekt\\Enum\\Eloquent\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Attila Fulop",
+                    "homepage": "https://github.com/fulopattila122"
+                }
+            ],
+            "description": "Enum attribute casting for Eloquent models",
+            "keywords": [
+                "artkonekt",
+                "eloquent",
+                "enum",
+                "konekt",
+                "laravel"
+            ],
+            "time": "2017-12-08T17:57:42+00:00"
         },
         {
             "name": "laravel/cashier",
