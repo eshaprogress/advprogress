@@ -32,15 +32,6 @@ class Website extends Controller
         Stripe::setApiVersion("2018-05-21");
     }
 
-    private static function getAppName()
-    {
-        $isProduction = (config('app.env') == 'production');
-        $appName = config('app.name');
-        if(!$isProduction)
-            $appName = "[DEV] {$appName}";
-        return $appName;
-    }
-
     // TODO: Figure out what a cc decline looks like and attach to front-end logic.
     public function donationSubmit(Request $request)
     {
