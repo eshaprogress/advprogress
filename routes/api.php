@@ -23,3 +23,4 @@ Route::post('/consultation', 'Website@consultationSubmit');
 Route::post('/cancel-subscription', 'Website@cancelSubscription');
 Route::post('/cancel-subscription-confirmed', 'Website@confirmCancelSubscription');
 Route::get('/legal', 'LegalController@legalIndex');
+Route::get('/projects', 'Project@getCategories');

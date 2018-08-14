@@ -3,8 +3,8 @@
         padding: 20px;
     }
     .container {
-        max-width: 800px;
         margin:auto;
+        max-width: none;
     }
     h2 {
         color:var(--blue);
@@ -14,83 +14,52 @@
         font-stretch: normal;
         line-height: normal;
         letter-spacing: normal;
-        padding:0;
         text-align: center;
         margin: 0;
+        padding: 32px 0;
     }
 
-    .time-line {
-        margin: 5px 45px;
-        padding: 10px;
-
+    .categories {
+        --project-height:52px;
+        background-color: var(--blue);
+        height:var(--project-height);
+        padding:9px;
         ul {
-            position: relative;
-            list-style: none;
-            margin: 0;
+            margin: 0 auto;
             padding: 0;
-            &::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 0px;
-                height: 100%;
-            }
-            li {
-                position: relative;
-                width: 100%;
-                background-color: rgba(0,0,0,.1);
-                border-radius: 10px;
-                padding: 10px;
-                margin: 50px 35px 70px;
-                &:last-child {
-                    margin-bottom: 0;
-                }
-                > span {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: -30px;
-                    width: 0px;
-                    height: 100%;
-                    border: 2px solid #aaa;
-
-                    &::before,
-                    &::after {
-                        content: '';
-                        position: absolute;
-                        width: 10px;
-                        height: 10px;
-                        border: 2px solid #aaa;
-                        border-radius: 50%;
-                        left: -7px;
-                        background-color: #333;
-                    }
-
-                    &::before {
-                        top: -15px;
-                    }
-                    &::after {
-                        top: 100%;
+            list-style: none;
+            display: flex;
+            max-width: 800px;
+            align-items: center;
+            align-content: center;
+            height:var(--project-height);
+            li{
+                &.active {
+                    background-color:var(--white);
+                    a {
+                        color:var(--blue);
                     }
                 }
-                .description {
+                margin:0;
+                padding:9px 0;
+                list-style: none;
+                flex:auto;
+                display: inline-block;
+                text-align: center;
+                height:var(--project-height);
+                a {
+                    border-left: solid 2px var(--white);
+                    color:var(--white);
+                    height:var(--project-height);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     font-size: 16px;
+                    span {}
                 }
-                .year {
-                    span {
-                        position: absolute;
-                        font-size: 16px;
-                        font-weight: normal;
-                        left: -90px;
-                        width: 40px;
-                        text-align: right;
-                        &:first-child {
-                            top: -15px;
-                        }
-                        &:last-child {
-                            top: 100%;
-                        }
+                &:last-child {
+                    a {
+                        border-right: solid 2px var(--white);
                     }
                 }
             }
@@ -103,18 +72,15 @@
     <section class="section projects">
         <div class="container">
             <h2>PROJECTS</h2>
-            <div class="time-line">
+            <nav class="categories">
                 <ul>
-                    <li v-for="(info, index) in projects" v-bind:key="index">
-                        <span></span>
-                        <div class="description">{{ info.description }}</div>
-                        <div class="year">
-                            <span>{{ info.yearEnd }}</span>
-                            <span>{{ info.yearStart }}</span>
-                        </div>
-                    </li>
+                    <li class="active"><a href="#"><span>category1</span></a></li>
+                    <li><a href="#"><span>category2</span></a></li>
+                    <li><a href="#"><span>category3</span></a></li>
+                    <li><a href="#"><span>category4</span></a></li>
+                    <li><a href="#"><span>category5</span></a></li>
                 </ul>
-            </div>
+            </nav>
         </div>
     </section>
 </template>
