@@ -70,7 +70,7 @@
                 'fetchCategories'
             ]),
             makeCategoryRoute:(cat) => {
-                return `/projects/${cat.id}/category`;
+                return {path:`/projects/category/${cat.id}`};
             }
         },
         computed:{

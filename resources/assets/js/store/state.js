@@ -2,5 +2,7 @@ export default {
     projects:[],
     isProjectsLoading:false,
     categories:[],
-    isCategoriesLoading:false
+    isCategoriesLoading:false,
+    category:null,
+    project:null
 };

@@ -29,6 +29,7 @@ const routes = [
         component: LayoutCalculator,
         children:[
             {
+                name: 'home-root',
                 path: '',
                 components:{
                     standard:HomeComponent,
@@ -36,6 +37,7 @@ const routes = [
                 }
             },
             {
+                name: 'donate',
                 path: 'donate',
                 components:{
                     standard:DonateComponent,
@@ -43,6 +45,7 @@ const routes = [
                 }
             },
             {
+                name: 'subscribe',
                 path: 'subscribe',
                 components:{
                     standard:SubscribeComponent,
@@ -50,6 +53,7 @@ const routes = [
                 }
             },
             {
+                name: 'consultation',
                 path: 'consultation',
                 components:{
                     standard:ConsultationComponent,
@@ -57,6 +61,7 @@ const routes = [
                 }
             },
             {
+                name: 'cancel-subscription-confirm',
                 path: 'cancel-subscription/confirm',
                 components:{
                     standard:CancelSubscriptionConfirmedComponent,
@@ -64,6 +69,7 @@ const routes = [
                 }
             },
             {
+                name: 'our-story',
                 path: 'our-story',
                 components:{
                     standard:OurStoryComponent,
@@ -71,6 +77,7 @@ const routes = [
                 }
             },
             {
+                name: 'projects-section',
                 path: 'projects',
                 components:{
                     standard:ProjectListLayoutComponent,
@@ -78,6 +85,7 @@ const routes = [
                 },
                 children:[
                     {
+                        name: 'projects-section-root',
                         path: '',
                         components:{
                             standard:ProjectByCategoryComponent,
@@ -85,7 +93,8 @@ const routes = [
                         }
                     },
                     {
-                        path: ':categoryId/category',
+                        name: 'projects-section-category-id',
+                        path: 'category/:categoryId',
                         components:{
                             standard:ProjectByCategoryComponent,
                             mobile:ProjectByCategoryComponent,
@@ -94,6 +103,7 @@ const routes = [
                 ]
             },
             {
+                name: 'cancel-subscription',
                 path: 'cancel-subscription',
                 components:{
                     standard:CancelSubscriptionComponent,
@@ -101,6 +111,7 @@ const routes = [
                 }
             },
             {
+                name:'not-found',
                 path: 'not-found',
                 components:{
                     standard:NotFoundComponent,

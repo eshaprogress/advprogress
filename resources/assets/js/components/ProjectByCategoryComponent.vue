@@ -107,23 +107,22 @@
                 return tcText + clamp;
             }
         },
-        beforeRouteEnter (to, from, next)
+        beforeRouteUpdate (to, from, next)
         {
-            next(vm => {
-                if(to.params.categoryId) {
-                    vm.fetchProjects({categoryId:to.params.categoryId});
-                }else{
-                    vm.fetchProjects({categoryId:null});
-                }
+            console.log('beforeRouteUpdate: to',to, 'from', from);
+            this.fetchProjects({categoryId:to.params.categoryId});
+            next();
+        },
+        beforeRouteEnter(to, from, next)
+        {
+            next(vm=>{
+                console.log('beforeRouteEnter: to',to, 'from', from);
+                vm.fetchProjects({categoryId:to.params.categoryId});
             });
         },
-        beforeRouteUpdate(to, from, next)
+        beforeRouteLeave(to, from, next)
         {
-            if(to.params.categoryId) {
-                this.fetchProjects({categoryId:to.params.categoryId});
-            }else{
-                this.fetchProjects({categoryId:null});
-            }
+            console.log('beforeRouteLeave: to',to, 'from', from);
             next();
         }
     }
