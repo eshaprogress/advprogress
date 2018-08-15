@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
-
+        $this->call(add_states_and_categories::class);
+        $this->call(generate_junk_projects_states::class);
     }
 }

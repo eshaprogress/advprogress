@@ -15,4 +15,9 @@ class Project extends Model
         'model_legislative_summary_text',
         'resources'
     ];
+
+    public function scopeIsFeatured($query)
+    {
+        return $query->where('is_featured', '=', 1);
+    }
 }

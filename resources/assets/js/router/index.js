@@ -19,8 +19,9 @@ import NotFoundComponent from '../components/NotFoundComponent';
 import NotFoundMobileComponent from '../components/mobile/NotFoundMobileComponent';
 import OurStoryComponent from '../components/OurStoryComponent';
 import OurStoryMobileComponent from '../components/mobile/OurStoryMobileComponent';
-import ProjectsComponent from '../components/ProjectsComponent';
-import ProjectsMobileComponent from '../components/mobile/ProjectsMobileComponent';
+import ProjectDirectoryComponent from '../components/ProjectDirectoryComponent';
+import ProjectByCategoryComponent from '../components/ProjectByCategoryComponent';
+import ProjectDirectoryMobileComponent from '../components/mobile/ProjectDirectoryMobileComponent';
 
 const routes = [
     {
@@ -73,9 +74,25 @@ const routes = [
             {
                 path: 'projects',
                 components:{
-                    standard:ProjectsComponent,
-                    mobile:ProjectsMobileComponent,
-                }
+                    standard:ProjectDirectoryComponent,
+                    mobile:ProjectDirectoryMobileComponent,
+                },
+                children:[
+                    {
+                        path: 'category/:categoryId',
+                        components:{
+                            standard:ProjectByCategoryComponent,
+                            mobile:ProjectByCategoryComponent,
+                        }
+                    },
+                    {
+                        path: 'category/:categoryId',
+                        components:{
+                            standard:HomeComponent,
+                            mobile:HomeMobileComponent,
+                        }
+                    },
+                ]
             },
             {
                 path: 'cancel-subscription',

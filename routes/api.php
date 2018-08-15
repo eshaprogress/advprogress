@@ -23,4 +23,7 @@ Route::post('/consultation', 'Website@consultationSubmit');
 Route::post('/cancel-subscription', 'Website@cancelSubscription');
 Route::post('/cancel-subscription-confirmed', 'Website@confirmCancelSubscription');
 Route::get('/legal', 'LegalController@legalIndex');
-Route::get('/projects', 'Project@getCategories');
+Route::get('/categories', 'ProjectController@getCategories');
+Route::get('/category/{categoryId}/projects', 'ProjectController@getProjectsByCategoryId');
+Route::get('/project/featured', 'ProjectController@getFeaturedProjects');
+Route::get('/project/{projectId}', 'ProjectController@getProjectsByCategoryId');
