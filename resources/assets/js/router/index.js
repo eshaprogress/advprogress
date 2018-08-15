@@ -19,9 +19,8 @@ import NotFoundComponent from '../components/NotFoundComponent';
 import NotFoundMobileComponent from '../components/mobile/NotFoundMobileComponent';
 import OurStoryComponent from '../components/OurStoryComponent';
 import OurStoryMobileComponent from '../components/mobile/OurStoryMobileComponent';
-import ProjectDirectoryComponent from '../components/ProjectDirectoryComponent';
+import ProjectListLayoutComponent from '../components/ProjectListLayoutComponent';
 import ProjectByCategoryComponent from '../components/ProjectByCategoryComponent';
-import ProjectDirectoryMobileComponent from '../components/mobile/ProjectDirectoryMobileComponent';
 
 const routes = [
     {
@@ -74,24 +73,24 @@ const routes = [
             {
                 path: 'projects',
                 components:{
-                    standard:ProjectDirectoryComponent,
-                    mobile:ProjectDirectoryMobileComponent,
+                    standard:ProjectListLayoutComponent,
+                    mobile:ProjectListLayoutComponent,
                 },
                 children:[
                     {
-                        path: 'category/:categoryId',
+                        path: '',
                         components:{
                             standard:ProjectByCategoryComponent,
                             mobile:ProjectByCategoryComponent,
                         }
                     },
                     {
-                        path: 'category/:categoryId',
+                        path: ':categoryId/category',
                         components:{
-                            standard:HomeComponent,
-                            mobile:HomeMobileComponent,
+                            standard:ProjectByCategoryComponent,
+                            mobile:ProjectByCategoryComponent,
                         }
-                    },
+                    }
                 ]
             },
             {

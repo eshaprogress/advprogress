@@ -49,7 +49,8 @@
                     color:var(--black);
                     text-transform: uppercase;
                     text-decoration: none;
-                    &.router-link-exact-active {
+                    &.router-link-exact-active,
+                    &.router-link-active {
                         color:var(--green);
                     }
                 }
@@ -69,7 +70,7 @@
             </div>
             <div class="navbar-end">
                 <ul class="navbar-menu">
-                    <li class="navbar-item" ><router-link to="/">Home</router-link></li>
+                    <li class="navbar-item" ><router-link to="/" exact>Home</router-link></li>
                     <li class="navbar-item" ><router-link to="/our-story">OUR STORY</router-link></li>
                     <li class="navbar-item" ><router-link to="/projects">PROJECTS</router-link></li>
                     <li class="navbar-item" ><router-link to="/consultation">CONSULTATION</router-link></li>

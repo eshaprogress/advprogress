@@ -10,6 +10,8 @@ import './bootstrap';
 import Vue from 'vue';
 import BootStrapApp from './BootStrapApp';
 import router from './router';
+import store from './store';
+
 import VueMq from 'vue-mq'
 Vue.use(VueMq, {
     breakpoints: { // default breakpoints - customize this
@@ -20,6 +22,7 @@ Vue.use(VueMq, {
 
 const app = new Vue({
     router,
+    store,
     components:{
         BootStrapApp
     },

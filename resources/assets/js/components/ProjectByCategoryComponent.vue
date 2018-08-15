@@ -1,71 +1,4 @@
 <style lang="scss" scoped>
-    .projects-section {
-        padding: 20px;
-    }
-    .container {
-        margin:auto;
-        max-width: none;
-    }
-    h2 {
-        color:var(--blue);
-        font-size: 32px;
-        font-weight: bold;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        text-align: center;
-        margin: 0;
-        padding: 32px 0;
-    }
-
-    .categories {
-        --project-height:52px;
-        background-color: var(--blue);
-        height:var(--project-height);
-        padding:9px;
-        ul {
-            margin: 0 auto;
-            padding: 0;
-            list-style: none;
-            display: flex;
-            max-width: 800px;
-            align-items: center;
-            align-content: center;
-            height:var(--project-height);
-            li{
-                &.active {
-                    background-color:var(--white);
-                    a {
-                        color:var(--blue);
-                    }
-                }
-                margin:0;
-                padding:9px 0;
-                list-style: none;
-                flex:auto;
-                display: inline-block;
-                text-align: center;
-                height:var(--project-height);
-                a {
-                    border-left: solid 2px var(--white);
-                    color:var(--white);
-                    height:var(--project-height);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 16px;
-                    span {}
-                }
-                &:last-child {
-                    a {
-                        border-right: solid 2px var(--white);
-                    }
-                }
-            }
-        }
-    }
-
     .projects {
         display: flex;
         align-items: center;
@@ -117,56 +50,38 @@
 </style>
 
 <template>
-    <section class="section projects-section">
-        <div class="container">
-            <h2>PROJECTS</h2>
-            <nav class="categories">
-                <template v-if="isCategoriesLoading">
-                    Loading Categories ....
-                </template>
-                <template v-else>
-                    <ul>
-                        <template v-for="cat in categories">
-                            <li><router-link :to="makeCategoryRoute(cat)"><span>{{cat.category}}</span></router-link></li>
-                        </template>
-                    </ul>
-                </template>
-            </nav>
-            <main class="projects">
-                <router-view name="standard" />
-            </main>
-        </div>
-    </section>
+    <main class="projects">
+        <template v-if="isProjectLoading">
+            Loading Projects ....
+        </template>
+        <template v-else>
+            <template v-for="proj in getProjects">
+                <article class="card">
+                    <div class="img"><img :src="proj.card_img" alt=""></div>
+                    <div class="content">
+                        <h4 class="title">{{proj.title}}</h4>
+                        <p class="body">{{proj.model_legislative_summary_text | truncate(225, '...')}}</p>
+                    </div>
+                </article>
+            </template>
+        </template>
+    </main>
 </template>
 
 <script>
-    import axios from 'axios';
-
+    import {mapGetters, mapActions} from 'vuex';
     export default {
         name:'ProjectsByCategoryComponent',
-        data()
-        {
-            return {
-                categories:[],
-                isCategoriesLoading:false,
-                projects:[],
-                isProjectsLoading:false
-            }
-        },
         methods:{
-            makeCategoryRoute:(cat) => {
-                return `/projects/${cat.id}/category`;
-            },
-            fetchCategories:async () => {
-                let fetch = await axios.get('/api/categories');
-                let {categories} = fetch.data;
-                return categories;
-            },
-            fetchProjects:async () => {
-                let fetch = await axios.get('/api/project/featured');
-                let {projects} = fetch.data;
-                return projects;
-            }
+            ...mapActions([
+                'fetchProjects'
+            ])
+        },
+        computed:{
+            ...mapGetters([
+                'getProjects',
+                'isProjectLoading',
+            ])
         },
         filters:{
             // borrowed from: vue-truncate-filter, need to customize possibly.
@@ -192,25 +107,24 @@
                 return tcText + clamp;
             }
         },
-        mounted()
+        beforeRouteEnter (to, from, next)
         {
-            this.isCategoriesLoading = true;
-            this.fetchCategories().then(categories=>{
-                this.categories = categories;
-                this.isCategoriesLoading = false;
-            }).catch(error=>{
-                console.error(error);
-                this.isCategoriesLoading = false;
+            next(vm => {
+                if(to.params.categoryId) {
+                    vm.fetchProjects({categoryId:to.params.categoryId});
+                }else{
+                    vm.fetchProjects({categoryId:null});
+                }
             });
-
-            this.isProjectsLoading = true;
-            this.fetchProjects().then(projects=>{
-                this.projects = projects;
-                this.isProjectsLoading = false;
-            }).catch(error=>{
-                console.error(error);
-                this.isProjectsLoading = false;
-            });
+        },
+        beforeRouteUpdate(to, from, next)
+        {
+            if(to.params.categoryId) {
+                this.fetchProjects({categoryId:to.params.categoryId});
+            }else{
+                this.fetchProjects({categoryId:null});
+            }
+            next();
         }
     }
 </script>

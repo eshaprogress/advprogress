@@ -18,10 +18,8 @@ class ProjectController extends Controller
 
     public function getProjectsByCategoryId($categoryId)
     {
-        $projects = Category::whereId($categoryId)->get()->map(function($category)
-        {
-            return $category->projects->get();
-        });
+        $category = Category::whereId($categoryId)->with('projects')->first();
+        $projects = $category->toArray()['projects'];
         return response()->json(['projects'=>$projects]);
     }
 

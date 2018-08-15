@@ -23,7 +23,7 @@ class generate_junk_projects_states extends Seeder
             foreach(range(1, 3) as $_)
             {
                 $project = new  Project([
-                    'title'=>$faker->sentence(6),
+                    'title'=>"Project {$_} Cat: {$category->category} ",
                     'model_legislative_text_body'=>$faker->text(4000),
                     'model_legislative_summary_text'=>$faker->text(1000),
                     'resources'=>json_encode([
@@ -66,11 +66,10 @@ class generate_junk_projects_states extends Seeder
                             'because_statute' => $faker->boolean?1:0,
                             'because_case_law' => $faker->boolean?1:0,
                             'because_executive_order' => $faker->boolean?1:0,
-                            'citation_source' => "{$faker->sentence(6)}"
+                            'citation_source' => "{$faker->sentence(6)}",
+                            'source_of_law' => $legislation_details_matrix_enum[rand(0, 3)]
                         ]);
                         $legislation_details_matrix->save();
-                        $legislation_details_matrix->source_of_law = $legislation_details_matrix_enum[rand(0, 3)];
-                        $legislation_details_matrix->update();
                     }
                 });
             }
