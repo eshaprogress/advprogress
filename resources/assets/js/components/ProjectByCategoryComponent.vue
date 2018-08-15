@@ -83,6 +83,11 @@
                 'isProjectLoading',
             ])
         },
+        watch: {
+            '$route.params.categoryId'(categoryId) {
+                this.fetchProjects({categoryId:categoryId});
+            },
+        },
         filters:{
             // borrowed from: vue-truncate-filter, need to customize possibly.
             truncate:(text, length, clamp) => {
