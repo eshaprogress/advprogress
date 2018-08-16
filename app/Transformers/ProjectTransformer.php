@@ -7,8 +7,11 @@ use League\Fractal;
 
 class ProjectTransformer extends Fractal\TransformerAbstract
 {
-    protected $availableIncludes = ['matrix'];
-    protected $defaultIncludes = ['matrix'];
+    protected $availableIncludes = ['matrix','category'];
+    protected $defaultIncludes = [
+        'category',
+        'matrix',
+    ];
 
     public function transform(Project $project)
     {
@@ -27,6 +30,12 @@ class ProjectTransformer extends Fractal\TransformerAbstract
     public function includeMatrix(Project $project)
     {
         $matrix = $project->matrix()->get();
-        return $this->collection($matrix, new LegislationDetailsMatrixTransformer(), false);
+        return $this->collection($matrix, new LegislationDetailsMatrixTransformer());
+    }
+
+    public function includeCategory(Project $project)
+    {
+        $category = $project->category()->first();
+        return $this->item($category, new CategoryTransformer());
     }
 }

@@ -10,7 +10,8 @@ class Category extends Model
     protected $primaryKey = 'id';
     protected $fillable = ['category'];
 
-    public function projects() {
-        return $this->belongsToMany(Project::class, 'projects_to_categories', 'category_id', 'project_id');
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class, 'projects_to_categories');
     }
 }

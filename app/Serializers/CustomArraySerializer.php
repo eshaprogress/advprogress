@@ -22,7 +22,10 @@ class CustomArraySerializer extends ArraySerializer
     public function mergeIncludes($transformedData, $includedData)
     {
         $includedData = array_map(function ($include) {
-            return $include['data'];
+            if(isset($include['data']))
+                return $include['data'];
+
+            return $include;
         }, $includedData);
 
         return parent::mergeIncludes($transformedData, $includedData);
