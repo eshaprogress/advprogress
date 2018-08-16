@@ -6,9 +6,19 @@ export default {
         return state.projects;
     },
 
-    isProjectLoading(state)
+    getProject(state)
+    {
+        return state.project || false;
+    },
+
+    isProjectsLoading(state)
     {
         return state.isProjectsLoading;
+    },
+
+    isProjectLoading(state)
+    {
+        return state.isProjectLoading;
     },
 
     getCategories(state)

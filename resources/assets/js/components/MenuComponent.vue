@@ -70,11 +70,11 @@
             </div>
             <div class="navbar-end">
                 <ul class="navbar-menu">
-                    <li class="navbar-item" ><router-link to="/" exact>Home</router-link></li>
-                    <li class="navbar-item" ><router-link to="/our-story">OUR STORY</router-link></li>
-                    <li class="navbar-item" ><router-link to="/projects">PROJECTS</router-link></li>
-                    <li class="navbar-item" ><router-link to="/consultation">CONSULTATION</router-link></li>
-                    <li class="navbar-item" ><router-link to="/donate">DONATE</router-link></li>
+                    <li class="navbar-item" ><router-link :to="{name: 'home-root'}" exact>Home</router-link></li>
+                    <li class="navbar-item" ><router-link :to="{name: 'our-story'}">OUR STORY</router-link></li>
+                    <li class="navbar-item" ><router-link :to="{name: 'directory-root'}">DIRECTORY</router-link></li>
+                    <li class="navbar-item" ><router-link :to="{name: 'consultation'}">CONSULTATION</router-link></li>
+                    <li class="navbar-item" ><router-link :to="{name: 'donate'}">DONATE</router-link></li>
                 </ul>
             </div>
         </div>

@@ -24,7 +24,7 @@
 <template>
     <section class="section projects-section">
         <div class="container">
-            <h2>PROJECTS</h2>
+            <h2>DIRECTORY</h2>
             <project-category-list-component />
             <router-view name="standard" />
         </div>
@@ -34,7 +34,7 @@
 <script>
     import ProjectCategoryListComponent from './ProjectCategoryListComponent';
     export default {
-        name:'ProjectListLayoutComponent',
+        name:'DirectoryListLayoutComponent',
         data()
         {
             return {

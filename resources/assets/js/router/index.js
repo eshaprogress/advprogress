@@ -19,8 +19,9 @@ import NotFoundComponent from '../components/NotFoundComponent';
 import NotFoundMobileComponent from '../components/mobile/NotFoundMobileComponent';
 import OurStoryComponent from '../components/OurStoryComponent';
 import OurStoryMobileComponent from '../components/mobile/OurStoryMobileComponent';
-import ProjectListLayoutComponent from '../components/ProjectListLayoutComponent';
+import DirectoryListLayoutComponent from '../components/DirectoryListLayoutComponent';
 import ProjectByCategoryComponent from '../components/ProjectByCategoryComponent';
+import ProjectByIdComponent from '../components/ProjectByIdComponent';
 
 const routes = [
     {
@@ -77,15 +78,14 @@ const routes = [
                 }
             },
             {
-                name: 'projects-section',
-                path: 'projects',
+                path: 'directory',
                 components:{
-                    standard:ProjectListLayoutComponent,
-                    mobile:ProjectListLayoutComponent,
+                    standard:DirectoryListLayoutComponent,
+                    mobile:DirectoryListLayoutComponent,
                 },
                 children:[
                     {
-                        name: 'projects-section-root',
+                        name: 'directory-root',
                         path: '',
                         components:{
                             standard:ProjectByCategoryComponent,
@@ -93,7 +93,7 @@ const routes = [
                         }
                     },
                     {
-                        name: 'projects-section-category-id',
+                        name: 'directory-category-id',
                         path: 'category/:categoryId',
                         components:{
                             standard:ProjectByCategoryComponent,
@@ -101,6 +101,14 @@ const routes = [
                         }
                     }
                 ]
+            },
+            {
+                name: 'project-id',
+                path: 'project/:projectId',
+                components:{
+                    standard:ProjectByIdComponent,
+                    mobile:ProjectByIdComponent,
+                }
             },
             {
                 name: 'cancel-subscription',

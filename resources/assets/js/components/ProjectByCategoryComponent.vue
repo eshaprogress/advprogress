@@ -1,47 +1,60 @@
 <style lang="scss" scoped>
     .projects {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        align-content: center;
-        flex-flow: row;
-        margin: auto;
-        padding: 30px;
-        min-height: 420px;
+        .projects-outer-container {
+            margin:auto;
+            max-width: 1260px;
 
-        .card {
-            background-color: var(--white1);
-            padding: 10px;
-            margin: 0 15px;
-            width: 350px;
-
-            .img {
-                height: 260px;
-                background-color: var(--white);
-                border:solid 1px var(--white2);
+            .projects-inner-container {
+                display: flex;
+                align-items: center;
+                justify-content: left;
+                align-content: center;
+                margin: auto;
+                padding: 30px;
+                min-height: 420px;
+                flex-flow: row wrap;
             }
-            .content {
-                .title {
-                    vertical-align: center;
-                    height: 40px;
-                    font-size: 16px;
-                    font-weight: bold;
-                    font-style: normal;
-                    font-stretch: normal;
-                    letter-spacing: normal;
-                    padding: 0;
-                    display: block;
-                    line-height: 18px;
-                    margin: 10px 5px 0;
-                    color:var(--blue);
+        }
+
+        a {
+            text-decoration: none;
+            margin: 15px;
+            display: inline-block;
+
+            .card {
+                background-color: var(--white1);
+                padding: 10px;
+                margin: 0;
+                width: 350px;
+
+                .img {
+                    height: 260px;
+                    background-color: var(--white);
+                    border:solid 1px var(--white2);
                 }
-                .body {
-                    height:150px;
-                    overflow: hidden;
-                    margin: 0;
-                    padding: 5px;
-                    color:var(--black);
-                    font-size: 16px;
+                .content {
+                    .title {
+                        vertical-align: center;
+                        height: 40px;
+                        font-size: 16px;
+                        font-weight: bold;
+                        font-style: normal;
+                        font-stretch: normal;
+                        letter-spacing: normal;
+                        padding: 0;
+                        display: block;
+                        line-height: 18px;
+                        margin: 10px 5px 0;
+                        color:var(--blue);
+                    }
+                    .body {
+                        height:150px;
+                        overflow: hidden;
+                        margin: 0;
+                        padding: 5px;
+                        color:var(--black);
+                        font-size: 16px;
+                    }
                 }
             }
         }
@@ -51,19 +64,25 @@
 
 <template>
     <main class="projects">
-        <template v-if="isProjectLoading">
+        <template v-if="isProjectsLoading">
             Loading Projects ....
         </template>
         <template v-else>
-            <template v-for="proj in getProjects">
-                <article class="card">
-                    <div class="img"><img :src="proj.card_img" alt=""></div>
-                    <div class="content">
-                        <h4 class="title">{{proj.title}}</h4>
-                        <p class="body">{{proj.model_legislative_summary_text | truncate(225, '...')}}</p>
-                    </div>
-                </article>
-            </template>
+            <div class="projects-outer-container">
+                <div class="projects-inner-container">
+                    <template v-for="project in getProjects">
+                        <router-link :to="makeProjectLink(project)">
+                            <article class="card">
+                                <div class="img"><img :src="project.card_img" alt=""></div>
+                                <div class="content">
+                                    <h4 class="title">{{project.title}}</h4>
+                                    <p class="body">{{project.model_legislative_summary_text | truncate(225, '...')}}</p>
+                                </div>
+                            </article>
+                        </router-link>
+                    </template>
+                </div>
+            </div>
         </template>
     </main>
 </template>
@@ -75,12 +94,21 @@
         methods:{
             ...mapActions([
                 'fetchProjects'
-            ])
+            ]),
+            makeProjectLink(project)
+            {
+                return {
+                    name:'project-id',
+                    params:{
+                        projectId:project.id
+                    }
+                };
+            }
         },
         computed:{
             ...mapGetters([
                 'getProjects',
-                'isProjectLoading',
+                'isProjectsLoading',
             ])
         },
         watch: {
@@ -129,6 +157,11 @@
         {
             console.log('beforeRouteLeave: to',to, 'from', from);
             next();
+        },
+        mounted()
+        {
+            console.log(this.$route);
+            // this.fetchProjects({categoryId:null});
         }
     }
 </script>

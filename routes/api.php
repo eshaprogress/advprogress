@@ -26,4 +26,4 @@ Route::get('/legal', 'LegalController@legalIndex');
 Route::get('/categories', 'ProjectController@getCategories');
 Route::get('/category/{categoryId}/projects', 'ProjectController@getProjectsByCategoryId');
 Route::get('/project/featured', 'ProjectController@getFeaturedProjects');
-Route::get('/project/{projectId}', 'ProjectController@getProjectsByCategoryId');
+Route::get('/project/{projectId}', 'ProjectController@getProject');

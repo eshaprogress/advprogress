@@ -1,12 +1,4 @@
-import each from 'lodash/each'
-import Vue from 'vue';
-
 export default {
-    updateCategories(state, categories)
-    {
-        state.categories = categories;
-    },
-
     categoriesLoading(state, status)
     {
         state.isCategoriesLoading = status;
@@ -17,8 +9,23 @@ export default {
         state.isProjectsLoading = status;
     },
 
+    projectLoading(state, status)
+    {
+        state.isProjectLoading = status;
+    },
+
+    updateCategories(state, categories)
+    {
+        state.categories = categories;
+    },
+
     updateProjects(state, projects)
     {
         state.projects = projects;
     },
+
+    updateProject(state, project)
+    {
+        state.project = project;
+    }
 }

@@ -26,5 +26,23 @@ export default {
         let {projects} = fetch.data;
         commit('updateProjects', projects);
         commit('projectsLoading', false);
+    },
+
+    fetchProject: async ({commit, state}, {projectId}) => {
+        commit('projectLoading', true);
+
+        projectId = projectId || false;
+        let fetch = null;
+        if(projectId === false)
+        {
+            throw new Error("Failed to obtain a projectId");
+        }
+        else
+        {
+            fetch = await axios.get(`/api/project/${projectId}`);
+        }
+        let {project} = fetch.data;
+        commit('updateProject', project);
+        commit('projectLoading', false);
     }
 }

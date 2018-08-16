@@ -71,7 +71,7 @@
             ]),
             makeCategoryRoute:(cat) => {
                 return {
-                    name:'projects-section-category-id',
+                    name:'directory-category-id',
                     params:{
                         categoryId:cat.id
                     }

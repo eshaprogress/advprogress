@@ -20,4 +20,9 @@ class Project extends Model
     {
         return $query->where('is_featured', '=', 1);
     }
+
+    public function matrix()
+    {
+        return $this->hasMany(LegislationDetailMatrix::class);
+    }
 }
