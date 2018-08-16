@@ -1,8 +1,8 @@
 <style lang="scss" scoped>
     .categories {
         --project-height:52px;
+        min-height: var(--project-height);
         background-color: var(--blue);
-        height:var(--project-height);
         padding:9px;
         ul {
             margin: 0 auto;

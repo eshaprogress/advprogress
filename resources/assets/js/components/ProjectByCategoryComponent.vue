@@ -1,5 +1,6 @@
 <style lang="scss" scoped>
     .projects {
+        min-height: 600px;
         .projects-outer-container {
             margin:auto;
             max-width: 1260px;
