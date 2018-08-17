@@ -49,7 +49,7 @@
 <template>
     <nav class="categories">
         <template v-if="isCategoriesLoading">
-            Loading Categories ....
+            <ul><!-- empty --></ul>
         </template>
         <template v-else>
             <ul>

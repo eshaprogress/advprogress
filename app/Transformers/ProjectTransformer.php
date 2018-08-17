@@ -16,14 +16,14 @@ class ProjectTransformer extends Fractal\TransformerAbstract
     public function transform(Project $project)
     {
         return [
-            'id'=>$project->id,
-            't'=>$project->title,
-            'm_l_s_t'=>$project->model_legislative_summary_text,
-            'm_l_t_b'=>$project->model_legislative_text_body,
-            'r'=>json_decode($project->resources, true),
-            'is_f'=>$project->is_featured,
-            'img_c'=>$project->img_card,
-            'img_bn'=>$project->img_banner
+            'id'      =>$project->id,
+            't'       =>$project->title,
+            'm_l_s_t' =>$project->model_legislative_summary_text,
+            'm_l_t_b' =>$project->model_legislative_text_body,
+            'r'       =>json_decode($project->resources, true),
+            'is_f'    =>$project->is_featured,
+            'img_c'   =>$project->img_card,
+            'img_bn'  =>$project->img_banner
         ];
     }
 

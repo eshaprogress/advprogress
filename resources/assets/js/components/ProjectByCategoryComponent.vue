@@ -11,7 +11,7 @@
                 justify-content: left;
                 align-content: center;
                 margin: auto;
-                padding: 30px;
+                padding: 30px 0;
                 min-height: 420px;
                 flex-flow: row wrap;
             }

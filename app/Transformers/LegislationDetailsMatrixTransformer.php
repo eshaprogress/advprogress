@@ -31,11 +31,11 @@ class LegislationDetailsMatrixTransformer extends Fractal\TransformerAbstract
         $tmp = $legislationDetailMatrix->toArray();
         $return = [
             'id'   =>$tmp['id'],
-            's_o_l'  =>$tmp['source_of_law'],
             'b_c_a' =>$tmp['because_constitutional_amendment'],
             'b_s'  =>$tmp['because_statute'],
             'b_c_l' =>$tmp['because_case_law'],
             'b_e_o' =>$tmp['because_executive_order'],
+            's_o_l'  =>$tmp['source_of_law'],
             'c_s'   => $tmp['citation_source']
         ];
         return array_merge($return, self::$_states[$tmp['state_id']]);
