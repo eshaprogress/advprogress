@@ -111,6 +111,8 @@ class ManageDirectory extends Command
                     'project_id' => $projectId,
                 ] + $legislation_details_matrix_data);
             $legislation_details_matrix->save();
+
+            $this->displayProjectStates($projectId);
         }
     }
 
@@ -237,6 +239,117 @@ class ManageDirectory extends Command
         $this->addStateToProject($project->id);
     }
 
+    public function editProject($projectId)
+    {
+        $project = Project::whereId($projectId)->firstOrFail();
+        $project_data = $project->toArray();
+
+        $fields = [
+            'title'=>'Title',
+            'model_legislative_summary_text'=>'Summary',
+            'model_legislative_text_body'=>'Body',
+            'resources'=>'Resources enter double pipe delimited urls ie: http://url||http://url||http://url'
+        ];
+
+        $data = [];
+        foreach($fields as $field=>$title)
+        {
+            if($field == 'resources')
+            {
+                $resources = $this->ask($title);
+                if(!empty($resources))
+                {
+                    $resources = explode('||', $resources);
+                    $resources = ['links'=>array_map(function($v){
+                        return ['url'=>$v];
+                    }, $resources)];
+                    $data[$field] = json_encode($resources);
+                }
+                continue;
+            }
+
+            $set = $this->ask("{$title} -> {$project_data[$field]}");
+            if(!empty($set))
+            {
+                $data[$field] = $set;
+            }
+        }
+
+        if(empty($data))
+        {
+            $this->line('No changes made');
+            return;
+        }
+
+        $this->line('Project Updated');
+        $project->update($data);
+
+        $this->displayProject($projectId);
+    }
+
+    public function editProjectState($projectId, $state)
+    {
+        $state = State::whereAbbreviation(strtoupper($state))->firstOrFail();
+        $legislation_details_matrix = LegislationDetailMatrix::whereProjectId($projectId)->whereStateId($state)->firstOrFail();
+        $current_data = $legislation_details_matrix->toArray();
+        $legislation_details_matrix_fields = [
+            'because_constitutional_amendment' => 'Const Amendment',
+            'because_statute' => 'Statue',
+            'because_case_law' => 'Case Law',
+            'because_executive_order' => 'Exec Order',
+            'citation_source' => 'Citation Source',
+            'source_of_law' => 'Source of Law',
+        ];
+        $legislation_details_matrix_enum = [
+            'statute',
+            'constitutional_amendment',
+            'executive_order',
+            'case_law'
+        ];
+        $data = [];
+        foreach ($legislation_details_matrix_fields as $field => $desc)
+        {
+            if (preg_match('/^because/', $field))
+            {
+                $because = $current_data[$field]?'YES':'NO';
+                $value = $this->ask("(bool) use: y/n or 1/0 [{$desc}]: {$because}");
+                if(!empty($value))
+                {
+                    if (in_array($value, ['y', 'n']))
+                        $data[$field] = $value === 'y'?1:0;
+                    elseif (in_array($value, ['1', '0']))
+                        $data[$field] = $value >= '1'?1:0;
+                }
+                continue;
+            }
+
+            if ($field === 'source_of_law')
+            {
+                $set = $this->choice("[{$desc}]", $legislation_details_matrix_enum);
+                if(!empty($set))
+                {
+                    $data[$field] = $set;
+                }
+                continue;
+            }
+
+            $set = $this->ask("[{$desc}]: ");
+            if(!empty($set))
+                $data[$field] = $set;
+        }
+
+        if(empty($data))
+        {
+            $this->line('No changes made');
+            return;
+        }
+
+        $this->line('Project Updated');
+        $legislation_details_matrix->update($data);
+
+        $this->displayProject($projectId);
+    }
+
     public function displayProjectEdit($projectId = null)
     {
         if($projectId === null)
@@ -261,24 +374,53 @@ class ManageDirectory extends Command
             } while(true);
         }
 
+        $choice = null;
+        $rendered = false;
         do {
-            $iCanDo = [
-                'edit'=>'Edit Project Info',
-                'add:state'=>'Add State to existing project'
-            ];
-            $iCanDo = ['back'=>'Exit'] + $iCanDo;
-
-            $choice = $this->choice('What would you like to do?', $iCanDo);
 
             switch($choice)
             {
-                case 'edit':
+                case 'edit:project':
                     $this->displayProject($projectId);
                     break;
+
                 case 'add:state':
+                case 'edit:state':
                     $this->displayProjectStates($projectId);
+                    break;
+            }
+
+            $iCanDo = [
+                'add:state'   =>'Add State to existing project',
+                'edit:project'=>'Edit Project Info',
+                'edit:state'  =>'Edit State to existing project',
+            ];
+            $iCanDo = ['back'=>'Exit'] + $iCanDo;
+            $choice = $this->choice('What would you like to do?', $iCanDo);
+            switch($choice)
+            {
+                case 'edit:project':
+                    if(!$rendered)
+                        $this->displayProject($projectId);
+
+                    $this->editProject($projectId);
+                    break;
+
+                case 'add:state':
+                    if(!$rendered)
+                        $this->displayProjectStates($projectId);
+
                     $this->addStateToProject($projectId);
                     break;
+
+                case 'edit:state':
+                    if(!$rendered)
+                        $this->displayProjectStates($projectId);
+
+                    $state = $this->ask('Input 2 letter state for this project');
+                    $this->editProjectState($projectId, $state);
+                    break;
+
             }
         } while($choice !== 'back');
     }
