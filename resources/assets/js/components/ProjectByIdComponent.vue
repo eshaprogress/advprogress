@@ -26,7 +26,7 @@
                     height: 140px;
                     white-space: nowrap;
                     > div {
-                        transform: translate(32px, 49px) rotate(315deg);
+                        transform: translate(30px, 49px) rotate(315deg);
                         width: 30px;
                         > span {
                             border-bottom: 1px solid black;
@@ -41,14 +41,16 @@
             }
             td {
                 text-align: center;
-                padding: 10px 5px;
+                line-height: 35px;
                 border: 1px solid black;
+                padding: 0 10px;
             }
             td, th {
                 &.spacer {
                     border-top: none;
                     border-bottom: none;
                     background-color: white;
+                    padding:0;
                 }
             }
         }
@@ -65,9 +67,11 @@
                 }
                 th {
                     &:nth-child(1) {
-                        width:20px;
+                        width:100px;
                     }
-                    &:nth-child(2),
+                    &:nth-child(2) {
+                        width:10px;
+                    }
                     &:nth-child(3),
                     &:nth-child(4),
                     &:nth-child(5),
@@ -85,12 +89,14 @@
                     &:nth-child(9) {
                         text-align: left;
                         transform: translate(0px,55px);
-                        width:650px;
+                        width:700px;
                     }
                 }
                 td {
                     &:nth-child(1) {
                         font-weight: bold;
+                        white-space: nowrap;
+                        text-align: right;
                     }
                     &:nth-child(8) {
                         text-align: left;
@@ -156,8 +162,8 @@
                         <th>Citation Source</th>
                     </tr>
                     <template v-for="pt in getProject.matrix">
-                        <tr class="pt-row">
-                            <td>{{pt.state_abbr}}</td>
+                        <tr class="pt-row" :title="pt.state_abbr">
+                            <td>{{pt.state}}</td>
                             <td class="spacer"></td>
                             <td><i class="fa fa-check" :class="{enabled:isChecked(pt.b_c_a),disabled:!isChecked(pt.b_c_a)}"></i></td>
                             <td><i class="fa fa-check" :class="{enabled:isChecked(pt.b_s)  ,disabled:!isChecked(pt.b_s)  }"></i></td>
