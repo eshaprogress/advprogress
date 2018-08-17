@@ -45,60 +45,33 @@ class ManageDirectory extends Command
         return $string;
     }
 
-    public function addProject()
+    public function lookupState()
     {
-
-        $categories = Category::all()->toArray();
-        $categories = array_column($categories, 'category', 'id');
-        $categories = ['back'=>'Exit'] + $categories;
-        $categoryId = $this->choice('Assign to category: ', $categories);
-
-        if($categoryId === 'back')
-            return;
-
-        $fields = [
-            'title'=>'Title',
-            'model_legislative_summary_text'=>'Summary',
-            'model_legislative_text_body'=>'Body',
-            'resources'=>'Resources enter double pipe delimited urls ie: http://url||http://url||http://url'
-        ];
-
-        $data = [];
-        foreach($fields as $field=>$title)
+        while(true)
         {
-            if($field == 'resources')
+            $stateLookup = $this->ask('Type in 2 letter state abbreviation: ');
+            $state = State::whereAbbreviation(strtoupper($stateLookup))->first();
+            if($state)
             {
-                $resources = $this->ask($title);
-                if(!empty($resources))
-                {
-                    $resources = explode('||', $resources);
-                    $resources = ['links'=>array_map(function($v){
-                        return ['url'=>$v];
-                    }, $resources)];
-                    $data[$field] = json_encode($resources);
-                }else{
-                    $resources = ['links'=>[]];
-                    $data[$field] = json_encode($resources);
-                }
-                continue;
+                return $state->id;
             }
-            $data[$field] = $this->ask("[field: {$title}]: ");
         }
 
-        $project = new  Project($data);
-        $project->save();
+        return -1;
+    }
 
-        $projectToCategory = new ProjectToCategory();
-        $projectToCategory->project_id = $project->id;
-        $projectToCategory->category_id = $categoryId;
-        $projectToCategory->save();
+    public function addStateToProject($projectId)
+    {
+        while(true) {
 
-        $addState = $this->ask('Add State Data[Y/n]?','y');
-        $addState = strtolower($addState);
-        if($addState === 'y')
-        {
-            $states = array_column(State::all()->toArray(),'abbreviation', 'id');
-            $stateId = $this->choice('Select State', $states);
+            $addState = $this->ask('Add State Data[Y/n]?', 'y');
+            $addState = strtolower($addState);
+            if($addState === 'n')
+                return;
+
+            $stateId = null;
+            $stateId = $this->lookupState();
+
             $legislation_details_matrix_fields = [
                 'because_constitutional_amendment' => 'Const Amendment',
                 'because_statute' => 'Statue',
@@ -114,21 +87,18 @@ class ManageDirectory extends Command
                 'case_law'
             ];
             $legislation_details_matrix_data = [];
-            foreach($legislation_details_matrix_fields as $field=>$desc)
-            {
-                if(preg_match('/^because/', $field))
-                {
+            foreach ($legislation_details_matrix_fields as $field => $desc) {
+                if (preg_match('/^because/', $field)) {
                     $value = $this->ask("(bool) use: y/n or 1/0 [{$desc}]: ");
-                    if(in_array($value, ['y','n']))
+                    if (in_array($value, ['y', 'n']))
                         $legislation_details_matrix_data[$field] = $value === 'y';
-                    elseif(in_array($value,['1','0']))
-                        $legislation_details_matrix_data[$field] = $value === '1';
+                    elseif (in_array($value, ['1', '0']))
+                        $legislation_details_matrix_data[$field] = $value >= '1';
 
                     continue;
                 }
 
-                if($field === 'source_of_law')
-                {
+                if ($field === 'source_of_law') {
                     $legislation_details_matrix_data[$field] = $this->choice("[{$desc}]", $legislation_details_matrix_enum);
                     continue;
                 }
@@ -137,73 +107,17 @@ class ManageDirectory extends Command
             }
 
             $legislation_details_matrix = new LegislationDetailMatrix([
-                'state_id'      => $stateId,
-                'project_id'    => $project->id,
-            ] + $legislation_details_matrix_data);
+                    'state_id' => $stateId,
+                    'project_id' => $projectId,
+                ] + $legislation_details_matrix_data);
             $legislation_details_matrix->save();
         }
     }
 
-    public function editProject($projectId)
-    {
-        $this->line("Edit:{$projectId} Project Here");
-    }
-
-    public function addCategory()
-    {
-        $this->line('Add Category Here');
-    }
-
-    public static function testStr($str, $type)
-    {
-        $test = preg_match('/^\d+\:'.$type.'$/', $str);
-        if(!$test)
-            return -1;
-
-        [$id, $_] = explode(':', $str);
-
-        return $id;
-    }
-
-    public function editCategory($categoryId)
-    {
-        $this->line("Edit:{$categoryId} Category Here");
-    }
-
-    public function displayProjectInfoById($projectId)
+    public function displayProjectStates($projectId)
     {
         $project = Project::whereId($projectId)->firstOrFail();
         $states = array_column(State::all()->toArray(),'abbreviation', 'id');
-        $categories = $project->category()->get()->toArray();
-        $categories = array_map(function($val){
-            return ['id'=>$val['id'],'category'=>$val['category']];
-        }, $categories);
-
-        $this->line('Project: Categories');
-        $this->table(['ID','Name'], $categories);
-
-        $truncate = function($str)
-        {
-            return self::truncate($str, 100);
-        };
-        $this->line('Project: Details');
-        $table = new ConsoleTable();
-        $table->addHeader('Field')->addHeader('Value');
-        $table->addRow()->addColumn('id')->addColumn($project->id);
-        $table->addRow()->addColumn('Title')->addColumn($truncate($project->title));
-        $table->addRow()->addColumn('Summary Text')->addColumn($truncate($project->model_legislative_summary_text));
-        $table->addRow()->addColumn('Body Text')->addColumn($truncate($project->model_legislative_text_body));
-        $resources = json_decode($project->resources, true);
-        $links = array_map(function($val)
-        {
-            return $val['url'];
-        }, $resources['links']);
-        foreach($links as $i=>$link)
-        {
-            $table->addRow()->addColumn("Link.".($i+1))->addColumn($link);
-        }
-        $table->display();
-
 //                print_r($states);exit;
         $jurisdiction_matrix_headers = [
             'ID',
@@ -272,6 +186,169 @@ class ManageDirectory extends Command
         $this->table($jurisdiction_matrix_headers, $jurisdiction_matrix);
     }
 
+    public function addProject()
+    {
+
+        $categories = Category::all()->toArray();
+        $categories = array_column($categories, 'category', 'id');
+        $categories = ['back'=>'Exit'] + $categories;
+        $categoryId = $this->choice('Assign to category: ', $categories);
+
+        if($categoryId === 'back')
+            return;
+
+        $fields = [
+            'title'=>'Title',
+            'model_legislative_summary_text'=>'Summary',
+            'model_legislative_text_body'=>'Body',
+            'resources'=>'Resources enter double pipe delimited urls ie: http://url||http://url||http://url'
+        ];
+
+        $data = [];
+        foreach($fields as $field=>$title)
+        {
+            if($field == 'resources')
+            {
+                $resources = $this->ask($title);
+                if(!empty($resources))
+                {
+                    $resources = explode('||', $resources);
+                    $resources = ['links'=>array_map(function($v){
+                        return ['url'=>$v];
+                    }, $resources)];
+                    $data[$field] = json_encode($resources);
+                }else{
+                    $resources = ['links'=>[]];
+                    $data[$field] = json_encode($resources);
+                }
+                continue;
+            }
+            $data[$field] = $this->ask("[field: {$title}]: ");
+        }
+
+        $project = new  Project($data);
+        $project->save();
+
+        $projectToCategory = new ProjectToCategory();
+        $projectToCategory->project_id = $project->id;
+        $projectToCategory->category_id = $categoryId;
+        $projectToCategory->save();
+
+        $this->addStateToProject($project->id);
+    }
+
+    public function displayProjectEdit($projectId = null)
+    {
+        if($projectId === null)
+        {
+            $projects = array_reduce(Project::all()->toArray(), function($collector, $val)
+            {
+                $collector["{$val['id']}"] = "{$val['title']}";
+                return $collector;
+            },[]);
+            $projects = [
+                'back'=>'Leave Menu'
+            ] + $projects;
+
+            do {
+                $projectId = $this->choice('Please select a project', $projects);
+
+                if($projectId === 'back') {
+                    return;
+                }
+                $this->displayProjectInfoById($projectId);
+                $this->displayProjectEdit($projectId);
+            } while(true);
+        }
+
+        do {
+            $iCanDo = [
+                'edit'=>'Edit Project Info',
+                'add:state'=>'Add State to existing project'
+            ];
+            $iCanDo = ['back'=>'Exit'] + $iCanDo;
+
+            $choice = $this->choice('What would you like to do?', $iCanDo);
+
+            switch($choice)
+            {
+                case 'edit':
+                    $this->displayProject($projectId);
+                    break;
+                case 'add:state':
+                    $this->displayProjectStates($projectId);
+                    $this->addStateToProject($projectId);
+                    break;
+            }
+        } while($choice !== 'back');
+    }
+
+    public function addCategory()
+    {
+        $this->line('Add Category Here');
+    }
+
+    public static function testStr($str, $type)
+    {
+        $test = preg_match('/^\d+\:'.$type.'$/', $str);
+        if(!$test)
+            return -1;
+
+        [$id, $_] = explode(':', $str);
+
+        return $id;
+    }
+
+    public function editCategory($categoryId)
+    {
+        $this->line("Edit:{$categoryId} Category Here");
+    }
+
+    public function displayProjectCategories($projectId)
+    {
+        $project = Project::whereId($projectId)->firstOrFail();
+        $categories = $project->category()->get()->toArray();
+        $categories = array_map(function($val){
+            return ['id'=>$val['id'],'category'=>$val['category']];
+        }, $categories);
+
+        $this->line('Project: Categories');
+        $this->table(['ID','Name'], $categories);
+    }
+
+    public function displayProject($projectId)
+    {
+        $project = Project::whereId($projectId)->firstOrFail();
+
+        $truncate = function($str)
+        {
+            return self::truncate($str, 100);
+        };
+        $this->line('Project: Details');
+        $table = new ConsoleTable();
+        $table->addHeader('Field')->addHeader('Value');
+        $table->addRow()->addColumn('id')->addColumn($project->id);
+        $table->addRow()->addColumn('Title')->addColumn($truncate($project->title));
+        $table->addRow()->addColumn('Summary Text')->addColumn($truncate($project->model_legislative_summary_text));
+        $table->addRow()->addColumn('Body Text')->addColumn($truncate($project->model_legislative_text_body));
+        $resources = json_decode($project->resources, true);
+        $links = array_map(function($val)
+        {
+            return $val['url'];
+        }, $resources['links']);
+        foreach($links as $i=>$link)
+        {
+            $table->addRow()->addColumn("Link.".($i+1))->addColumn($link);
+        }
+        $table->display();
+    }
+
+    public function displayProjectInfoById($projectId)
+    {
+        $this->displayProject($projectId);
+        $this->displayProjectStates($projectId);
+    }
+
     public function displayProjectLookupByCategoryId($categoryId)
     {
         $projects = Category::whereId($categoryId)->firstOrFail()->projects()->get()->toArray();
@@ -299,7 +376,7 @@ class ManageDirectory extends Command
             if($testChangeId !== -1)
             {
                 $this->displayProjectInfoById($testChangeId);
-                $this->editProject($testChangeId);
+                $this->displayProjectEdit($testChangeId);
             }
 
             if($project_option === 'add')
@@ -351,10 +428,12 @@ class ManageDirectory extends Command
     const MENU_LIST_PROJECTS_BY_CATEGORY = 'List Projects by category';
     const MENU_ADD_NEW_DIRECTORY_CATEGORY = 'Add new directory category';
     const MENU_ADD_NEW_PROJECT = 'Add New Projects';
+    const MENU_EDIT_PROJECT = 'Edit Projects';
 
     const MENU_LIST_PROJECTS_BY_CATEGORY_IDX = '0';
-    const MENU_ADD_NEW_DIRECTORY_CATEGORY_IDX = '1';
+    const MENU_EDIT_PROJECT_IDX = '1';
     const MENU_ADD_NEW_PROJECT_IDX = '2';
+    const MENU_ADD_NEW_DIRECTORY_CATEGORY_IDX = '3';
 
     /**
      * Execute the console command.
@@ -366,8 +445,9 @@ class ManageDirectory extends Command
         do {
             $iCanDo = [
                 self::MENU_LIST_PROJECTS_BY_CATEGORY_IDX  =>self::MENU_LIST_PROJECTS_BY_CATEGORY,
-                self::MENU_ADD_NEW_DIRECTORY_CATEGORY_IDX =>self::MENU_ADD_NEW_DIRECTORY_CATEGORY,
+                self::MENU_EDIT_PROJECT_IDX               =>self::MENU_EDIT_PROJECT,
                 self::MENU_ADD_NEW_PROJECT_IDX            =>self::MENU_ADD_NEW_PROJECT,
+                self::MENU_ADD_NEW_DIRECTORY_CATEGORY_IDX =>self::MENU_ADD_NEW_DIRECTORY_CATEGORY,
             ];
             $iCanDo = ['back'=>'Exit'] + $iCanDo;
 
@@ -378,11 +458,17 @@ class ManageDirectory extends Command
                 case self::MENU_LIST_PROJECTS_BY_CATEGORY_IDX:
                     $this->displayListDirectories();
                     break;
+
                 case self::MENU_ADD_NEW_DIRECTORY_CATEGORY_IDX:
                     $this->addCategory();
                     break;
+
                 case self::MENU_ADD_NEW_PROJECT_IDX:
                     $this->addProject();
+                    break;
+
+                case self::MENU_EDIT_PROJECT_IDX:
+                    $this->displayProjectEdit();
                     break;
             }
         } while($choice !== 'back');
