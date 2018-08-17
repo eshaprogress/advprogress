@@ -154,6 +154,17 @@ class ManageDirectory extends Command
         $this->line('Add Category Here');
     }
 
+    public static function testStr($str, $type)
+    {
+        $test = preg_match('/^\d+\:'.$type.'$/', $str);
+        if(!$test)
+            return -1;
+
+        [$id, $_] = explode(':', $str);
+
+        return $id;
+    }
+
     public function editCategory($categoryId)
     {
         $this->line("Edit:{$categoryId} Category Here");
@@ -270,21 +281,25 @@ class ManageDirectory extends Command
             $collector["{$val['id']}:change"] = "Change: {$val['title']}";
             return $collector;
         },[]);
-        $projects = ['add'=>'Add Project'] + ['back'=>'Leave Menu'] + $projects;
+        $projects = [
+            'add'=>'Add Project',
+            'back'=>'Leave Menu'
+        ] + $projects;
 
         do {
             $project_option = $this->choice('Please select a project', $projects);
-            if(preg_match('/^\d+\:read/', $project_option))
+            $testReadId = self::testStr($project_option, 'read');
+            $testChangeId = self::testStr($project_option, 'change');
+
+            if($testReadId !== -1)
             {
-                [$id, $_] = explode(':', $project_option);
-                $this->displayProjectInfoById($id);
+                $this->displayProjectInfoById($testReadId);
             }
 
-            if(preg_match('/^\d+\:change/', $project_option))
+            if($testChangeId !== -1)
             {
-                [$id, $_] = explode(':', $project_option);
-                $this->displayProjectInfoById($id);
-                $this->editProject($id);
+                $this->displayProjectInfoById($testChangeId);
+                $this->editProject($testChangeId);
             }
 
             if($project_option === 'add')
@@ -304,22 +319,25 @@ class ManageDirectory extends Command
             $collector["{$val['id']}:change"] = "Change: {$val['category']}";
             return $collector;
         },[]);
-        $categories = ['add'=>'Add categories'] + ['back'=>'Leave Menu'] + ['edit:#'=>'Edit Category Data'] + $categories;
+        $categories = [
+            'add'=>'Add categories',
+            'back'=>'Leave Menu',
+        ] + $categories;
 
         do {
             $category_option = $this->choice('Please select a category', $categories);
 
-            if(preg_match('/^\d+\:read/', $category_option))
+            $testReadId = self::testStr($category_option, 'read');
+            $testChangeId = self::testStr($category_option, 'change');
+            if($testReadId !== -1)
             {
-                [$id, $_] = explode(':', $category_option);
-                $this->displayProjectLookupByCategoryId($category_option);
+                $this->displayProjectLookupByCategoryId($testReadId);
             }
 
-            if(preg_match('/^\d+\:change/', $category_option))
+            if($testChangeId !== -1)
             {
-                [$id, $_] = explode(':', $category_option);
-                $this->displayProjectLookupByCategoryId($category_option);
-                $this->editCategory($id);
+                $this->displayProjectLookupByCategoryId($testChangeId);
+                $this->editCategory($testChangeId);
             }
 
             if($category_option === 'add')
