@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cfcf979581383be36e79aa1d9b90a2d2",
+    "content-hash": "937907fea23f0236d179720082f76f27",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1626,6 +1626,46 @@
             "description": "A library to read, parse and export to PDF SVG files.",
             "homepage": "https://github.com/PhenX/php-svg-lib",
             "time": "2018-06-03T10:10:03+00:00"
+        },
+        {
+            "name": "phplucidframe/console-table",
+            "version": "v1.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phplucidframe/console-table.git",
+                "reference": "0d25237773ffe3acc55d5ab354d87d34efe42d84"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phplucidframe/console-table/zipball/0d25237773ffe3acc55d5ab354d87d34efe42d84",
+                "reference": "0d25237773ffe3acc55d5ab354d87d34efe42d84",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "LucidFrame\\": "src/",
+                    "LucidFrameTest\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sithu K.",
+                    "email": "cithukyaw@gmail.com"
+                }
+            ],
+            "description": "Console Table",
+            "time": "2018-07-15T11:05:02+00:00"
         },
         {
             "name": "psr/container",
