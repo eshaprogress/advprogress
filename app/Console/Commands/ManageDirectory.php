@@ -269,7 +269,7 @@ class ManageDirectory extends Command
             }
 
             $set = $this->ask("{$title} -> {$project_data[$field]}");
-            if(!empty($set))
+            if(strlen($set))
             {
                 $data[$field] = $set;
             }
@@ -287,10 +287,18 @@ class ManageDirectory extends Command
         $this->displayProject($projectId);
     }
 
-    public function editProjectState($projectId, $state)
+    public function editProjectState($projectId, $stateStr, $delete = false)
     {
-        $state = State::whereAbbreviation(strtoupper($state))->firstOrFail();
-        $legislation_details_matrix = LegislationDetailMatrix::whereProjectId($projectId)->whereStateId($state)->firstOrFail();
+        $stateStr = strtoupper($stateStr);
+        $state = State::whereAbbreviation($stateStr)->firstOrFail();
+        $legislation_details_matrix = LegislationDetailMatrix::whereProjectId($projectId)->whereStateId($state->id)->firstOrFail();
+        if($delete === true)
+        {
+            $this->line("Removed State: {$stateStr}");
+            $legislation_details_matrix->forceDelete();
+            return;
+        }
+
         $current_data = $legislation_details_matrix->toArray();
         $legislation_details_matrix_fields = [
             'because_constitutional_amendment' => 'Const Amendment',
@@ -313,7 +321,8 @@ class ManageDirectory extends Command
             {
                 $because = $current_data[$field]?'YES':'NO';
                 $value = $this->ask("(bool) use: y/n or 1/0 [{$desc}]: {$because}");
-                if(!empty($value))
+                $value = (string)$value;
+                if(strlen($value))
                 {
                     if (in_array($value, ['y', 'n']))
                         $data[$field] = $value === 'y'?1:0;
@@ -325,7 +334,11 @@ class ManageDirectory extends Command
 
             if ($field === 'source_of_law')
             {
-                $set = $this->choice("[{$desc}]", $legislation_details_matrix_enum);
+                $defaultIdx = array_search($current_data['source_of_law'], $legislation_details_matrix_enum);
+                $set = $this->choice(
+                    "{$desc} -> {$current_data['source_of_law']}",
+                    $legislation_details_matrix_enum, $defaultIdx
+                );
                 if(!empty($set))
                 {
                     $data[$field] = $set;
@@ -333,8 +346,8 @@ class ManageDirectory extends Command
                 continue;
             }
 
-            $set = $this->ask("[{$desc}]: ");
-            if(!empty($set))
+            $set = $this->ask("{$desc} -> {$current_data[$field]}");
+            if(strlen($set))
                 $data[$field] = $set;
         }
 
@@ -386,6 +399,7 @@ class ManageDirectory extends Command
 
                 case 'add:state':
                 case 'edit:state':
+                case 'delete:state':
                     $this->displayProjectStates($projectId);
                     break;
             }
@@ -394,6 +408,7 @@ class ManageDirectory extends Command
                 'add:state'   =>'Add State to existing project',
                 'edit:project'=>'Edit Project Info',
                 'edit:state'  =>'Edit State to existing project',
+                'delete:state'  =>'Delete State to existing project',
             ];
             $iCanDo = ['back'=>'Exit'] + $iCanDo;
             $choice = $this->choice('What would you like to do?', $iCanDo);
@@ -411,6 +426,11 @@ class ManageDirectory extends Command
                         $this->displayProjectStates($projectId);
 
                     $this->addStateToProject($projectId);
+                    break;
+
+                case 'delete:state':
+                    $state = $this->ask('Input 2 letter state for this project');
+                    $this->editProjectState($projectId, $state, true);
                     break;
 
                 case 'edit:state':
