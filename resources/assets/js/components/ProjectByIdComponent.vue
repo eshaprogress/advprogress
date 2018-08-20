@@ -10,12 +10,12 @@
             text-align: center;
         }
         h2 {
-            padding:0;
             font-size: 30px;
             line-height: 30px;
-            padding-top: 40px;
             text-align: center;
             margin: 0;
+            border-bottom: solid 2px var(--green);
+            padding: 20px 0 20px;
         }
 
         nav {
@@ -119,7 +119,7 @@
             }
         }
         table {
-            margin-top: 100px;
+            margin-top: 70px;
             border-spacing: 0;
             border-collapse: collapse;
 
@@ -231,7 +231,7 @@
                         <th class="normal"><span>Citation Source</span></th>
                     </tr>
                     <template v-for="pt in getProject.matrix">
-                        <tr class="pt-row" :title="pt.state_abbr">
+                        <tr :id="pt.state_abbr.toLowerCase()" class="pt-row" :title="pt.state_abbr">
                             <td>{{pt.state}}</td>
                             <td class="spacer"></td>
                             <td><i class="fa fa-check" :class="{enabled:isChecked(pt.b_c_a),disabled:!isChecked(pt.b_c_a)}"></i></td>
