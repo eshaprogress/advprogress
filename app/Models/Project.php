@@ -13,7 +13,10 @@ class Project extends Model
         'title',
         'model_legislative_text_body',
         'model_legislative_summary_text',
-        'resources'
+        'resources',
+        'is_featured',
+        'img_card',
+        'img_banner'
     ];
 
     public function scopeIsFeatured($query)

@@ -248,7 +248,10 @@ class ManageDirectory extends Command
             'title'=>'Title',
             'model_legislative_summary_text'=>'Summary',
             'model_legislative_text_body'=>'Body',
-            'resources'=>'Resources enter double pipe delimited urls ie: http://url||http://url||http://url'
+            'resources'=>'Resources enter double pipe delimited urls ie: http://url||http://url||http://url',
+            'is_featured'=>'Is Project Featured',
+            'img_card' => 'Image for Directory Listing',
+            'img_banner' => 'Image for Project Page Details'
         ];
 
         $data = [];
@@ -268,6 +271,21 @@ class ManageDirectory extends Command
                 continue;
             }
 
+            if($field === 'is_featured')
+            {
+                $because = $project_data[$field]?'YES':'NO';
+                $value = $this->ask("(bool) use: y/n or 1/0 [{$title}] -> {$because}");
+                $value = (string)$value;
+                if(strlen($value))
+                {
+                    if (in_array($value, ['y', 'n']))
+                        $data[$field] = $value === 'y'?1:0;
+                    elseif (in_array($value, ['1', '0']))
+                        $data[$field] = $value >= '1'?1:0;
+                }
+                continue;
+            }
+
             $set = $this->ask("{$title} -> {$project_data[$field]}");
             if(strlen($set))
             {
@@ -283,8 +301,6 @@ class ManageDirectory extends Command
 
         $this->line('Project Updated');
         $project->update($data);
-
-        $this->displayProject($projectId);
     }
 
     public function editProjectState($projectId, $stateStr, $delete = false)
@@ -405,9 +421,9 @@ class ManageDirectory extends Command
             }
 
             $iCanDo = [
-                'add:state'   =>'Add State to existing project',
-                'edit:project'=>'Edit Project Info',
-                'edit:state'  =>'Edit State to existing project',
+                'add:state'     =>'Add State to existing project',
+                'edit:project'  =>'Edit Project Info',
+                'edit:state'    =>'Edit State to existing project',
                 'delete:state'  =>'Delete State to existing project',
             ];
             $iCanDo = ['back'=>'Exit'] + $iCanDo;
@@ -442,6 +458,8 @@ class ManageDirectory extends Command
                     break;
 
             }
+            $rendered = true;
+
         } while($choice !== 'back');
     }
 
@@ -493,6 +511,9 @@ class ManageDirectory extends Command
         $table->addRow()->addColumn('Title')->addColumn($truncate($project->title));
         $table->addRow()->addColumn('Summary Text')->addColumn($truncate($project->model_legislative_summary_text));
         $table->addRow()->addColumn('Body Text')->addColumn($truncate($project->model_legislative_text_body));
+        $table->addRow()->addColumn('Project Featured')->addColumn(($project->is_featured?'YES':'NO'));
+        $table->addRow()->addColumn('Card Image URL')->addColumn(($project->img_card));
+        $table->addRow()->addColumn('Banner Image URL')->addColumn(($project->img_banner));
         $resources = json_decode($project->resources, true);
         $links = array_map(function($val)
         {
