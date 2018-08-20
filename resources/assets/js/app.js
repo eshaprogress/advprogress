@@ -26,6 +26,9 @@ Vue.use(VueScrollTo);
 import Loader from './components/Loader';
 Vue.component('Loader', Loader);
 
+import ImgPlaceholder from './components/ImgPlaceholder';
+Vue.component('ImgPlaceholder', ImgPlaceholder);
+
 const app = new Vue({
     router,
     store,

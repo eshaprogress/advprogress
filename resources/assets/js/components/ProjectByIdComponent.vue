@@ -176,24 +176,12 @@
         .disabled {
             color:var(--gray);
         }
-        .img_banner {
-            margin: 35px 0;
-            padding:0;
-
-            .img_placeholder {
-                padding: 0;
+        .img-banner-container {
+            height: 200px;
+            margin: 20px auto;
+            max-width: 1150px;
+            .img-banner {
                 background-color: var(--white1);
-                border: solid 1px rgba(0,0,0,.05);
-                display: flex;
-                padding: 0;
-                margin: auto;
-                justify-items: center;
-                place-items: center;
-                height: 200px;
-                .img_text {
-                    margin:auto;
-                    padding:0;
-                }
             }
         }
     }
@@ -218,14 +206,12 @@
                     <li><router-link :to="{hash:'project-proposed-legislation'}">Proposed Legislation</router-link></li>
                 </ul>
             </nav>
-            <div class="img_banner">
+            <div class="img-banner-container">
                 <template v-if="hasBannerImg(getProject)">
                     <img :src="getProject.img_banner" alt="">
                 </template>
                 <template>
-                    <div class="img_placeholder">
-                        <div class="img_text">Upload Banner</div>
-                    </div>
+                    <img-placeholder>Upload Banner</img-placeholder>
                 </template>
             </div>
             <article id="project-intro" class="card">

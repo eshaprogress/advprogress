@@ -21,7 +21,7 @@
             text-decoration: none;
             margin: 15px;
             display: inline-block;
-
+            color:var(--black);
             .card {
                 background-color: var(--white1);
                 padding: 10px;
@@ -76,7 +76,14 @@
                     <template v-for="project in getProjects">
                         <router-link :to="makeProjectLink(project)">
                             <article class="card">
-                                <div class="img"><img :src="project.card_img" alt=""></div>
+                                <div class="img">
+                                    <template v-if="hasCardImg(project)">
+                                        <img :src="project.card_img" alt="">
+                                    </template>
+                                    <template v-else>
+                                        <img-placeholder>Upload Card</img-placeholder>
+                                    </template>
+                                </div>
                                 <div class="content">
                                     <h4 class="title">{{project.title}}</h4>
                                     <p class="body">{{project.model_legislative_summary_text | truncate(225, '...')}}</p>
@@ -106,6 +113,13 @@
                         projectId:project.id
                     }
                 };
+            },
+            hasCardImg(project)
+            {
+                if(!project.card_img)
+                    return false;
+
+                return (project.card_img.length);
             }
         },
         computed:{
