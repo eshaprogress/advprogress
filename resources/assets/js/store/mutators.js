@@ -9,6 +9,11 @@ export default {
         state.isProjectsLoading = status;
     },
 
+    setCategoryId(state, categoryId)
+    {
+        state.currentCategoryId = categoryId;
+    },
+
     projectLoading(state, status)
     {
         state.isProjectLoading = status;
@@ -21,7 +26,13 @@ export default {
 
     updateProjects(state, projects)
     {
-        state.projects = projects;
+        if(state.projects === null)
+            state.projects = {};
+
+        state.projects = {
+            ...state.projects,
+            [state.currentCategoryId]:projects
+        };
     },
 
     updateProject(state, project)

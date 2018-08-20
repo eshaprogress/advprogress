@@ -16,6 +16,7 @@
             margin: 0;
             border-bottom: solid 2px var(--green);
             padding: 20px 0 20px;
+            color: var(--blue);
         }
 
         nav {
@@ -175,6 +176,26 @@
         .disabled {
             color:var(--gray);
         }
+        .img_banner {
+            margin: 35px 0;
+            padding:0;
+
+            .img_placeholder {
+                padding: 0;
+                background-color: var(--white1);
+                border: solid 1px rgba(0,0,0,.05);
+                display: flex;
+                padding: 0;
+                margin: auto;
+                justify-items: center;
+                place-items: center;
+                height: 200px;
+                .img_text {
+                    margin:auto;
+                    padding:0;
+                }
+            }
+        }
     }
 
 </style>
@@ -182,7 +203,9 @@
 <template>
     <main class="project">
         <template v-if="isProjectLoading">
-            Loading Projects ....
+            <loader>
+                Loading ....
+            </loader>
         </template>
         <template v-else>
             <header>
@@ -195,6 +218,16 @@
                     <li><router-link :to="{hash:'project-proposed-legislation'}">Proposed Legislation</router-link></li>
                 </ul>
             </nav>
+            <div class="img_banner">
+                <template v-if="hasBannerImg(getProject)">
+                    <img :src="getProject.img_banner" alt="">
+                </template>
+                <template>
+                    <div class="img_placeholder">
+                        <div class="img_text">Upload Banner</div>
+                    </div>
+                </template>
+            </div>
             <article id="project-intro" class="card">
                 <h2>Summary</h2>
                 <p>
@@ -257,6 +290,16 @@
             ...mapActions([
                 'fetchProject'
             ]),
+            hasBannerImg(project)
+            {
+                if(project.img_banner === undefined) return false;
+                if(project.img_banner === null) return false;
+
+                if(project.img_banner.length)
+                    return true;
+
+                return false;
+            },
             makeProjectLink(project)
             {
                 return {

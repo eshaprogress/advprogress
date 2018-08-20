@@ -23,6 +23,9 @@ Vue.use(VueMq, {
 import VueScrollTo from 'vue-scrollto';
 Vue.use(VueScrollTo);
 
+import Loader from './components/Loader';
+Vue.component('Loader', Loader);
+
 const app = new Vue({
     router,
     store,

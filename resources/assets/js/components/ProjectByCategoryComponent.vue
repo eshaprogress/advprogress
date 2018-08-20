@@ -66,7 +66,9 @@
 <template>
     <main class="projects">
         <template v-if="isProjectsLoading">
-            Loading Projects ....
+            <loader>
+                Loading ....
+            </loader>
         </template>
         <template v-else>
             <div class="projects-outer-container">

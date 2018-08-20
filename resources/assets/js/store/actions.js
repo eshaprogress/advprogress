@@ -3,6 +3,9 @@ import axios from "axios";
 export default {
 
     fetchCategories:async ({commit, state}) => {
+        if(state.categories.length)
+            return;
+
         commit('categoriesLoading', true);
         let fetch = await axios.get('/api/categories');
         let {categories} = fetch.data;
@@ -11,11 +14,18 @@ export default {
     },
 
     fetchProjects: async ({commit, state}, {categoryId}) => {
+        categoryId = categoryId || '--featured--';
+
+        if(state.projects !== null && state.projects[categoryId] !== undefined)
+        {
+            commit('setCategoryId', categoryId);
+            return;
+        }
+
         commit('projectsLoading', true);
 
-        categoryId = categoryId || false;
         let fetch = null;
-        if(categoryId === false)
+        if(categoryId === '--featured--')
         {
             fetch = await axios.get('/api/project/featured');
         }
@@ -23,6 +33,7 @@ export default {
         {
             fetch = await axios.get(`/api/category/${categoryId}/projects`);
         }
+        commit('setCategoryId', categoryId);
         let {projects} = fetch.data;
         commit('updateProjects', projects);
         commit('projectsLoading', false);

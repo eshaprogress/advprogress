@@ -1,9 +1,10 @@
-import filter from 'lodash/filter';
-
 export default {
+
     getProjects(state)
     {
-        return state.projects;
+        if(state.projects === null) return [];
+
+        return state.projects[state.currentCategoryId] || [];
     },
 
     getProject(state)
@@ -18,11 +19,11 @@ export default {
         return {
             resource:project.r || {},
             title:project.t,
-            model_legislative_summary_text:project.m_l_s_t,
-            model_legislative_text_body:project.m_l_t_b,
-            is_featured:project.is_f,
-            img_card:project.img_c,
-            img_banner:project.img_bn,
+            model_legislative_summary_text:project.m_l_s_t || '',
+            model_legislative_text_body:project.m_l_t_b || '',
+            is_featured:project.is_f || false,
+            img_card:project.img_c || '',
+            img_banner:project.img_bn || '',
             category:project.category || {},
             matrix:project.matrix || []
         }
