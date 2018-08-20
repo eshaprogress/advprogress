@@ -20,6 +20,9 @@ Vue.use(VueMq, {
     }
 });
 
+import VueScrollTo from 'vue-scrollto';
+Vue.use(VueScrollTo);
+
 const app = new Vue({
     router,
     store,

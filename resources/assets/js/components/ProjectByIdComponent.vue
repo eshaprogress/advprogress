@@ -3,16 +3,63 @@
         margin: auto;
         padding: 30px;
         min-height: 420px;
-        max-width: 1150px;
 
         header {
             margin:0;
             padding:0;
+            text-align: center;
+        }
+
+        nav {
+            --project-height:52px;
+            min-height: var(--project-height);
+            background-color: var(--blue);
+            padding:9px;
+            ul {
+                margin: 0 auto;
+                padding: 0;
+                list-style: none;
+                display: flex;
+                max-width: 800px;
+                align-items: center;
+                align-content: center;
+                height:var(--project-height);
+                li{
+                    margin:0;
+                    padding:9px 0;
+                    list-style: none;
+                    flex:auto;
+                    display: inline-block;
+                    text-align: center;
+                    height:var(--project-height);
+                    a {
+                        border-left: solid 2px var(--white);
+                        color:var(--white);
+                        height:var(--project-height);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 16px;
+                        text-decoration: none;
+                        span {}
+                        &.router-link-active {
+                            color:var(--blue);
+                            background-color: white;
+                        }
+                    }
+                    &:last-child {
+                        a {
+                            border-right: solid 2px var(--white);
+                        }
+                    }
+                }
+            }
         }
 
         article {
-            margin:0;
+            margin:0 auto;
             padding:0;
+            max-width: 1150px;
         }
 
         .table-header-rotated {
@@ -126,17 +173,24 @@
             <header>
                 <h1>{{getProject.category.category}} / {{getProject.title}}</h1>
             </header>
-            <article class="card">
+            <nav>
+                <ul>
+                    <li><router-link :to="{hash:'project-intro'}">Intro</router-link></li>
+                    <li><router-link :to="{hash:'project-current-legislation'}">Current Legislation</router-link></li>
+                    <li><router-link :to="{hash:'project-proposed-legislation'}">Proposed Legislation</router-link></li>
+                </ul>
+            </nav>
+            <article id="project-intro" class="card">
                 <h2>Summary</h2>
                 <p>
                     {{getProject.model_legislative_summary_text}}
                 </p>
             </article>
-            <article class="card">
+            <article id="project-current-legislation" class="card">
                 <h3>Legislative Body</h3>
                 <p>{{getProject.model_legislative_text_body}}</p>
             </article>
-            <article class="card">
+            <article id="project-resources" class="card">
                 <h4></h4>
                 <ul>
                     <template v-for="link in getProject.resource.links">
@@ -144,7 +198,7 @@
                     </template>
                 </ul>
             </article>
-            <article class="card">
+            <article id="project-proposed-legislation" class="card">
                 <h4>Jurisdiction Matrix</h4>
 
                 <table class="table table-header-rotated">

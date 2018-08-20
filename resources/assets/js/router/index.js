@@ -137,7 +137,19 @@ const routes = [
 // 3. Create the router instance and pass the `routes` option
 // You can pass in additional options here, but let's
 // keep it simple for now.
+import VueScrollTo from 'vue-scrollto';
+
 const router = new VueRouter({
+    scrollBehavior(to, from, savedPosition) {
+        if (to.hash) {
+            VueScrollTo.scrollTo(to.hash, 700);
+            return { selector: to.hash }
+        } else if (savedPosition) {
+            return savedPosition;
+        } else {
+            return { x: 0, y: 0 }
+        }
+    },
     mode: 'history',
     routes // short for `routes: routes`
 });
