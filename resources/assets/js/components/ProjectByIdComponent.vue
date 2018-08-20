@@ -9,6 +9,14 @@
             padding:0;
             text-align: center;
         }
+        h2 {
+            padding:0;
+            font-size: 30px;
+            line-height: 30px;
+            padding-top: 40px;
+            text-align: center;
+            margin: 0;
+        }
 
         nav {
             --project-height:52px;
@@ -57,9 +65,9 @@
         }
 
         article {
-            margin:0 auto;
             padding:0;
             max-width: 1150px;
+            margin: 10px auto;
         }
 
         .table-header-rotated {
@@ -69,6 +77,15 @@
             }
             th {
                 padding: 0;
+
+                &.normal {
+                    position: relative;
+                    > span {
+                        position: absolute;
+                        bottom:0;
+                        text-indent: 10px;
+                    }
+                }
                 &.rotate {
                     height: 140px;
                     white-space: nowrap;
@@ -102,7 +119,7 @@
             }
         }
         table {
-
+            margin-top: 100px;
             border-spacing: 0;
             border-collapse: collapse;
 
@@ -129,13 +146,11 @@
                         width:40px;
                     }
                     &:nth-child(8) {
-                        transform: translate(0px,55px);
                         width:250px;
                         text-align: left;
                     }
                     &:nth-child(9) {
                         text-align: left;
-                        transform: translate(0px,55px);
                         width:700px;
                     }
                 }
@@ -171,7 +186,7 @@
         </template>
         <template v-else>
             <header>
-                <h1>{{getProject.category.category}} / {{getProject.title}}</h1>
+                <h1>{{getProject.title}}</h1>
             </header>
             <nav>
                 <ul>
@@ -187,11 +202,11 @@
                 </p>
             </article>
             <article id="project-current-legislation" class="card">
-                <h3>Legislative Body</h3>
+                <h2>Legislative Body</h2>
                 <p>{{getProject.model_legislative_text_body}}</p>
             </article>
             <article id="project-resources" class="card">
-                <h4></h4>
+                <h2>Resources</h2>
                 <ul>
                     <template v-for="link in getProject.resource.links">
                         <li><a :href="link.url">{{link.url}}</a></li>
@@ -199,7 +214,7 @@
                 </ul>
             </article>
             <article id="project-proposed-legislation" class="card">
-                <h4>Jurisdiction Matrix</h4>
+                <h2>Jurisdiction Matrix</h2>
 
                 <table class="table table-header-rotated">
                     <tr>
@@ -212,8 +227,8 @@
                         <th class="rotate"><div><span>Case Law</span></div></th>
                         <th class="rotate"><div><span>Executive Order</span></div></th>
                         <th class="spacer"></th>
-                        <th>Source Of Law</th>
-                        <th>Citation Source</th>
+                        <th class="normal"><span>Source Of Law</span></th>
+                        <th class="normal"><span>Citation Source</span></th>
                     </tr>
                     <template v-for="pt in getProject.matrix">
                         <tr class="pt-row" :title="pt.state_abbr">
