@@ -101,7 +101,7 @@
                     <p>American Prisoner's disenfranchisement is a problem. Let's fix it.</p>
                     <router-link to="/" class="btn green">LEARN MORE</router-link>
                 </div>
-                <img src="/images/prisoners.png">
+                <img src="/images/prisoners.jpg">
             </div>
             <router-link to="/donate" class="donate-btn">
                 <span class="heart-icon"></span>
