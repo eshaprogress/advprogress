@@ -90,13 +90,17 @@
                 &.rotate {
                     height: 140px;
                     white-space: nowrap;
+                    position: relative;
                     > div {
-                        transform: translate(30px, 49px) rotate(315deg);
-                        width: 30px;
-                        > span {
-                            border-bottom: 1px solid black;
-                            padding: 5px 10px;
-                        }
+                        transform: translate(-45px,-80px) rotate(-49deg);
+                        position: absolute;
+                        bottom: 0;
+                        border-bottom: solid 1px black;
+                        width: 226px;
+                        text-align: left;
+                        font-size: 14px;
+                        line-height: 22px;
+                        left: 45px;
                     }
                 }
                 &.row-header {
