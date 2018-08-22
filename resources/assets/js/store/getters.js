@@ -1,21 +1,26 @@
 export default {
 
-    getProjects(state)
+    getProjectCategory(state)
     {
-        if(state.projects === null) return [];
+        let {projectCategories, currentCategoryId} = state;
+        if(projectCategories === null) return [];
 
-        return state.projects[state.currentCategoryId] || [];
+        return projectCategories[currentCategoryId] || [];
     },
 
     getProject(state)
     {
-        let {project} = state;
-        if(!project) return {
+        let {projects, currentProjectId} = state;
+        if(
+            projects === null ||
+            !projects[currentProjectId]
+        ) return {
             resource:{},
             matrix:[],
             category:{}
         };
 
+        let project = projects[currentProjectId];
         return {
             resource:project.r || {},
             title:project.t,

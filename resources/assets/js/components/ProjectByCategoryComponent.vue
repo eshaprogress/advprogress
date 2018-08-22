@@ -73,7 +73,7 @@
         <template v-else>
             <div class="projects-outer-container">
                 <div class="projects-inner-container">
-                    <template v-for="project in getProjects">
+                    <template v-for="project in getProjectCategory">
                         <router-link :to="makeProjectLink(project)">
                             <article class="card">
                                 <div class="img">
@@ -103,7 +103,7 @@
         name:'ProjectsByCategoryComponent',
         methods:{
             ...mapActions([
-                'fetchProjects'
+                'fetchProjectCategory'
             ]),
             makeProjectLink(project)
             {
@@ -124,13 +124,13 @@
         },
         computed:{
             ...mapGetters([
-                'getProjects',
+                'getProjectCategory',
                 'isProjectsLoading',
             ])
         },
         watch: {
             '$route.params.categoryId'(categoryId) {
-                this.fetchProjects({categoryId:categoryId});
+                this.fetchProjectCategory({categoryId:categoryId});
             },
         },
         filters:{
@@ -160,14 +160,14 @@
         beforeRouteUpdate (to, from, next)
         {
             console.log('beforeRouteUpdate: to',to, 'from', from);
-            this.fetchProjects({categoryId:to.params.categoryId});
+            this.fetchProjectCategory({categoryId:to.params.categoryId});
             next();
         },
         beforeRouteEnter(to, from, next)
         {
             next(vm=>{
                 console.log('beforeRouteEnter: to',to, 'from', from);
-                vm.fetchProjects({categoryId:to.params.categoryId});
+                vm.fetchProjectCategory({categoryId:to.params.categoryId});
             });
         },
         beforeRouteLeave(to, from, next)

@@ -4,7 +4,7 @@ export default {
         state.isCategoriesLoading = status;
     },
 
-    projectsLoading(state, status)
+    projectCategoryLoading(state, status)
     {
         state.isProjectsLoading = status;
     },
@@ -12,6 +12,11 @@ export default {
     setCategoryId(state, categoryId)
     {
         state.currentCategoryId = categoryId;
+    },
+
+    setProjectId(state, projectId)
+    {
+        state.currentProjectId = projectId;
     },
 
     projectLoading(state, status)
@@ -24,19 +29,25 @@ export default {
         state.categories = categories;
     },
 
-    updateProjects(state, projects)
+    updateProjectCategory(state, projects)
     {
-        if(state.projects === null)
-            state.projects = {};
+        if(state.projectCategories === null)
+            state.projectCategories = {};
 
-        state.projects = {
-            ...state.projects,
+        state.projectCategories = {
+            ...state.projectCategories,
             [state.currentCategoryId]:projects
         };
     },
 
     updateProject(state, project)
     {
-        state.project = project;
+        if(state.projects === null)
+            state.projects = {};
+
+        state.projects = {
+            ...state.projects,
+            [state.currentProjectId]:project
+        };
     }
 }

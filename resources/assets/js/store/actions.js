@@ -13,16 +13,18 @@ export default {
         commit('categoriesLoading', false);
     },
 
-    fetchProjects: async ({commit, state}, {categoryId}) => {
+    fetchProjectCategory: async ({commit, state}, {categoryId}) => {
         categoryId = categoryId || '--featured--';
 
-        if(state.projects !== null && state.projects[categoryId] !== undefined)
-        {
+        if(
+            state.projectCategories !== null &&
+            state.projectCategories[categoryId] !== undefined
+        ) {
             commit('setCategoryId', categoryId);
             return;
         }
 
-        commit('projectsLoading', true);
+        commit('projectCategoryLoading', true);
 
         let fetch = null;
         if(categoryId === '--featured--')
@@ -35,24 +37,28 @@ export default {
         }
         commit('setCategoryId', categoryId);
         let {projects} = fetch.data;
-        commit('updateProjects', projects);
-        commit('projectsLoading', false);
+        commit('updateProjectCategory', projects);
+        commit('projectCategoryLoading', false);
     },
 
     fetchProject: async ({commit, state}, {projectId}) => {
-        commit('projectLoading', true);
-
         projectId = projectId || false;
-        let fetch = null;
         if(projectId === false)
         {
             throw new Error("Failed to obtain a projectId");
         }
-        else
+
+        if(state.projects !== null && state.projects[projectId] !== undefined)
         {
-            fetch = await axios.get(`/api/project/${projectId}`);
+            commit('setProjectId', projectId);
+            return;
         }
+
+        commit('projectLoading', true);
+
+        let fetch = await axios.get(`/api/project/${projectId}`);
         let {project} = fetch.data;
+        commit('setProjectId', projectId);
         commit('updateProject', project);
         commit('projectLoading', false);
     }
