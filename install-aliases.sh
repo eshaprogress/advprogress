@@ -1,5 +1,5 @@
 #!/bin/bash
-export APP_NAME="advancedprogress"
+export APP_NAME="advprog"
 export DOCKER_APP="laradock"
 export DOCKER_FOLDER="${PWD}/${DOCKER_APP}/"
 alias docker-${APP_NAME}="cd ${DOCKER_FOLDER}"
