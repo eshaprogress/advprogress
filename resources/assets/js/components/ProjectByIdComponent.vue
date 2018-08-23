@@ -227,6 +227,7 @@
             <article id="project-current-legislation" class="card">
                 <h2>Legislative Body</h2>
                 <p>{{getProject.model_legislative_text_body}}</p>
+                <!--- add a tag where it searches to see if I have included a custom component, if I have, display it here-->
             </article>
             <article id="project-resources" class="card">
                 <h2>Resources</h2>
