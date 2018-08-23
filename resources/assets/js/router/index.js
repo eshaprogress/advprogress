@@ -19,9 +19,9 @@ import NotFoundComponent from '../components/NotFoundComponent';
 import NotFoundMobileComponent from '../components/mobile/NotFoundMobileComponent';
 import OurStoryComponent from '../components/OurStoryComponent';
 import OurStoryMobileComponent from '../components/mobile/OurStoryMobileComponent';
-import DirectoryListLayoutComponent from '../components/DirectoryListLayoutComponent';
-import ProjectByCategoryComponent from '../components/ProjectByCategoryComponent';
-import ProjectByIdComponent from '../components/ProjectByIdComponent';
+import DirectoryListLayoutComponent from '../components/directory/DirectoryListLayoutComponent';
+import ProjectByCategoryComponent from '../components/directory/ProjectByCategoryComponent';
+import ProjectByIdComponent from '../components/directory/ProjectByIdComponent';
 
 const routes = [
     {
