@@ -6,19 +6,6 @@ Please make sure that http services are not running on your local machine, if so
 If you have a MAC os you can use
 - `sudo nginx -s stop`
 
-If you're using heroku to initialize project file
-- (this will ush all .env files to environment vars)
-  - `heroku plugins:install heroku-config`
-  - `heroku config:push`
-- (setup mysql)
-  - `heroku addons:create cleardb:ignite`
-- `heroku buildpacks:add heroku/nodejs`
-- `heroku config:set NPM_CONFIG_PRODUCTION=false`
-- `heroku buildpacks:add https://github.com/heroku/heroku-buildpack-php`
-- Permissions update
-  - `heroku run chmod 777 ./bootstrap ./storage -R`
-# Setup code-base
---------------------------
 - `chmod +x ./install-env.sh && ./install-env.sh`
 
 ## Install Procedures
@@ -36,6 +23,7 @@ If you're using heroku to initialize project file
 
 (IMPORTANT) This expects that you configure your servers independently with the only important service running on this instance with php/nginx, redis, mysql, memcache are expected to be running elsewhere.
 
+- If you have a mac, there is a chance the .env file gets saved in a weird format that outputs ^M
 - `sudo cp ./etc/docker-compose-app.service /etc/systemd/system/docker-compose-app.service`
 - `sudo systemctl enable docker-compose-app`
 
