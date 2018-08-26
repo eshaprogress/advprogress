@@ -167,9 +167,8 @@
             </div>
             <div class="share-icons">
                 <h4>JOIN THE CONVERSATION</h4>
-                <a class="icon" href="#"><i class="fab fa-twitter"></i></a>
-                <a class="icon" href="#"><i class="fab fa-instagram"></i></a>
-                <a class="icon" href="#"><i class="fab fa-facebook-square"></i></a>
+                <a class="icon" href="http://www.twitter.com/advprogress"><i class="fab fa-twitter"></i></a>
+                <a class="icon" href="http://www.facebook.com/advanceprogresss/"><i class="fab fa-facebook-square"></i></a>
                 <div class="copyright">
                     &copy; 2018 Legislation for Equality Advance Progress. All Rights Reserved.
                 </div>
