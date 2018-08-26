@@ -1,18 +1,19 @@
 <style lang="scss" scoped>
-    h2 {
-        font-size: 30px;
-        line-height: 30px;
-        text-align: center;
-        margin: 0;
-        border-bottom: solid 2px var(--green);
-        padding: 20px 0 20px;
-        color: var(--blue);
-    }
 
     article {
         padding:0;
         max-width: 1150px;
         margin: 10px auto;
+
+        h2 {
+            font-size: 30px;
+            line-height: 30px;
+            text-align: center;
+            margin: 0;
+            border-bottom: solid 2px var(--green);
+            padding: 20px 0 20px;
+            color: var(--blue);
+        }
     }
 
 </style>
