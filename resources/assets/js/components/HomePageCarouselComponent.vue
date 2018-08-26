@@ -40,6 +40,11 @@
             margin:auto;
         }
         .carousel-item {
+
+            background-color: #e6e6e6;
+            width: 1150px;
+            height: 561px;
+
             .content {
                 color: white;
                 position: absolute;
