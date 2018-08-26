@@ -108,7 +108,7 @@
             makeProjectLink(project)
             {
                 return {
-                    name:'project-id',
+                    name:'project-intro',
                     params:{
                         projectId:project.id
                     }

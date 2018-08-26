@@ -21,7 +21,11 @@ import OurStoryComponent from '../components/OurStoryComponent';
 import OurStoryMobileComponent from '../components/mobile/OurStoryMobileComponent';
 import DirectoryListLayoutComponent from '../components/directory/DirectoryListLayoutComponent';
 import ProjectByCategoryComponent from '../components/directory/ProjectByCategoryComponent';
-import ProjectByIdComponent from '../components/directory/ProjectByIdComponent';
+import ProjectByIdComponent from '../components/project/ProjectByIdComponent';
+import ProjectIntroComponent from '../components/project/ProjectIntroComponent';
+import ProjectStatusComponent from '../components/project/ProjectStatusComponent';
+import ProjectProposedLegislationComponent from '../components/project/ProjectProposedLegislationComponent';
+import ProjectCurrentLegislationComponent from '../components/project/ProjectCurrentLegislationComponent';
 
 const routes = [
     {
@@ -108,7 +112,41 @@ const routes = [
                 components:{
                     standard:ProjectByIdComponent,
                     mobile:ProjectByIdComponent,
-                }
+                },
+                children:[
+                    {
+                        name: 'project-intro',
+                        path: 'intro',
+                        components:{
+                            standard:ProjectIntroComponent,
+                            mobile:ProjectIntroComponent,
+                        }
+                    },
+                    {
+                        name: 'project-status',
+                        path: 'status',
+                        components:{
+                            standard:ProjectStatusComponent,
+                            mobile:ProjectStatusComponent,
+                        }
+                    },
+                    {
+                        name: 'project-current-legislation',
+                        path: 'current-legislation',
+                        components:{
+                            standard:ProjectCurrentLegislationComponent,
+                            mobile:ProjectCurrentLegislationComponent,
+                        }
+                    },
+                    {
+                        name: 'project-proposed-legislation',
+                        path: 'proposed-legislation',
+                        components:{
+                            standard:ProjectProposedLegislationComponent,
+                            mobile:ProjectProposedLegislationComponent,
+                        }
+                    }
+                ]
             },
             {
                 name: 'cancel-subscription',
