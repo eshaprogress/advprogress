@@ -161,7 +161,7 @@
                     <ul>
                         <li><a href="#">Email</a></li>
                         <li><a href="#">Phone</a></li>
-                        <li><a href="#">Volunteer</a></li>
+                        <li><router-link :to="{name:'volunteer'}">Volunteer</router-link></li>
                     </ul>
                 </div>
             </div>

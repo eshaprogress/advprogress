@@ -41,6 +41,8 @@ class WriteJSEnvironmentConf extends Command
 
         file_put_contents(base_path('resources/assets/js/environment.json'), json_encode([
             'stripePublishToken'=>config('services.stripe.key'),
+            'octopusEmailSubscribeFormId'=>config('app.octopus_subscribe_form_id'),
+            'octopusEmailVolunteerFormId'=>config('app.octopus_volunteer_form_id'),
             'emailOctopusId'=>config('app.octopus_id'),
         ]));
     }

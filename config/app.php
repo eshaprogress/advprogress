@@ -108,7 +108,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
-    'octopus_id' => env('OCTOPUS_ID',''),
+    'octopus_subscribe_form_id' => env('OCTOPUS_SUBSCRIBE_FORM_ID',''),
+    'octopus_volunteer_form_id' => env('OCTOPUS_VOLUNTEER_FORM_ID',''),
     'contact_email' => env('CONTACT_EMAIL',''),
     'consultation_email' => env('CONSULTATION_EMAIL',''),
 

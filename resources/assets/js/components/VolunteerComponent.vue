@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-    .subscribe {
+    .volunteer {
         margin-top: 50px;
         margin-bottom: 50px;
     }
@@ -38,7 +38,7 @@
     form {
         --column-width: 430px;
         --column-gap: 40px;
-        &.subscribe-form {
+        &.volunteer-form {
             width: calc(var(--column-width) * 2 + var(--column-gap));
             margin:auto;
         }
@@ -46,8 +46,12 @@
         .fields {
             display: grid;
             grid-template-columns: repeat(2, var(--column-width));
-            grid-template-rows: repeat(3, auto);
+            grid-template-rows: repeat(4, auto);
             grid-column-gap: var(--column-gap);
+
+            .textarea {
+                grid-column: 1 / span 2;
+            }
 
             .submit {
                 grid-column: 1 / span 2;
@@ -56,7 +60,7 @@
             }
         }
     }
-    .successful-subscription{
+    .successful-volunteer{
         text-align: center;
         font-size: 30px;
         color: var(--green);
@@ -71,13 +75,13 @@
 </style>
 
 <template>
-    <section class="section subscribe">
-        <h2>Subscribe</h2>
+    <section class="section volunteer">
+        <h2>Volunteer</h2>
         <div class="icon">
             <img src="/images/newsletter-icon.png" alt="">
-            <p>Stay up to date with all of our progress and join the community!</p>
+            <p>Contribute to our cause, we'd love to hear from you and how you can contribute to our cause.</p>
         </div>
-        <form v-if="!isSuccessful" @submit.prevent="onSubmit" action="" class="subscribe-form">
+        <form v-if="!isSuccessful" @submit.prevent="onSubmit" action="" class="volunteer-form">
             <div class="fields">
                 <input :name="emailOctopusId" type="hidden" value="">
                 <form-field
@@ -117,17 +121,29 @@
                         :is-required="true"
                         :is-errored="errors.email"
                         @onUpdate="onEmailChange" />
+                <form-field
+                        class-name="textarea"
+                        id="what_would_you_like_to_do"
+                        label-text="What would you like to do?"
+                        field-name="embedded_form_subscription[field_4]"
+                        field-type="text"
+                        :model-value="form.what_would_you_like_to_do"
+                        :is-text-area="true"
+                        :is-required="true"
+                        :is-errored="errors.what_would_you_like_to_do"
+                        style-vars="--column-width:100%; --min-height:250px;"
+                        @onUpdate="onWhatWouldYouLikeToDo" />
                 <div class="submit">
                     <button class="btn green" type="submit">
                         <span v-if="isLoading" class="is-loading">
                             <div class="fa fa-spinner fa-spin"></div>
                         </span>
-                        <span v-else>SIGN ME UP</span>
+                        <span v-else>VOLUNTEER</span>
                     </button>
                 </div>
             </div>
         </form>
-        <div class="successful-subscription" v-else>Thank you for subscribing to our news letter!</div>
+        <div class="successful-volunteer" v-else>Thank you for volunteering your time to us.</div>
 
     </section>
 </template>
@@ -135,10 +151,10 @@
 <script>
     import FormField from "./FormField";
     import $ from 'jquery';
-    import {emailOctopusId} from '../environment.json';
+    import {octopusEmailVolunteerFormId} from '../environment.json';
 
     export default {
-        name:'SubscribeComponent',
+        name:'VolunteerComponent',
         components:{
             FormField
         },
@@ -146,19 +162,21 @@
         {
             return {
                 isLoading:false,
-                emailOctopusId:emailOctopusId,
+                emailOctopusId:octopusEmailVolunteerFormId,
                 isSuccessful:false,
                 errors:{
                     first_name:false,
                     last_name:false,
                     email:false,
-                    zip_code:false
+                    zip_code:false,
+                    what_would_you_like_to_do:false
                 },
                 form:{
                     first_name:'',
                     last_name:'',
                     email:'',
-                    zip_code:''
+                    zip_code:'',
+                    what_would_you_like_to_do:'',
                 }
             }
         },
@@ -176,11 +194,14 @@
             onZipChange(value){
                 this.form.zip_code = value;
             },
+            onWhatWouldYouLikeToDo(value){
+                this.form.what_would_you_like_to_do = value;
+            },
             onSubmit()
             {
                 let emailRegex = /\S+@\S+\.\S+/;
                 let zipCode = /^(\d{5})+(?:[-\s]\d{4})?$/;
-                let subscribe_list_url = `https://emailoctopus.com/lists/${this.emailOctopusId}/members/embedded/1.1/add`;
+                let volunteer_list_url = `https://emailoctopus.com/lists/${this.emailOctopusId}/members/embedded/1.1/add`;
 
                 let errors = 0;
                 if(!emailRegex.test(this.form.email))
@@ -204,8 +225,8 @@
                 // Had to use jQuery ajax call because the API provided by emailoctopus doesn't work at all with axios due to the CORS requirement.
                 $.ajax({
                     method: "POST",
-                    url: subscribe_list_url,
-                    data: $('form.subscribe-form').serialize(),
+                    url: volunteer_list_url,
+                    data: $('form.volunteer-form').serialize(),
                 }).done(( json ) => {
                     this.isLoading = false;
 
