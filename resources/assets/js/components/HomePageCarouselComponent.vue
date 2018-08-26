@@ -104,7 +104,7 @@
                 <div class="content">
                     <h2>THE STATELESS</h2>
                     <p>American Prisoner's disenfranchisement is a problem. Let's fix it.</p>
-                    <router-link to="/" class="btn green">LEARN MORE</router-link>
+                    <router-link to="/directory" class="btn green">LEARN MORE</router-link>
                 </div>
                 <img src="/images/prisoners.jpg">
             </div>
