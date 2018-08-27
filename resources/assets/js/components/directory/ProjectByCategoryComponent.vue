@@ -31,7 +31,10 @@
                 .img {
                     height: 260px;
                     background-color: var(--white);
-                    border:solid 1px var(--white2);
+                    border: solid 1px var(--white2);
+                    background-size: 100%;
+                    background-repeat: no-repeat;
+                    background-position: center center;
                 }
                 .content {
                     .title {
@@ -76,11 +79,8 @@
                     <template v-for="project in getProjectCategory">
                         <router-link :to="makeProjectLink(project)">
                             <article class="card">
-                                <div class="img">
-                                    <template v-if="hasCardImg(project)">
-                                        <img :src="project.card_img" alt="">
-                                    </template>
-                                    <template v-else>
+                                <div class="img" :style="imgCardStyles(project)">
+                                    <template v-if="!hasCardImg(project)">
                                         <img-placeholder>Upload Card</img-placeholder>
                                     </template>
                                 </div>
@@ -116,10 +116,19 @@
             },
             hasCardImg(project)
             {
-                if(!project.card_img)
+                if(!project.img_card)
                     return false;
 
-                return (project.card_img.length);
+                return (project.img_card.length > 0);
+            },
+            imgCardStyles(project)
+            {
+                if(!this.hasCardImg(project))
+                    return {};
+
+                return {
+                    backgroundImage:`url(${project.img_card})`
+                };
             }
         },
         computed:{

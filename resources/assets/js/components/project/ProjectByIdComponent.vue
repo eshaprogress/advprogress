@@ -33,6 +33,10 @@
             height: 200px;
             margin: 20px auto;
             max-width: 1150px;
+            background-size: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+
             .img-banner {
                 background-color: var(--white1);
             }
@@ -53,11 +57,8 @@
                 <h2>{{getProject.title}}</h2>
             </header>
             <project-nav-component />
-            <div class="img-banner-container">
-                <template v-if="hasBannerImg(getProject)">
-                    <img :src="getProject.img_banner" alt="">
-                </template>
-                <template>
+            <div class="img-banner-container" :style="imgBannerStyles(getProject)">
+                <template v-if="!hasBannerImg(getProject)">
                     <img-placeholder>Upload Banner</img-placeholder>
                 </template>
             </div>
@@ -87,6 +88,15 @@
                     return true;
 
                 return false;
+            },
+            imgBannerStyles(project)
+            {
+                if(!this.hasBannerImg(project))
+                    return {};
+
+                return {
+                    backgroundImage:`url(${project.img_banner})`
+                };
             }
         },
         computed:{
