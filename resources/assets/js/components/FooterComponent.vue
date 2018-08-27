@@ -103,10 +103,12 @@
             <div class="link-list site-map">
                 <h4>SITE MAP <span class="line"></span></h4>
                 <ul>
-                    <li><router-link title="Our Story" to="/our-story">Our Story</router-link></li>
-                    <li><router-link title="The Team" to="/the-team">The Team</router-link></li>
-                    <li><router-link title="Volunteer to our cause" :to="{name:'volunteer'}">Volunteer</router-link></li>
-                    <li><router-link title="Donate to the cause" to="/donate">Donations</router-link></li>
+                    <li><router-link :to="{name: 'home-root'}" exact>Home</router-link></li>
+                    <li><router-link :to="{name: 'our-story'}">Our Story</router-link></li>
+                    <li><router-link :to="{name: 'directory-root'}">Directory</router-link></li>
+                    <li><router-link :to="{name: 'consultation'}">Consultation</router-link></li>
+                    <li><router-link :to="{name: 'donate'}">Donate</router-link></li>
+                    <li><router-link :to="{name: 'volunteer'}">Volunteer</router-link></li>
                     <li><router-link title="Cancel Donation Subscription" to="/cancel-subscription">Cancel Subscription</router-link></li>
                 </ul>
             </div>
