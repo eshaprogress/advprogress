@@ -100,11 +100,12 @@
             </div>
         </div>
         <ul class="navbar-menu">
-            <li class="navbar-item" ><router-link @click.native="menuEnabled" :to="{name: 'home-root'}" exact>Home</router-link></li>
+            <li class="navbar-item" ><router-link @click.native="menuEnabled" :to="{name: 'home-root'}" exact>HOME</router-link></li>
             <li class="navbar-item" ><router-link @click.native="menuEnabled" :to="{name: 'our-story'}">OUR STORY</router-link></li>
             <li class="navbar-item" ><router-link @click.native="menuEnabled" :to="{name: 'directory-root'}">DIRECTORY</router-link></li>
             <li class="navbar-item" ><router-link @click.native="menuEnabled" :to="{name: 'consultation'}">CONSULTATION</router-link></li>
             <li class="navbar-item" ><router-link @click.native="menuEnabled" :to="{name: 'donate'}">DONATE</router-link></li>
+            <li class="navbar-item" ><router-link @click.native="menuEnabled" :to="{name: 'volunteer'}">VOLUNTEER</router-link></li>
         </ul>
     </nav>
 </template>

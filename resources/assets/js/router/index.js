@@ -7,6 +7,7 @@ import HomeComponent from '../components/HomeComponent';
 import HomeMobileComponent from '../components/mobile/HomeMobileComponent';
 import SubscribeComponent from '../components/SubscribeComponent';
 import VolunteerComponent from '../components/VolunteerComponent';
+import VolunteerMobileComponent from '../components/mobile/VolunteerMobileComponent';
 import SubscribeMobileComponent from '../components/mobile/SubscribeMobileComponent';
 import ConsultationComponent from '../components/ConsultationComponent';
 import ConsultationMobileComponent from '../components/mobile/ConsultationMobileComponent';
@@ -63,7 +64,7 @@ const routes = [
                 path: 'volunteer',
                 components:{
                     standard:VolunteerComponent,
-                    mobile:VolunteerComponent,
+                    mobile:VolunteerMobileComponent,
                 }
             },
             {
