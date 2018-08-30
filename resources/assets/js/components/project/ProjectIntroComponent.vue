@@ -14,8 +14,6 @@
             color: var(--blue);
         }
     }
-
-
 </style>
 
 <template>
@@ -27,9 +25,9 @@
         </template>
         <template v-else>
             <h2 title="Project Too Long Didn't Read">Project TLDR</h2>
-            <p>{{getProject.model_legislative_summary_text}}</p>
+            <div v-html="getProject.model_legislative_summary_text"></div>
             <h2 title="What We're Doing">What We're doing</h2>
-            <p>{{getProject.model_legislative_text_body}}</p>
+            <div v-html="getProject.model_legislative_text_body"></div>
         </template>
     </article>
 </template>

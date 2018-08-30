@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="content">
                                     <h4 class="title">{{project.title}}</h4>
-                                    <p class="body">{{project.model_legislative_summary_text | truncate(225, '...')}}</p>
+                                    <div class="body" v-html="project.model_legislative_summary_text"></div>
                                 </div>
                             </article>
                         </router-link>

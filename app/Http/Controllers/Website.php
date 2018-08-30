@@ -11,7 +11,7 @@ use Stripe\Charge;
 use Stripe\Customer;
 use Stripe\Stripe;
 use Stripe\Subscription;
-use App\CancelDonationSubscription;
+use App\Models\CancelDonationSubscription;
 
 class Website extends Controller
 {

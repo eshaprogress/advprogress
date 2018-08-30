@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
+    use TestUUIDPermaLinkSlug;
+
     protected $table = 'projects';
     protected $primaryKey = 'id';
 
     protected $fillable = [
+        'uuid',
         'title',
         'model_legislative_text_body',
         'model_legislative_summary_text',

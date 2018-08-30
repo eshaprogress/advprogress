@@ -1,3 +1,5 @@
+import {parseProjectFields} from '../lib';
+
 export default {
 
     getProjectCategory(state)
@@ -5,33 +7,22 @@ export default {
         let {projectCategories, currentCategoryId} = state;
         if(projectCategories === null) return [];
 
-        return projectCategories[currentCategoryId] || [];
+        let data = projectCategories[currentCategoryId] || [];
+        return data.map(parseProjectFields);
     },
 
-    getProject(state)
-    {
+    getProject: function (state) {
         let {projects, currentProjectId} = state;
-        if(
+        if (
             projects === null ||
             !projects[currentProjectId]
         ) return {
-            resource:{},
-            matrix:[],
-            category:{}
+            resource: {},
+            matrix: [],
+            category: {}
         };
 
-        let project = projects[currentProjectId];
-        return {
-            resource:project.r || {},
-            title:project.t,
-            model_legislative_summary_text:project.m_l_s_t || '',
-            model_legislative_text_body:project.m_l_t_b || '',
-            is_featured:project.is_f || false,
-            img_card:project.img_c || '',
-            img_banner:project.img_bn || '',
-            category:project.category || {},
-            matrix:project.matrix || []
-        }
+        return parseProjectFields(projects[currentProjectId]);
     },
 
     isProjectsLoading(state)
