@@ -25,6 +25,8 @@ class generate_junk_projects_states extends Seeder
                 $project = new  Project([
                     'title'=>"Project {$_} Cat: {$category->category} ",
                     'short_directory_blurb'=>$faker->text(200),
+                    'project_short_summary'=>$faker->text(500),
+                    'project_long_description'=>$faker->text(4000),
                     'model_legislative_text_body'=>$faker->text(4000),
                     'model_legislative_summary_text'=>$faker->text(1000),
                     'resources'=>json_encode([

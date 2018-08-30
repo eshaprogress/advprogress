@@ -25,8 +25,11 @@ class ProjectTransformer extends Fractal\TransformerAbstract
     {
         $tmp = [
             't'       =>$project->title,
+            's_d_b' =>self::$_parsedown->text($project->short_directory_blurb),
             'm_l_s_t' =>self::$_parsedown->text($project->model_legislative_summary_text),
             'm_l_t_b' =>self::$_parsedown->text($project->model_legislative_text_body),
+            'p_s_s' =>self::$_parsedown->text($project->project_short_summary),
+            'p_l_d' =>self::$_parsedown->text($project->project_long_description),
             'r'       =>json_decode($project->resources, true),
             'is_f'    =>$project->is_featured,
             'img_c'   =>$project->img_card,

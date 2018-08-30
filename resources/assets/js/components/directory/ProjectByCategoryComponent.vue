@@ -63,7 +63,6 @@
             }
         }
     }
-
 </style>
 
 <template>
@@ -86,7 +85,7 @@
                                 </div>
                                 <div class="content">
                                     <h4 class="title">{{project.title}}</h4>
-                                    <div class="body" v-html="project.model_legislative_summary_text"></div>
+                                    <div class="body" v-html="project.short_directory_blurb"></div>
                                 </div>
                             </article>
                         </router-link>
