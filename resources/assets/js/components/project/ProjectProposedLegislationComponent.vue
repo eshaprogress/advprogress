@@ -25,7 +25,7 @@
             </loader>
         </template>
         <template v-else>
-            <h2>Legislative Body</h2>
+            <h2>{{getProject.model_legislative_title}}</h2>
             <div v-html="getProject.model_legislative_text_body"></div>
            <!--- add a tag where it searches to see if I have included a custom component, if I have, display it here-->
         </template>
