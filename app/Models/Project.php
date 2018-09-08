@@ -39,4 +39,9 @@ class Project extends Model
     {
         return $this->hasMany(LegislationDetailMatrix::class);
     }
+
+    public function model_legislation()
+    {
+        return $this->hasMany(ModelLegislation::class);
+    }
 }
