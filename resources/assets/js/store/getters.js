@@ -1,4 +1,4 @@
-import {parseProjectFields} from '../lib';
+import {parseProjectFields, parseModelLegislationFields} from '../lib';
 
 export default {
 
@@ -23,6 +23,21 @@ export default {
         };
 
         return parseProjectFields(projects[currentProjectId]);
+    },
+
+    getModelLegislation: function (state) {
+        let {projects, currentProjectId, currentModelLegislationId} = state;
+
+        if(!projects) return {};
+        if(!currentProjectId) return {};
+        if(!currentModelLegislationId) return {};
+
+        let project = projects[currentProjectId];
+        if (!project) return {};
+
+        return parseModelLegislationFields(project.model_legislation.find(function(obj) {
+            return obj.id === currentModelLegislationId;
+        }));
     },
 
     isProjectsLoading(state)

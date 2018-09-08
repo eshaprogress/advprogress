@@ -25,9 +25,9 @@
         </template>
         <template v-else>
             <h2 title="Project Too Long Didn't Read">Project TLDR</h2>
-            <div v-html="getProject.project_short_summary"></div>
+            <div v-html="getProject.short_summary"></div>
             <h2 title="What We're Doing">What We're doing</h2>
-            <div v-html="getProject.project_long_description"></div>
+            <div v-html="getProject.long_description"></div>
         </template>
     </article>
 </template>

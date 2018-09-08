@@ -7,12 +7,6 @@ use League\Fractal;
 
 class ModelLegislationTransformer extends Fractal\TransformerAbstract
 {
-    protected $availableIncludes = ['matrix','category'];
-    protected $defaultIncludes = [
-        'category',
-        'matrix',
-    ];
-
     private static $_parsedown = null;
 
     public function __construct()
@@ -21,25 +15,21 @@ class ModelLegislationTransformer extends Fractal\TransformerAbstract
             self::$_parsedown = new \Parsedown();
     }
 
-    public function transform(ModelLegislation $project)
+    public function transform(ModelLegislation $modelLegislation)
     {
         $tmp = [
-            't'        =>$project->title,
-            's_d_b'    =>$project->short_project_blurb,
-            'preamble' =>$project->preamble,
-            's_t'      =>self::$_parsedown->text($project->summary_text),
-            't_b'      =>self::$_parsedown->text($project->text_body),
-            'r'        =>json_decode($project->resources, true),
-            'is_f'     =>$project->is_featured,
-            'img_c'    =>$project->img_card,
-            'img_bn'   =>$project->img_banner
+            't'     =>$modelLegislation->title,
+            's_p_b' =>$modelLegislation->short_project_blurb,
+            'pre'   =>$modelLegislation->preamble,
+            's_t'   =>self::$_parsedown->text($modelLegislation->summary_text),
+            't_b'   =>self::$_parsedown->text($modelLegislation->text_body)
         ];
 
         $field = [];
-        if($project->enable_permalink_slug)
-            $field['id'] = $project->permalink_slug;
+        if($modelLegislation->enable_permalink_slug)
+            $field['id'] = $modelLegislation->permalink_slug;
         else
-            $field['id'] = $project->uuid;
+            $field['id'] = $modelLegislation->uuid;
 
         return $field + $tmp;
     }

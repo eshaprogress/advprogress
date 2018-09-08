@@ -7,10 +7,11 @@ use League\Fractal;
 
 class ProjectTransformer extends Fractal\TransformerAbstract
 {
-    protected $availableIncludes = ['matrix','category'];
+    protected $availableIncludes = ['matrix','category','model_legislation'];
     protected $defaultIncludes = [
         'category',
         'matrix',
+        'model_legislation'
     ];
 
     private static $_parsedown = null;
@@ -26,8 +27,8 @@ class ProjectTransformer extends Fractal\TransformerAbstract
         $tmp = [
             't'       =>$project->title,
             's_d_b'   =>self::$_parsedown->text($project->short_directory_blurb),
-            'p_s_s'   =>self::$_parsedown->text($project->short_summary),
-            'p_l_d'   =>self::$_parsedown->text($project->long_description),
+            's_s'   =>self::$_parsedown->text($project->short_summary),
+            'l_d'   =>self::$_parsedown->text($project->long_description),
             'r'       =>json_decode($project->resources, true),
             'is_f'    =>$project->is_featured,
             'img_c'   =>$project->img_card,
@@ -47,6 +48,12 @@ class ProjectTransformer extends Fractal\TransformerAbstract
     {
         $matrix = $project->matrix()->get();
         return $this->collection($matrix, new LegislationDetailsMatrixTransformer());
+    }
+
+    public function includeModelLegislation(Project $project)
+    {
+        $model_legislation = $project->model_legislation()->get();
+        return $this->collection($model_legislation, new ModelLegislationTransformer());
     }
 
     public function includeCategory(Project $project)

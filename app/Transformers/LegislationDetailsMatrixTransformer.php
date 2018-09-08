@@ -18,8 +18,8 @@ class LegislationDetailsMatrixTransformer extends Fractal\TransformerAbstract
             self::$_states = array_reduce($states, function($collector, $val)
             {
                 $collector[$val['id']] = [
-                    'state'=>$val['state'],
-                    'state_abbr'=>$val['abbreviation']
+                    's'=>$val['state'],
+                    's_a'=>$val['abbreviation']
                 ];
                 return $collector;
             }, []);

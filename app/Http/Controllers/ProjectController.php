@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\ModelLegislation;
 use App\Models\Project;
 use App\Serializers\CustomArraySerializer;
 use App\Transformers\CategoryTransformer;
+use App\Transformers\ModelLegislationTransformer;
 use App\Transformers\ProjectTransformer;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;

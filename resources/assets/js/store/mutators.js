@@ -49,5 +49,10 @@ export default {
             ...state.projects,
             [state.currentProjectId]:project
         };
+    },
+
+    setModelLegislation(state, {modelLegislationId})
+    {
+        state.currentModelLegislationId = modelLegislationId;
     }
 }

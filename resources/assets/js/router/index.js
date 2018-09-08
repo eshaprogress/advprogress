@@ -26,8 +26,9 @@ import ProjectByCategoryComponent from '../components/directory/ProjectByCategor
 import ProjectByIdComponent from '../components/project/ProjectByIdComponent';
 import ProjectIntroComponent from '../components/project/ProjectIntroComponent';
 import ProjectStatusComponent from '../components/project/ProjectStatusComponent';
-import ProjectProposedLegislationComponent from '../components/project/ProjectProposedLegislationComponent';
 import ProjectCurrentLegislationComponent from '../components/project/ProjectCurrentLegislationComponent';
+import ProjectModelLegislationList from '../components/project/ProjectModelLegislationList';
+import ProjectModelLegislationSection from '../components/project/ProjectModelLegislationSection';
 
 const routes = [
     {
@@ -149,11 +150,19 @@ const routes = [
                         }
                     },
                     {
-                        name: 'project-proposed-legislation',
-                        path: 'proposed-legislation',
+                        name: 'model-legislation-list',
+                        path: 'model-legislation',
                         components:{
-                            standard:ProjectProposedLegislationComponent,
-                            mobile:ProjectProposedLegislationComponent,
+                            standard:ProjectModelLegislationList,
+                            mobile:ProjectModelLegislationList,
+                        }
+                    },
+                    {
+                        name: 'model-legislation',
+                        path: 'model-legislation/:modelLegislationId',
+                        components:{
+                            standard:ProjectModelLegislationSection,
+                            mobile:ProjectModelLegislationSection,
                         }
                     }
                 ]

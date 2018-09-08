@@ -6,6 +6,7 @@ export default {
     isCategoriesLoading:false,
     currentCategoryId:null,
     currentProjectId:null,
+    currentModelLegislationId:null,
     category:null,
     projects:null
 };

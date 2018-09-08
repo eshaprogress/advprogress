@@ -157,13 +157,13 @@
                     <tr :id="pt.state_abbr.toLowerCase()" class="pt-row" :title="pt.state_abbr">
                         <td>{{pt.state}}</td>
                         <td class="spacer"></td>
-                        <td><i class="fa fa-check" :class="{enabled:isChecked(pt.b_c_a),disabled:!isChecked(pt.b_c_a)}"></i></td>
-                        <td><i class="fa fa-check" :class="{enabled:isChecked(pt.b_s)  ,disabled:!isChecked(pt.b_s)  }"></i></td>
-                        <td><i class="fa fa-check" :class="{enabled:isChecked(pt.b_c_l),disabled:!isChecked(pt.b_c_l)}"></i></td>
-                        <td><i class="fa fa-check" :class="{enabled:isChecked(pt.b_e_o),disabled:!isChecked(pt.b_e_o)}"></i></td>
+                        <td><i class="fa fa-check" :class="enableDisableClasses(pt.because_constitutional_amendment)"></i></td>
+                        <td><i class="fa fa-check" :class="enableDisableClasses(pt.because_statute)"></i></td>
+                        <td><i class="fa fa-check" :class="enableDisableClasses(pt.because_case_law)"></i></td>
+                        <td><i class="fa fa-check" :class="enableDisableClasses(pt.because_executive_order)"></i></td>
                         <th class="spacer"></th>
-                        <td>{{pt.s_o_l}}</td>
-                        <td>{{pt.c_s}}</td>
+                        <td>{{pt.source_of_law}}</td>
+                        <td>{{pt.citation_source}}</td>
                     </tr>
                 </template>
             </table>
@@ -179,6 +179,13 @@
             isChecked(value)
             {
                 return (value);
+            },
+            enableDisableClasses(field)
+            {
+                return {
+                    enabled:this.isChecked(field),
+                    disabled:!this.isChecked(field)
+                };
             }
         },
         computed:{

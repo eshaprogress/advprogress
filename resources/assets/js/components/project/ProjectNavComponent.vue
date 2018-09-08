@@ -3,7 +3,7 @@
         <ul>
             <li><router-link :to="{name:'project-intro'}">Intro</router-link></li>
             <li><router-link :to="{name:'project-status'}">Current Status</router-link></li>
-            <li><router-link :to="{name:'project-proposed-legislation'}">Proposed Legislation</router-link></li>
+            <li><router-link :to="{name:'model-legislation-list'}">Model Legislation</router-link></li>
             <li><router-link :to="{name:'project-current-legislation'}">Current Legislation</router-link></li>
         </ul>
     </nav>
