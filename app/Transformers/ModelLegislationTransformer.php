@@ -7,22 +7,16 @@ use League\Fractal;
 
 class ModelLegislationTransformer extends Fractal\TransformerAbstract
 {
-    private static $_parsedown = null;
-
-    public function __construct()
-    {
-        if(self::$_parsedown === null)
-            self::$_parsedown = new \Parsedown();
-    }
-
     public function transform(ModelLegislation $modelLegislation)
     {
         $tmp = [
             't'     =>$modelLegislation->title,
             's_p_b' =>$modelLegislation->short_project_blurb,
-            'pre'   =>self::$_parsedown->text($modelLegislation->preamble),
-            's_t'   =>self::$_parsedown->text($modelLegislation->summary_text),
-            't_b'   =>self::$_parsedown->text($modelLegislation->text_body)
+
+            // all intended as html fields
+            'pre'   =>$modelLegislation->preamble,
+            's_t'   =>$modelLegislation->summary_text,
+            't_b'   =>$modelLegislation->text_body
         ];
 
         $field = [];

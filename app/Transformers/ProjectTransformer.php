@@ -14,21 +14,19 @@ class ProjectTransformer extends Fractal\TransformerAbstract
         'model_legislation'
     ];
 
-    private static $_parsedown = null;
-
-    public function __construct()
-    {
-        if(self::$_parsedown === null)
-            self::$_parsedown = new \Parsedown();
-    }
-
     public function transform(Project $project)
     {
         $tmp = [
             't'       =>$project->title,
-            's_d_b'   =>self::$_parsedown->text($project->short_directory_blurb),
-            's_s'   =>self::$_parsedown->text($project->short_summary),
-            'l_d'   =>self::$_parsedown->text($project->long_description),
+            's_d_b'   =>$project->short_directory_blurb,
+
+
+            // all intended as html fields
+
+            's_s'     =>$project->short_summary,
+            'l_d'     =>$project->long_description,
+
+
             'r'       =>json_decode($project->resources, true),
             'is_f'    =>$project->is_featured,
             'img_c'   =>$project->img_card,
