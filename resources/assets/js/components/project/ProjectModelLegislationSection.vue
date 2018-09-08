@@ -37,7 +37,7 @@
         <template v-else>
             <h2 title="title">{{getModelLegislation.title}}</h2>
             <h3>Preamble</h3>
-            <div title="preamble">{{getModelLegislation.preamble}}</div>
+            <div title="preamble" v-html="getModelLegislation.preamble"></div>
             <h3>Summary</h3>
             <div title="Summary" v-html="getModelLegislation.summary_text"></div>
             <h3>Body</h3>
