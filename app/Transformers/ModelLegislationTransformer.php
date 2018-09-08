@@ -20,7 +20,7 @@ class ModelLegislationTransformer extends Fractal\TransformerAbstract
         $tmp = [
             't'     =>$modelLegislation->title,
             's_p_b' =>$modelLegislation->short_project_blurb,
-            'pre'   =>$modelLegislation->preamble,
+            'pre'   =>self::$_parsedown->text($modelLegislation->preamble),
             's_t'   =>self::$_parsedown->text($modelLegislation->summary_text),
             't_b'   =>self::$_parsedown->text($modelLegislation->text_body)
         ];
