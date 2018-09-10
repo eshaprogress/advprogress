@@ -246,8 +246,10 @@ class ManageDirectory extends Command
 
         $fields = [
             'title'=>'Title',
-            'model_legislative_summary_text'=>'Summary',
-            'model_legislative_text_body'=>'Body',
+            'summary_text'=>'Summary',
+            'permalink_slug'=>'Project Slug',
+            'enable_permalink_slug'=>'Enable Project Slug',
+            'text_body'=>'Body',
             'resources'=>'Resources enter double pipe delimited urls ie: http://url||http://url||http://url',
             'is_featured'=>'Is Project Featured',
             'img_card' => 'Image for Directory Listing',
@@ -271,7 +273,7 @@ class ManageDirectory extends Command
                 continue;
             }
 
-            if($field === 'is_featured')
+            if(in_array($field, ['is_featured', 'enable_permalink_slug']))
             {
                 $because = $project_data[$field]?'YES':'NO';
                 $value = $this->ask("(bool) use: y/n or 1/0 [{$title}] -> {$because}");
