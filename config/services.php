@@ -1,5 +1,34 @@
 <?php
 
+$buildPlans = function()
+{
+    $amounts = [18,27,45,99,245];
+
+    $plans = [];
+    $tier = 0;
+    foreach($amounts as $idx=>$amount)
+    {
+        $tier = $idx+1;
+        $plans[] = [
+            'eq'    =>$amount,
+            'amount'=>$amount*100,
+            'id'    =>"donate_{$amount}_monthly",
+            'name'  =>'Donate $'.$amount.'/month, Tier '.$tier,
+            'key'   =>(string)$amount
+        ];
+    }
+    $tier++;
+    $plans[] = [
+        'eq'=>1,
+        'amount'=>1*100,
+        'id'=>'donate_custom_monthly',
+        'name'=>"Donate $1 x Custom Amount / month, Tier {$tier}",
+        'key'=>'custom'
+    ];
+
+    return $plans;
+};
+
 return [
 
     /*
@@ -33,15 +62,7 @@ return [
         'model' => App\Models\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
-        'plans'=>[
-            // !!!! Prices are listed in cents, not dollars. !!!
-            ['eq'=>10,  'amount'=>10*100,  'id'=>'donate_10_monthly',     'name'=>'Donate $10/month, Tier 1'],
-            ['eq'=>15,  'amount'=>15*100,  'id'=>'donate_15_monthly',     'name'=>'Donate $15/month, Tier 2'],
-            ['eq'=>50,  'amount'=>50*100,  'id'=>'donate_50_monthly',     'name'=>'Donate $50/month, Tier 3'],
-            ['eq'=>75,  'amount'=>75*100,  'id'=>'donate_75_monthly',     'name'=>'Donate $75/month, Tier 4'],
-            ['eq'=>100, 'amount'=>100*100, 'id'=>'donate_100_monthly',    'name'=>'Donate $100/month, Tier 5'],
-            ['eq'=>1,   'amount'=>1*100,   'id'=>'donate_custom_monthly', 'name'=>'Donate $1 x Custom Amount / month, Tier 6']
-        ]
+        'plans'=>$buildPlans()
     ],
 
 ];
