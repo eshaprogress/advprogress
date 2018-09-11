@@ -860,10 +860,17 @@
                     address_city:this.form.city,
                     address_state:this.form.state,
                     address_zip:this.form.zip_code,
-                }, (status, response)=>{
-                    console.log('status',status, 'response', response);
+                }, (status, resp)=>{
+                    console.log('status',status, 'response', resp);
 
-                    let {id:stripeTokenId, card} = response;
+                    if(status !== 200 && resp.error)
+                    {
+                        this.errors.general_error = true;
+                        this.errors.general_error_msg.push(resp.error.message);
+                        return;
+                    }
+
+                    let {id:stripeTokenId, card} = resp;
                     let {brand, last4, name, id:cardToken} = card;
                     this.payment_info.card_brand = brand;
                     this.payment_info.card_last_four = last4;
@@ -887,8 +894,8 @@
                                 this.isSubmitting = false;
                                 this.isSuccessful = true;
                             }
-                        }).catch(resp => {
-                            let json = resp.response.data;
+                        }).catch(error_resp => {
+                            let json = error_resp.response.data;
                             this.isSuccessful = false;
                             this.isSubmitting = false;
 
