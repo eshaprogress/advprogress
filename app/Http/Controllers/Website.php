@@ -57,16 +57,39 @@ class Website extends Controller
         $form = $data['form'];
 
         $customerStripeId = null;
-        $customer = Customer::all([
+        $customers = Customer::all([
             "limit" => 1,
             'email'=>$form['email']
         ]);
-        if(count($customer['data']) > 0)
+
+        $submitAccount = [
+            'description' => "Customer for {$form['email']}",
+            'email'  => $form['email'],
+            'source' => $data['stripeToken'],
+            'shipping'=>[
+                'name'=>$data['name'],
+                'address'=>[
+                    'line1'       =>$form['address'],
+                    'city'        =>$form['city'],
+                    'postal_code' =>$form['zip_code'],
+                    'state'       =>$form['state']
+                ]
+            ]
+        ];
+
+        /**
+         * @var $found_customer array|bool
+         */
+        $found_customer = false;
+        if(count($customers['data']) > 0)
         {
-            try{
-                $customerStripeId = $customer['data'][0]['id'];
+            try
+            {
+                $found_customer = $customers['data'][0];
+                $customerStripeId = $found_customer['id'];
                 $stripeCustomer = Customer::retrieve($customerStripeId);
                 $stripeCustomer->source = $data['stripeToken'];
+                $stripeCustomer->shipping = $submitAccount['shipping'];
                 $stripeCustomer->save();
             }
             catch(\Stripe\Error\Card $e)
@@ -84,20 +107,6 @@ class Website extends Controller
         }
         else
         {
-            $submitAccount = [
-                'description' => "Customer for {$form['email']}",
-                'email' => $form['email'],
-                'source' => $data['stripeToken'],
-                'shipping'=>[
-                    'name'=>$data['name'],
-                    'address'=>[
-                        'line1'      =>$form['address'],
-                        'city'       =>$form['city'],
-                        'postal_code'=>$form['zip_code'],
-                        'state'      =>$form['state']
-                    ]
-                ]
-            ];
             $customer = Customer::create($submitAccount);
             $customerStripeId = $customer['id'];
         }
@@ -130,6 +139,15 @@ class Website extends Controller
                         $subscription_plan_item
                     ]
                 ];
+
+                /**
+                 * REASON FOR THIS LINE
+                 * If we have a subscription already in the system,
+                 * we want to change it, so we must remove the existing subscription,
+                 * then add the new one
+                 */
+                if($found_customer !== false)
+                    self::cancelStripSubscription($found_customer, $form['email'], $form['zip_code']);
 
                 Subscription::create($submitSubscription);
                 $isSuccessful = true;
@@ -257,6 +275,22 @@ class Website extends Controller
         ]);
     }
 
+    public function cancelStripSubscription(array $customer, string $email, string $postal_code): bool {
+        if(
+            $email === $customer['email'] &&
+            $postal_code === $customer['shipping']['address']['postal_code'])
+        {
+            foreach($customer['subscriptions']['data'] as $subscription)
+            {
+                $pull = Subscription::retrieve($subscription['id']);
+                $pull->cancel();
+            }
+            return true;
+        }
+
+        return false;
+    }
+
     public function confirmCancelSubscription(Request $request)
     {
         self::bootStrapStripe();
@@ -277,16 +311,9 @@ class Website extends Controller
         {
             foreach($customers['data'] as $customer)
             {
-                if(
-                    $cancelInfo->email === $customer['email'] &&
-                    $cancelInfo->zip_code === $customer['shipping']['address']['postal_code'])
+                $found = self::cancelStripSubscription($customer, $cancelInfo->email, $cancelInfo->zip_code);
+                if($found)
                 {
-                    foreach($customer['subscriptions']['data'] as $subscription)
-                    {
-                        $pull = Subscription::retrieve($subscription['id']);
-                        $pull->cancel();
-                    }
-
                     \Mail::send('emails.cancel-confirmed', [], function (Message $m) use ($appName, $cancelInfo) {
                         $domain = config('services.mailgun.domain');
                         $m->from("noreply@{$domain}", config('app.name'));
