@@ -589,7 +589,7 @@
 <script>
     import FormField from "./FormField";
     import axios from 'axios';
-    import {stripePublishToken} from '../environment.json';
+    import {stripePublishToken, stripeSubscriptionAmounts} from '../environment.json';
 
     import { Base64 } from 'js-base64';
 
@@ -630,14 +630,7 @@
                 stripePublishToken:stripePublishToken,
                 isSubmitting:false,
                 isSuccessful: false,
-                amounts: {
-                    '10': false,
-                    '15': false,
-                    '50': false,
-                    '75': false,
-                    '100': false,
-                    'custom': false
-                },
+                amounts: stripeSubscriptionAmounts,
                 form: {
                     first_name: '',
                     last_name: '',
