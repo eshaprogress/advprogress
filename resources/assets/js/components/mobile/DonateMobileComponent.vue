@@ -867,6 +867,8 @@
                     {
                         this.errors.general_error = true;
                         this.errors.general_error_msg.push(resp.error.message);
+                        this.isSubmitting = false;
+                        this.isSuccessful = false;
                         return;
                     }
 
@@ -907,7 +909,6 @@
                                 });
                             }
                         });
-                        return;
                     }
 
                     this.isSubmitting = false;
