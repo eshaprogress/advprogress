@@ -72,16 +72,22 @@ class RegisterStripePlans extends Command
             {
                 $this->line("Adding Plan: [id={$plan['id']}], [product={$plan['name']}], [amount={$plan['amount']}");
     //            continue;
-                $plan = \Stripe\Plan::create([
-                    "amount" => $plan['amount'],
-                    "interval" => "month",
-                    "product" => [
-                        "name" => $plan['name']
-                    ],
-                    "currency" => "usd",
-                    "id" => $plan['id']
-                ]);
-                $this->line(json_encode($plan));
+                try{
+                    $plan = \Stripe\Plan::create([
+                        "amount" => $plan['amount'],
+                        "interval" => "month",
+                        "product" => [
+                            "name" => $plan['name']
+                        ],
+                        "currency" => "usd",
+                        "id" => $plan['id']
+                    ]);
+                    $this->line(json_encode($plan));
+                }
+                catch(Stripe\Error\InvalidRequest $e)
+                {
+                    $this->error($e->getMessage());
+                }
             }
         }
     }
