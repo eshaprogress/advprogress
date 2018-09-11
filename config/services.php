@@ -3,6 +3,7 @@
 $buildPlans = function()
 {
     $amounts = [18,27,45,99,245];
+    $rev = '2018_09_11';
 
     $plans = [];
     $tier = 0;
@@ -12,8 +13,8 @@ $buildPlans = function()
         $plans[] = [
             'eq'    =>$amount,
             'amount'=>$amount*100,
-            'id'    =>"donate_{$amount}_monthly",
-            'name'  =>'Donate $'.$amount.'/month, Tier '.$tier,
+            'id'    =>"donate_{$amount}_monthly_rev_{$rev}",
+            'name'  =>'Donate $'.$amount.'/month, Tier '.$tier.' rev: '.$rev,
             'key'   =>(string)$amount
         ];
     }
