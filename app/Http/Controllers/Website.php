@@ -63,7 +63,24 @@ class Website extends Controller
         ]);
         if(count($customer['data']) > 0)
         {
-            $customerStripeId = $customer['data'][0]['id'];
+            try{
+                $customerStripeId = $customer['data'][0]['id'];
+                $stripeCustomer = Customer::retrieve($customerStripeId);
+                $stripeCustomer->source = $data['stripeToken'];
+                $stripeCustomer->save();
+            }
+            catch(\Stripe\Error\Card $e)
+            {
+                $body = $e->getJsonBody();
+
+                $err  = $body['error'];
+                $error = $err['message'];
+
+                return response()->json([
+                    'status' => false,
+                    'errors' => [$error]
+                ], 422);
+            }
         }
         else
         {
