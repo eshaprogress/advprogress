@@ -589,7 +589,7 @@
 <script>
     import FormField from "../FormField";
     import axios from 'axios';
-    import {stripePublishToken, stripeSubscriptionAmounts} from '../environment.json';
+    import {stripePublishToken, stripeSubscriptionAmounts} from '../../environment.json';
 
     import { Base64 } from 'js-base64';
 
