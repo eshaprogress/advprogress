@@ -201,9 +201,15 @@ class ManageDirectory extends Command
 
         $fields = [
             'title'=>'Title',
-            'model_legislative_summary_text'=>'Summary',
-            'model_legislative_text_body'=>'Body',
-            'resources'=>'Resources enter double pipe delimited urls ie: http://url||http://url||http://url'
+            'permalink_slug'=>'Project Slug',
+            'enable_permalink_slug'=>'Enable Project Slug',
+            'short_directory_blurb'=>'Short Directory blurb',
+            'short_summary'=> 'Short Summary',
+            'long_description'=> 'Long Description',
+            'is_featured'=>'Is Project Featured',
+            'img_card' => 'Image for Directory Listing',
+            'img_banner' => 'Image for Project Page Details',
+            'resources'=>'Resources enter double pipe delimited urls ie: http://url||http://url||http://url',
         ];
 
         $data = [];
@@ -225,6 +231,23 @@ class ManageDirectory extends Command
                 }
                 continue;
             }
+
+            if(in_array($field, [
+                'is_featured',
+                'enable_permalink_slug']))
+            {
+                $value = $this->ask("(bool) use: y/n or 1/0 [{$title}]");
+                $value = (string)$value;
+                if(strlen($value))
+                {
+                    if (in_array($value, ['y', 'n']))
+                        $data[$field] = $value === 'y'?1:0;
+                    elseif (in_array($value, ['1', '0']))
+                        $data[$field] = $value >= '1'?1:0;
+                }
+                continue;
+            }
+
             $data[$field] = $this->ask("[field: {$title}]: ");
         }
 
@@ -246,10 +269,11 @@ class ManageDirectory extends Command
 
         $fields = [
             'title'=>'Title',
-            'summary_text'=>'Summary',
             'permalink_slug'=>'Project Slug',
             'enable_permalink_slug'=>'Enable Project Slug',
-            'text_body'=>'Body',
+            'short_directory_blurb'=>'Short Directory blurb',
+            'short_summary'=> 'Short Summary',
+            'long_description'=> 'Long Description',
             'resources'=>'Resources enter double pipe delimited urls ie: http://url||http://url||http://url',
             'is_featured'=>'Is Project Featured',
             'img_card' => 'Image for Directory Listing',
@@ -510,10 +534,13 @@ class ManageDirectory extends Command
         $table = new ConsoleTable();
         $table->addHeader('Field')->addHeader('Value');
         $table->addRow()->addColumn('id')->addColumn($project->id);
-        $table->addRow()->addColumn('Title')->addColumn($truncate($project->title));
-        $table->addRow()->addColumn('Summary Text')->addColumn($truncate($project->model_legislative_summary_text));
-        $table->addRow()->addColumn('Body Text')->addColumn($truncate($project->model_legislative_text_body));
         $table->addRow()->addColumn('Project Featured')->addColumn(($project->is_featured?'YES':'NO'));
+        $table->addRow()->addColumn('Slug Enabled')->addColumn(($project->enable_permalink_slug?'YES':'NO'));
+        $table->addRow()->addColumn('Title')->addColumn($truncate($project->title));
+        $table->addRow()->addColumn('Short Directory Blurb')->addColumn($truncate($project->short_directory_blurb));
+        $table->addRow()->addColumn('Short Summary')->addColumn($truncate($project->short_summary));
+        $table->addRow()->addColumn('Long Description')->addColumn($truncate($project->long_description));
+        $table->addRow()->addColumn('Slug')->addColumn($project->permalink_slug);
         $table->addRow()->addColumn('Card Image URL')->addColumn(($project->img_card));
         $table->addRow()->addColumn('Banner Image URL')->addColumn(($project->img_banner));
         $resources = json_decode($project->resources, true);
