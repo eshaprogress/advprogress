@@ -862,7 +862,6 @@
                         this.errors.general_error_msg.push(resp.error.message);
                         this.isSubmitting = false;
                         this.isSuccessful = false;
-
                         return;
                     }
 
@@ -895,8 +894,34 @@
                             this.isSuccessful = false;
                             this.isSubmitting = false;
 
-                            if(json.error)
+                            if(json.card_errors)
                             {
+                                let {card_errors} = json;
+                                let {code} = card_errors;
+                                switch(code)
+                                {
+                                    case 'invalid_cvc':
+                                    case 'incorrect_cvc':
+                                        this.errors.card_cvc = true;
+                                        break;
+
+                                    case 'invalid_number':
+                                    case 'incorrect_number':
+                                        this.errors.card_number = true;
+                                        break;
+
+                                    case 'invalid_expiry_month':
+                                        this.errors.card_exp_month = true;
+                                        break;
+
+                                    case 'invalid_expiry_year':
+                                        this.errors.card_exp_year = true;
+                                        break;
+                                }
+                                this.errors.general_error = true;
+                                this.errors.general_error_msg.push(card_errors.message);
+                                this.isSubmitting = false;
+                                this.isSuccessful = false;
 
                                 return;
                             }
