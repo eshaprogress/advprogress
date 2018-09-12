@@ -276,7 +276,7 @@ class Website extends Controller
         ]);
     }
 
-    public function cancelStripSubscription(array $customer, string $email, string $postal_code): bool {
+    public function cancelStripSubscription($customer, string $email, string $postal_code): bool {
         if(
             $email === $customer['email'] &&
             $postal_code === $customer['shipping']['address']['postal_code'])
