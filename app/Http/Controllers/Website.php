@@ -95,14 +95,9 @@ class Website extends Controller
             catch(\Stripe\Error\Card $e)
             {
                 $body = $e->getJsonBody();
-
-                $err  = $body['error'];
-
                 return response()->json([
                     'status' => false,
-                    'errors' => [
-                        'card'=>[$err]
-                    ]
+                    'card_errors' => $body['error']
                 ], $e->getHttpStatus());
             }
         }
