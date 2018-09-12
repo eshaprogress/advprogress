@@ -895,6 +895,12 @@
                             this.isSuccessful = false;
                             this.isSubmitting = false;
 
+                            if(json.error)
+                            {
+
+                                return;
+                            }
+
                             if(json.errors)
                             {
                                 mapToFormErrors({
@@ -903,6 +909,7 @@
                                 });
                             }
                         });
+                        return;
                     }
 
                     this.isSubmitting = false;

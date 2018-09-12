@@ -100,7 +100,9 @@ class Website extends Controller
 
                 return response()->json([
                     'status' => false,
-                    'error' => $err
+                    'errors' => [
+                        'card'=>[$err]
+                    ]
                 ], $e->getHttpStatus());
             }
         }
