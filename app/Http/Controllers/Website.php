@@ -97,12 +97,11 @@ class Website extends Controller
                 $body = $e->getJsonBody();
 
                 $err  = $body['error'];
-                $error = $err['message'];
 
                 return response()->json([
                     'status' => false,
-                    'errors' => [$error]
-                ], 422);
+                    'error' => $err
+                ], $e->getHttpStatus());
             }
         }
         else
