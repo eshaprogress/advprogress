@@ -172,7 +172,10 @@ class Website extends Controller
         {
             try
             {
-                \Mail::send('emails.welcome', ['data' => $data], function (Message $m) use ($appName, $data) {
+                \Mail::send('emails.welcome', [
+                    'data' => $data,
+                    'cancel_url' => url()->to('/cancel-subscription')
+                ], function (Message $m) use ($appName, $data) {
                     $domain = config('services.mailgun.domain');
                     $m->from("noreply@{$domain}", config('app.name'));
 
@@ -257,7 +260,8 @@ class Website extends Controller
 
         \Mail::send('emails.cancel-confirm', ['data' => [
             'email'=>$cancel->email,
-            'code'=>$cancel->code
+            'code'=>$cancel->code,
+            'cancel_confirm_url'=>url()->to('/cancel-subscription/confirm')
         ]], function (Message $m) use ($appName, $data) {
             $domain = config('services.mailgun.domain');
             $m->from("noreply@{$domain}", config('app.name'));

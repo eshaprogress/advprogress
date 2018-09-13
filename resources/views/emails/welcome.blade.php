@@ -8,5 +8,5 @@
 </p>
 
 @if($data['payment_info']['payment_type'] == 'subscription')
-    <p>As a subscriber, you can always come back to cancel your subscription later @ {{url('/cancel-subscription')}}. We always appreciate your patronage</p>
+    <p>As a subscriber, you can always come back to cancel your subscription later @ {{$cancel_url}}. We always appreciate your patronage</p>
 @endif
