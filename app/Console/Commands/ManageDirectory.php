@@ -544,13 +544,16 @@ class ManageDirectory extends Command
         $table->addRow()->addColumn('Card Image URL')->addColumn(($project->img_card));
         $table->addRow()->addColumn('Banner Image URL')->addColumn(($project->img_banner));
         $resources = json_decode($project->resources, true);
-        $links = array_map(function($val)
+        if(!empty($resources) && isset($resources['links']))
         {
-            return $val['url'];
-        }, $resources['links']);
-        foreach($links as $i=>$link)
-        {
-            $table->addRow()->addColumn("Link.".($i+1))->addColumn($link);
+            $links = array_map(function($val)
+            {
+                return $val['url'];
+            }, $resources['links']);
+            foreach($links as $i=>$link)
+            {
+                $table->addRow()->addColumn("Link.".($i+1))->addColumn($link);
+            }
         }
         $table->display();
     }
