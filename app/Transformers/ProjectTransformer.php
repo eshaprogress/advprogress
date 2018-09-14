@@ -25,6 +25,7 @@ class ProjectTransformer extends Fractal\TransformerAbstract
 
             's_s'     =>$project->short_summary,
             'l_d'     =>$project->long_description,
+            'c_s_d'   => $project->current_status_description,
 
 
             'r'       =>json_decode($project->resources, true),

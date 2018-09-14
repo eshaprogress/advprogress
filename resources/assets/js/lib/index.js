@@ -35,6 +35,7 @@ export const parseProjectFields = (project) => {
         short_directory_blurb:project.s_d_b || '',
         short_summary:project.s_s || '',
         long_description:project.l_d || '',
+        current_status_description:project.c_s_d || '',
         is_featured:project.is_f || false,
         img_card:project.img_c || '',
         img_banner:project.img_bn || '',
