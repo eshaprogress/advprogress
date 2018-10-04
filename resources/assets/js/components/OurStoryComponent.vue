@@ -120,8 +120,8 @@
                         <span></span>
                         <div class="description">{{ info.description }}</div>
                         <div class="year">
-                            <span>{{ info.yearEnd }}</span>
-                            <span>{{ info.yearStart }}</span>
+                            <span>{{ info.startDate }}</span>
+                           
                         </div>
                     </li>
                 </ul>

@@ -1,0 +1,5 @@
+alias docker-advancedprogress='cd /Users/esha/LaravelSites/advanceprogressorg/laradock'
+alias docker-advancedprogress-restart='docker-advancedprogress-stop && docker-advancedprogress-start'
+alias docker-advancedprogress-start='docker-advancedprogress && docker-compose up -d nginx mysql && cd /Users/esha/LaravelSites/advanceprogressorg/laradock'
+alias docker-advancedprogress-stop='docker-advancedprogress && docker-compose down'
+alias docker-advancedprogress-workspace='docker-advancedprogress && docker-compose exec workspace bash'

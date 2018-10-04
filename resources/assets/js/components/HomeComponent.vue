@@ -5,9 +5,7 @@
     <section class="section home">
         <home-page-carousel-component />
         <section-part1-component />
-        <section-part2-component />
         <section-part3-component />
-        <section-part4-component />
         <subscribe-component />
     </section>
 </template>
@@ -24,9 +22,7 @@
         components:{
             HomePageCarouselComponent,
             SectionPart1Component,
-            SectionPart2Component,
             SectionPart3Component,
-            SectionPart4Component,
             SubscribeComponent
         }
     }
