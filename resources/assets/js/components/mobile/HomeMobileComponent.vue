@@ -5,9 +5,9 @@
     <section class="section home mobile">
         <home-page-carousel-mobile-component />
         <section-part1-mobile-component />
-        <section-part2-mobile-component />
+
         <section-part3-mobile-component />
-        <section-part4-mobile-component />
+
         <subscribe-mobile-component />
     </section>
 </template>
@@ -24,9 +24,9 @@
         components:{
             HomePageCarouselMobileComponent,
             SectionPart1MobileComponent,
-            SectionPart2MobileComponent,
+
             SectionPart3MobileComponent,
-            SectionPart4MobileComponent,
+            
             SubscribeMobileComponent
         }
     }
