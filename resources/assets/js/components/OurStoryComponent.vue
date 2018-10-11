@@ -114,31 +114,29 @@
             <div class="icon">
                 <img src="/images/story-icon.png" alt="Story Icon">
             </div>
-            <div class="time-line">
-                <ul>
-                    <li v-for="(info, index) in story_time_line" v-bind:key="index">
-                        <span></span>
-                        <div class="description">{{ info.description }}</div>
-                        <div class="year">
-                            <span>{{ info.startDate }}</span>
-                           
-                        </div>
-                    </li>
-                </ul>
-            </div>
+
+
+
+            <p>For the past 40 years, plutocrats and right-wing politicians have worked to undermine social services, depress wages, and strip the most vulnerable Americans of their rights. These wealthy interests have captured local and state governments—and most recently, the presidency and the Supreme Court—in order to advance their interests at the expense of the people. </p>
+
+             <p> In response, citizens across the country have gathered at the local, state and national levels to resist this agenda; organizing strikes, public demonstrations, and running for office. </p>
+
+           <p> That’s where we come in. Working hand-in-hand with local activists and community members, we can draft legislation to put your policy agenda into action. </p>
+
+           <p>  Whether it’s combating a housing crisis, reining in local law enforcement, or guaranteeing citizens healthcare and a decent wage, we believe that the best solutions come from progressives working together.  We facilitate conversations between citizens, activists, and community leaders across the country in order to share ideas and coordinate strategies. The legislative tools we offer are the direct result of this collaborative process.  </p>
+
+           <p>    That’s our ethos and our mission: working together to restore power to the people, and ultimately, create a more perfect union. </p>
+
+
+
         </div>
     </section>
 </template>
 
 <script>
-    import data from '../data/story_time_line.json';
+
 
     export default {
-        name:'OurStoryComponent',
-        data(){
-            return {
-                story_time_line:data
-            }
-        }
+        name:'OurStoryComponent'
     }
 </script>
