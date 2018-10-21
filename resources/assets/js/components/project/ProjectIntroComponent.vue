@@ -26,7 +26,8 @@
         <template v-else>
             <h2 title="Project Too Long Didn't Read">Project TLDR</h2>
             <div v-html="getProject.short_summary"></div>
-            <h2 title="What We're Doing">What We're doing</h2>
+            <hr>
+           <!-- <h2 title="What We're Doing">What We're doing</h2> -->
             <div class ="leap-article" v-html="getProject.long_description"></div>
         </template>
     </article>
