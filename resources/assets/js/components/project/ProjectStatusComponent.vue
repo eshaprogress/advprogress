@@ -139,12 +139,12 @@
         <template v-else>
             <h2>Current Status</h2>
             <div v-html="getProject.current_status_description"></div>
-            <table class="table table-header-rotated">
+          <!--  <table class="table table-header-rotated">
                 <tr>
-                    <!-- First column header is not rotated -->
+                    <!-- First column header is not rotated
                     <th></th>
                     <th class="spacer"></th>
-                    <!-- Following headers are rotated -->
+                    <!-- Following headers are rotated
                     <th class="rotate"><div><span>Constitutional Amendment</span></div></th>
                     <th class="rotate"><div><span>Statute</span></div></th>
                     <th class="rotate"><div><span>Case Law</span></div></th>
@@ -166,7 +166,7 @@
                         <td>{{pt.citation_source}}</td>
                     </tr>
                 </template>
-            </table>
+            </table> -->
         </template>
     </article>
 </template>
