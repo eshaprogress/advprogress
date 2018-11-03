@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-@import "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css.map";
+
     article {
         padding:0;
         max-width: 1150px;
@@ -15,7 +15,7 @@
             color: var(--blue);
         }
     }
-   
+
     .title2 {
   position: relative;
   top: 0px;
@@ -25,7 +25,7 @@
   font-family: georgia;
   text-align: right;
   right-margin: 20px;
-  
+
 }
 @media only screen and (max-width: 550px) {
   .title2 {
@@ -43,7 +43,7 @@
   font-size: 30px;
   spacing: 10px;
   font-family: georgia;
-  
+
 }
 .virginia{
   position: relative;
@@ -53,7 +53,7 @@
     margin-right: auto;
   width: 220px;
 }
-.virginia:hover { 
+.virginia:hover {
   opacity: .4; }
 .prisoners{
   padding: 20px;
@@ -62,9 +62,9 @@
   display: block;
     margin-left: auto;
     margin-right: auto;
-  width: 800px; 
+  width: 800px;
 }
-.prisoners:hover { 
+.prisoners:hover {
   opacity: .4; }
 
 .article-text{
@@ -99,7 +99,7 @@ top: -30px;
     margin-right: auto;
   width:200px;
 }
-.penn:hover { 
+.penn:hover {
   opacity: .4; }
 .florida{
   position: relative;
@@ -109,7 +109,7 @@ top: -30px;
     margin-right: auto;
   width: 200px;
 }
-.florida:hover { 
+.florida:hover {
   opacity: .4; }
 .cali{
   position: relative;
@@ -119,7 +119,7 @@ top: -30px;
     margin-right: auto;
   width: 200px;
 }
-.cali:hover { 
+.cali:hover {
   opacity: .4; }
 </style>
 
