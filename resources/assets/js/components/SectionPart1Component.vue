@@ -74,7 +74,7 @@
                 <div class="items">
                     <div class="item-container">
                         <div class="img-container img-draft" style="background-image: url(/images/draft.svg)"></div>
-                        <p>Drafting and creating model legislation implementing our progressive principles</p>
+                        <p>Drafting and creating model legislation implementing our progressive principles.</p>
                     </div>
                 </div>
                 <div class="items">
