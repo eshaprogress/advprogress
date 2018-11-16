@@ -1,10 +1,9 @@
-<style lang="scss" scoped>
 
+<style lang="scss" scoped>
     article {
         padding:0;
         max-width: 1150px;
         margin: 10px auto;
-
         h2 {
             font-size: 30px;
             line-height: 30px;
@@ -15,7 +14,6 @@
             color: var(--blue);
         }
     }
-
     .title2 {
   position: relative;
   top: 0px;
@@ -25,7 +23,6 @@
   font-family: georgia;
   text-align: right;
   right-margin: 20px;
-
 }
 @media only screen and (max-width: 550px) {
   .title2 {
@@ -43,7 +40,6 @@
   font-size: 30px;
   spacing: 10px;
   font-family: georgia;
-
 }
 .virginia{
   position: relative;
@@ -66,7 +62,6 @@
 }
 .prisoners:hover {
   opacity: .4; }
-
 .article-text{
   margin-top: 0px;
   line-height: 2;
@@ -83,7 +78,6 @@ top: -30px;
   font-family: helvetica;
   font-weight: 400;
 }
-
 .article2{
   margin-top: 0px;
   margin: 40px;
@@ -134,16 +128,25 @@ top: -30px;
             <h2 title="Project Too Long Didn't Read">Project TLDR</h2>
             <div v-html="getProject.short_summary"></div>
             <hr>
-           <!-- <h2 title="What We're Doing">What We're doing</h2> -->
-            <div class ="leap-article" v-html="getProject.long_description"></div>
+            <h2 title ="Why"> Why </h2>
+          <hr>
+
+
+          <ProjectMapComponent/>
         </template>
     </article>
 </template>
 
 <script>
+
     import {mapGetters, mapActions} from 'vuex';
+      import ProjectMapComponent from './ProjectMapComponent';
     export default {
         name:'ProjectsIntroComponent',
+
+        components:{
+          ProjectMapComponent
+        },
         computed:{
             ...mapGetters([
                 'getProject',

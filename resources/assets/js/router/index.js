@@ -30,6 +30,7 @@ import ProjectCurrentLegislationComponent from '../components/project/ProjectCur
 import ProjectModelLegislationList from '../components/project/ProjectModelLegislationList';
 import ProjectModelLegislationSection from '../components/project/ProjectModelLegislationSection';
 
+
 const routes = [
     {
         default: 'home',

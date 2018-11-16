@@ -22,3 +22,4 @@ _ide_helper_models.php
 advancedprogress.code-workspace/laradock
 /laradock
 .DS_Store
+.env-backup

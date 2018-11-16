@@ -19,7 +19,8 @@
         "phplucidframe/console-table": "^1.2",
         "pragmarx/yaml": "^0.1.6",
         "ramsey/uuid": "^3.7",
-        "spatie/laravel-db-snapshots": "^1.1"
+        "spatie/laravel-db-snapshots": "^1.1",
+        "stechstudio/laravel-ssh-tunnel": "^1.2"
     },
     "require-dev": {
         "filp/whoops": "^2.0",

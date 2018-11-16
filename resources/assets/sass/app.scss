@@ -5,6 +5,7 @@
 @import "../../fonts/fontawesome-free-5.2.0-web/scss/solid.scss";
 @import "../../fonts/fontawesome-free-5.2.0-web/scss/brands.scss";
 
+@import "~bulma/css/bulma.css";
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700');
 
 .container {
@@ -70,55 +71,4 @@ a, button {
       }
     }
   }
-}
-
-
-.leap-article{
-  max-width: 1150px;
-  margin: 10px auto;
-
-
-  h2 {
-    color:var(--blue);
-    font-size: 32px;
-    font-weight: bold;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    padding:0;
-    text-align: center;
-    margin: 10;
-  }
-
-}
-
-.leap-article-body {
-
-  max-width: 1100px;
-  margin: 10px auto;
-}
-
-
-.leap-text{
-  margin-top: 25px;
-  text-align: justify;
-  font-family: arial;
-  font-weight: 400;
-  line-height: 26pt;
-}
-.leap-image{
-  display:block;
-  margin-right:auto;
-  margin-left:auto;
-  max-width: 60%;
-  height: auto
-}
-.leap-blockquote{
-  margin-top: 45px;
-  text-align: justify;
-  font-family: arial;
-  font-weight: 200;
-  line-height: 16pt;
-  font-style: italic;
 }

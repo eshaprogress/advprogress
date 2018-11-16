@@ -138,7 +138,7 @@
         </template>
         <template v-else>
             <h2>Current Status</h2>
-            <div v-html="getProject.current_status_description"></div>
+
           <!--  <table class="table table-header-rotated">
                 <tr>
                     <!-- First column header is not rotated

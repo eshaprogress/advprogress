@@ -18,17 +18,22 @@
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "js-base64": "^2.4.5",
-        "laravel-mix": "^2.0",
+        "laravel-mix": "^2.1.14",
         "lodash": "^4.17.4",
         "popper.js": "^1.12",
-        "vue": "^2.5.7",
+        "vue": "^2.5.17",
         "vue-mq": "^0.2.1",
         "vue-router": "^3.0.1",
+        "vue-template-compiler": "^2.5.17",
         "yarn": "^1.7.0"
     },
     "dependencies": {
+        "ajv": "^6.5.5",
         "babel-plugin-syntax-dynamic-import": "^6.18.0",
+        "bulma": "^0.7.2",
+        "vue-bulma-chartjs": "^1.0.5",
         "vue-scrollto": "^2.11.0",
+        "vueify": "^9.4.1",
         "vuex": "^3.0.1"
     }
 }

@@ -11,6 +11,7 @@ import Vue from 'vue';
 import BootStrapApp from './BootStrapApp';
 import router from './router';
 import store from './store';
+import Chart from 'vue-bulma-chartjs';
 
 import VueMq from 'vue-mq'
 Vue.use(VueMq, {
@@ -19,7 +20,7 @@ Vue.use(VueMq, {
         standard: Infinity,
     }
 });
-
+Vue.component('Chart',Chart);
 import VueScrollTo from 'vue-scrollto';
 Vue.use(VueScrollTo);
 
@@ -28,6 +29,7 @@ Vue.component('Loader', Loader);
 
 import ImgPlaceholder from './components/ImgPlaceholder';
 Vue.component('ImgPlaceholder', ImgPlaceholder);
+
 
 const app = new Vue({
     router,
