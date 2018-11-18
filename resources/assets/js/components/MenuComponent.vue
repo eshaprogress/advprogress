@@ -1,21 +1,21 @@
 <style lang="scss" scoped>
-    .navbar {
+    .navbar-advprogress {
         --nav-bar-height:72px;
-        .navbar-container {
+        .navbar-container-advprogress {
             position: relative;
             max-width: 1150px;
             margin:auto;
         }
         height:var(--nav-bar-height);
-        .navbar-item {
+        .navbar-item-advprogress {
             display: inline-block;
         }
-        .navbar-brand {
+        .navbar-brand-advprogress {
             display: flex;
             align-items: center;
             height:var(--nav-bar-height);
 
-            .navbar-item {
+            .navbar-item-advprogress {
 
                 margin-left: 106px;
                 img {
@@ -27,18 +27,18 @@
                 }
             }
         }
-        .navbar-end {
+        .navbar-end-advprogress {
             position: absolute;
             right:0;
             top:0;
             margin-right:103px;
         }
 
-        .navbar-menu {
+        .navbar-menu-advprogress {
             list-style: none;
             margin:0;
             padding:0;
-            .navbar-item {
+            .navbar-item-advprogress {
                 list-style: none;
                 padding:0;
                 display: inline-block;
@@ -61,21 +61,21 @@
 </style>
 
 <template>
-    <nav class="navbar">
-        <div class="navbar-container">
-            <div class="navbar-brand">
-                <router-link to="/" class="navbar-item">
+    <nav class="navbar-advprogress">
+        <div class="navbar-container-advprogress">
+            <div class="navbar-brand-advprogress">
+                <router-link to="/" class="navbar-item-advprogress">
                     <img class="logo" src="/images/logo.png"/>
                 </router-link>
             </div>
-            <div class="navbar-end">
-                <ul class="navbar-menu">
-                    <li class="navbar-item"><router-link :to="{name: 'home-root'}" exact>Home</router-link></li>
-                    <li class="navbar-item"><router-link :to="{name: 'our-story'}">OUR STORY</router-link></li>
-                    <li class="navbar-item"><router-link :to="{name: 'directory-root'}">DIRECTORY</router-link></li>
-                    <li class="navbar-item"><router-link :to="{name: 'consultation'}">CONSULTATION</router-link></li>
-                    <li class="navbar-item"><router-link :to="{name: 'donate'}">DONATE</router-link></li>
-                    <li class="navbar-item"><router-link :to="{name: 'volunteer'}">VOLUNTEER</router-link></li>
+            <div class="navbar-end-advprogress">
+                <ul class="navbar-menu-advprogress">
+                    <li class="navbar-item-advprogress"><router-link :to="{name: 'home-root'}" exact>Home</router-link></li>
+                    <li class="navbar-item-advprogress"><router-link :to="{name: 'our-story'}">OUR STORY</router-link></li>
+                    <li class="navbar-item-advprogress"><router-link :to="{name: 'directory-root'}">DIRECTORY</router-link></li>
+                    <li class="navbar-item-advprogress"><router-link :to="{name: 'consultation'}">CONSULTATION</router-link></li>
+                    <li class="navbar-item-advprogress"><router-link :to="{name: 'donate'}">DONATE</router-link></li>
+                    <li class="navbar-item-advprogress"><router-link :to="{name: 'volunteer'}">VOLUNTEER</router-link></li>
                 </ul>
             </div>
         </div>
