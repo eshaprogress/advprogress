@@ -75,19 +75,19 @@
             <div class="part-1-grid-container">
                 <div class="items">
                     <div class="item-container">
-                        <div class="img-container img-draft" style="background-image: url(/images/draft.svg)"></div>
+                        <div class="img-container img-draft" style="background-image: url(/images/draft.png)"></div>
                         <p>Drafting and creating model legislation implementing our progressive principles.</p>
                     </div>
                 </div>
                 <div class="items">
                     <div class="item-container">
-                        <div class="img-container img-analysis" style="background-image: url(/images/analysis.svg)"></div>
+                        <div class="img-container img-analysis" style="background-image: url(/images/analysis.png)"></div>
                         <p>Policy analysis and research for various progressive policy ideas.</p>
                     </div>
                 </div>
                 <div class="items">
                     <div class="item-container">
-                        <div class="img-container img-government" style="background-image: url(/images/government.svg)"></div>
+                        <div class="img-container img-government" style="background-image: url(/images/government.png)"></div>
                         <p>Education about legislative processes, local government and civics.</p>
                     </div>
                 </div>
