@@ -95,6 +95,17 @@
             padding-left: 17px;
         }
     }
+    .front-page-header{
+        padding: 0;
+        font-size: 32px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        margin: 0 0 16px;
+
+    }
 </style>
 
 <template>
@@ -102,7 +113,7 @@
         <div class="carousel-container">
             <div class="carousel-item img-1">
                 <div class="content">
-                    <h2>THE STATELESS</h2>
+                    <div class ="front-page-header">THE STATELESS</div>
                     <p>American Prisoners' disenfranchisement is a problem. Let's fix it.</p>
                     <router-link to="/directory" class="btn green">LEARN MORE</router-link>
                 </div>

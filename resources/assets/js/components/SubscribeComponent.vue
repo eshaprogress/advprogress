@@ -22,7 +22,7 @@
             width: 108px;
             margin:24px;
         }
-        p {
+       p {
             text-align: center;
             font-size: 18px;
             font-weight: normal;
@@ -73,9 +73,10 @@
 <template>
     <section class="section subscribe">
         <h2>Subscribe</h2>
+        <p>Stay up to date with all of our progress and join the community!</p>
         <div class="icon">
             <img src="/images/newsletter-icon.png" alt="">
-            <p>Stay up to date with all of our progress and join the community!</p>
+
         </div>
         <form v-if="!isSuccessful" @submit.prevent="onSubmit" action="" class="subscribe-form">
             <div class="fields">

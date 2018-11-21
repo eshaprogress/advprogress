@@ -2,29 +2,43 @@
     .our-story {
         padding: 20px;
     }
-    .container {
+
+    .container-advanceprogress {
         max-width: 800px;
-        margin:auto;
-        .icon {
+        margin: auto;
+        .icon-advanceprogress {
             text-align: center;
             display: block;
             margin-top: 40px;
+            margin-bottom: 40px;
             img {
-                margin:auto;
+                margin: auto;
             }
         }
     }
+
     h2 {
-        color:var(--blue);
+        color: var(--blue);
         font-size: 32px;
         font-weight: bold;
         font-style: normal;
         font-stretch: normal;
         line-height: normal;
         letter-spacing: normal;
-        padding:0;
+        padding: 0;
         text-align: center;
         margin: 0;
+    }
+
+    .article-box {
+        border-width: 5px;
+        border-style: solid;
+        border-color: #009de1;
+        padding: 40px 40px 40px 40px;
+        p {
+            margin-bottom: 40px;
+        }
+
     }
 
     .time-line {
@@ -47,7 +61,7 @@
             li {
                 position: relative;
                 width: 100%;
-                background-color: rgba(0,0,0,.1);
+                background-color: rgba(0, 0, 0, .1);
                 border-radius: 10px;
                 padding: 10px;
                 margin: 50px 35px 70px;
@@ -109,26 +123,35 @@
 
 <template>
     <section class="section our-story">
-        <div class="container">
+        <div class="container-advanceprogress">
             <h2>OUR STORY</h2>
-            <div class="icon">
+            <div class="icon-advanceprogress">
                 <img src="/images/story-icon.png" alt="Story Icon">
             </div>
 
+            <div class="article-box">
+                <p>
 
+                    For the past 40 years, plutocrats and right-wing politicians have worked to undermine social
+                    services, depress wages, and strip the most vulnerable Americans of their rights. These wealthy
+                    interests have captured local and state governments—and most recently, the presidency and the
+                    Supreme Court—in order to advance their interests at the expense of the people. </p>
 
-            <p>For the past 40 years, plutocrats and right-wing politicians have worked to undermine social services, depress wages, and strip the most vulnerable Americans of their rights. These wealthy interests have captured local and state governments—and most recently, the presidency and the Supreme Court—in order to advance their interests at the expense of the people. </p>
+                <p> In response, citizens across the country have gathered at the local, state and national levels to
+                    resist this agenda; organizing strikes, public demonstrations, and running for office. </p>
 
-             <p> In response, citizens across the country have gathered at the local, state and national levels to resist this agenda; organizing strikes, public demonstrations, and running for office. </p>
+                <p> That’s where we come in. Working hand-in-hand with local activists and community members, we can
+                    draft legislation to put your policy agenda into action. </p>
 
-           <p> That’s where we come in. Working hand-in-hand with local activists and community members, we can draft legislation to put your policy agenda into action. </p>
+                <p> Whether it’s combating a housing crisis, reining in local law enforcement, or guaranteeing citizens
+                    healthcare and a decent wage, we believe that the best solutions come from progressives working
+                    together. We facilitate conversations between citizens, activists, and community leaders across the
+                    country in order to share ideas and coordinate strategies. The legislative tools we offer are the
+                    direct result of this collaborative process. </p>
 
-           <p>  Whether it’s combating a housing crisis, reining in local law enforcement, or guaranteeing citizens healthcare and a decent wage, we believe that the best solutions come from progressives working together.  We facilitate conversations between citizens, activists, and community leaders across the country in order to share ideas and coordinate strategies. The legislative tools we offer are the direct result of this collaborative process.  </p>
-
-           <p>    That’s our ethos and our mission: working together to restore power to the people, and ultimately, create a more perfect union. </p>
-
-
-
+                <p> That’s our ethos and our mission: working together to restore power to the people, and ultimately,
+                    create a more perfect union. </p>
+            </div>
         </div>
     </section>
 </template>
@@ -137,6 +160,6 @@
 
 
     export default {
-        name:'OurStoryComponent'
+        name: 'OurStoryComponent'
     }
 </script>
