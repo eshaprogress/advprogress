@@ -1,10 +1,8 @@
 <style lang="scss" scoped>
     .part-1 {
         margin-top:52px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: #009de1;
-        padding: 40px 40px 40px 40px;
+        background-color:#b7e6fb;
+
 
         h2 {
             font-size: 32px;
